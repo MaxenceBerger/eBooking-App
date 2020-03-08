@@ -1,9 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
+const BASE_URL = `${process.env.VUE_APP_BASE_URL_EBOOKING}/api/`
 
-const apiEbooking = axios.create({
-  baseURL: `${process.env.VUE_APP_BASE_URL_EBOOKING}/api/`,
-  headers: { 'Content-Type': 'application/json' },
-});
-
-
-export { apiEbooking as default };
+export function apiConnect () {
+  return axios.get(`${BASE_URL}publication`)
+}
