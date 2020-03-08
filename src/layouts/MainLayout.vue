@@ -15,7 +15,6 @@
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -37,6 +36,11 @@
           :key="link.title"
           v-bind="link"
         />
+        <q-item class="column items-center">
+          <q-btn v-if="$store.getters.getToken" @click="logout">Logout</q-btn>
+          <q-btn v-else :to="{ name: 'LoginPage' }">Login</q-btn>
+          <q-btn :to="{ name: 'MyAccountPage' }">Mon compte</q-btn>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -48,6 +52,7 @@
 
 <script>
 import EssentialLink from 'components/EssentialLink'
+import { logout } from '../services/AuthService.js'
 
 export default {
   name: 'MainLayout',
@@ -97,6 +102,11 @@ export default {
           link: 'https://facebook.quasar.dev'
         }
       ]
+    }
+  },
+  methods: {
+    logout () {
+      logout()
     }
   }
 }

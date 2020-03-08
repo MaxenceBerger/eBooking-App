@@ -12,7 +12,7 @@ const user = {
   getters: {
     isLoggedIn: (state) => {
       let loggedIn = false
-      if (state.token && Object.keys(state.data).length) {
+      if (state.token) {
         loggedIn = true
       }
       return loggedIn
