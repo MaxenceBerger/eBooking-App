@@ -12,8 +12,8 @@
       </q-card-section>
 
       <q-card-actions align="around">
-        <p>Begin at: {{ publication.start_at | format('MM/DD/YYYY hh:mm') }}</p>
-        <p>End at: {{ publication.end_at | format('MM/DD/YYYY hh:mm')}}</p>
+<!--        <p>Begin at: {{ publication.start_at | format('MM/DD/YYYY hh:mm') }}</p>-->
+<!--        <p>End at: {{ publication.end_at | format('MM/DD/YYYY hh:mm')}}</p>-->
       </q-card-actions>
     </q-card>
   </q-page>
@@ -23,7 +23,8 @@
 import { getAllPublish } from 'src/services/PublicationsService.js'
 
 export default {
-  name: 'PageIndex',
+  name: 'HomePage',
+
   data: () => ({
     publicationsList: null
   }),

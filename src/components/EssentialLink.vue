@@ -17,6 +17,7 @@
       <q-item-label caption>
         {{ caption }}
       </q-item-label>
+
     </q-item-section>
   </q-item>
 </template>
@@ -37,7 +38,7 @@ export default {
 
     link: {
       type: String,
-      default: '#'
+      default: null
     },
 
     icon: {
