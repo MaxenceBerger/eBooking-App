@@ -1,9 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
+import user from 'src/store/modules/authModule.js'
 
-// import example from './module-example'
+// import example from './modules'
 
 Vue.use(Vuex)
+
+const vuexPersist = new VuexPersist({
+  key: 'user',
+  storage: localStorage
+})
 
 /*
  * If not building with SSR mode, you can
@@ -17,8 +24,11 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      user: user
     },
+    plugins: [
+      vuexPersist.plugin
+    ],
 
     // enable strict mode (adds overhead!)
     // for dev mode only
