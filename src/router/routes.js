@@ -15,9 +15,33 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: '/home',
         name: 'HomePage',
         component: () => import('pages/Home.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/search',
+        name: 'SearchPage',
+        component: () => import('pages/Search.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/rent',
+        name: 'RentPage',
+        component: () => import('pages/Rent.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/unlock',
+        name: 'UnlockPage',
+        component: () => import('pages/Unlock.vue'),
         meta: {
           requiresAuth: true
         }

@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="hHh Lpr lFf">
+    <q-header elevated class="bg-secondary">
       <q-toolbar>
         <q-btn
           flat
@@ -10,9 +10,12 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-
+        <q-separator vertical inset />
         <q-toolbar-title>
-          Quasar App
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
+          </q-avatar>
+          eBooking
         </q-toolbar-title>
 
       </q-toolbar>
@@ -22,24 +25,28 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="bg-grey-4"
     >
       <q-list>
         <q-item-label
           header
-          class="text-grey-8"
+          class="text-grey-1"
         >
-          Essential Links
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item class="column items-center">
-          <q-btn v-if="$store.getters.getToken" @click="logout">Logout</q-btn>
-          <q-btn v-else :to="{ name: 'LoginPage' }">Login</q-btn>
-          <q-btn :to="{ name: 'MyAccountPage' }">Mon compte</q-btn>
+        <q-item class="column items-center q-mt-lg">
+          <q-btn v-if="$store.getters.getToken"
+                 @click="logout"
+                 color="secondary"
+                 unelevated
+                 rounded >
+            Déconnexion
+          </q-btn>
+          <q-btn v-else :to="{ name: 'LoginPage' }" color="secondary">Connexion</q-btn>
         </q-item>
       </q-list>
     </q-drawer>
@@ -51,8 +58,8 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink'
-import { logout } from '../services/AuthService.js'
+import EssentialLink from 'components/EssentialLink.vue'
+import AuthService from '../services/AuthService'
 
 export default {
   name: 'MainLayout',
@@ -66,48 +73,43 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'Docs',
-          caption: 'quasar.dev',
-          icon: 'school',
-          link: 'https://quasar.dev'
+          title: 'Suggestion',
+          icon: 'flight_takeoff',
+          link: 'HomePage'
         },
         {
-          title: 'Github',
-          caption: 'github.com/quasarframework',
-          icon: 'code',
-          link: 'https://github.com/quasarframework'
+          title: 'Rechercher',
+          icon: 'search',
+          link: 'SearchPage'
         },
         {
-          title: 'Discord Chat Channel',
-          caption: 'chat.quasar.dev',
-          icon: 'chat',
-          link: 'https://chat.quasar.dev'
+          title: 'Réservation',
+          icon: 'hotel',
+          link: 'RentPage'
         },
         {
-          title: 'Forum',
-          caption: 'forum.quasar.dev',
-          icon: 'record_voice_over',
-          link: 'https://forum.quasar.dev'
+          title: 'Clé',
+          icon: 'vpn_key',
+          link: 'UnlockPage'
         },
         {
-          title: 'Twitter',
-          caption: '@quasarframework',
-          icon: 'rss_feed',
-          link: 'https://twitter.quasar.dev'
-        },
-        {
-          title: 'Facebook',
-          caption: '@QuasarFramework',
-          icon: 'public',
-          link: 'https://facebook.quasar.dev'
+          title: 'Mon Compte',
+          icon: 'account_circle',
+          link: 'MyAccountPage'
         }
       ]
     }
   },
   methods: {
     logout () {
-      logout()
+      AuthService.logout()
     }
   }
 }
 </script>
+
+<style scoped>
+  .q-item.q-router-link--active, .q-item--active {
+    color: #26A69A;
+  }
+</style>

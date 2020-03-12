@@ -18,14 +18,21 @@
       <!--        <p>End at: {{ publication.end_at | format('MM/DD/YYYY hh:mm')}}</p>-->
             </q-card-actions>
           </q-card>
-          <q-btn :to="{ name: 'LoginPage' }">Login</q-btn>
+          <q-btn :to="{ name: 'LoginPage' }"
+                 unelevated
+                 rounded
+                 color="secondary"
+                 type="submit"
+          >
+            Connexion
+          </q-btn>
         </q-page>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { getAllPublish } from 'src/services/PublicationsService.js'
+import PublicationsService from 'src/services/PublicationsService.js'
 
 export default {
   name: 'HomePublicPage',
@@ -35,7 +42,7 @@ export default {
   }),
   methods: {
     getPublications () {
-      getAllPublish()
+      PublicationsService.getAllPublish()
         .then(response => {
           this.publicationsList = response.data.data
         }).catch(e => {

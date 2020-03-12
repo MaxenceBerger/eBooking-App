@@ -4,26 +4,33 @@
       <q-page class="column items-center">
         <q-form
           @submit="onSubmit"
-          class="q-gutter-md"
+          class="q-gutter-md q-mt-lg"
         >
           <q-input
-            filled
             v-model="form.email"
-            label="Your email *"
-            hint="Name and surname"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
+            label="Adresse mail"
+            :rules="[form.emailRules.required]"
+            required
+            rounded outlined
           />
           <q-input
-            filled
             v-model="form.password"
-            label="Your password"
-            hint="Name and surname"
-            lazy-rules
-            :rules="[ val => val && val.length > 0 || 'Please type something']"
-          />
+            :type="form.passwordRules.dontShow ? 'password' : 'text'"
+            label="Mot de passe"
+            :rules="[form.passwordRules.required, form.passwordRules.min]"
+            required
+            rounded outlined
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="form.passwordRules.dontShow ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="form.passwordRules.dontShow = !form.passwordRules.dontShow"
+              />
+            </template>
+          </q-input>
           <div>
-            <q-btn label="Submit" type="submit" color="primary"/>
+            <q-btn unelevated rounded color="secondary" label="Connexion" type="submit"/>
           </div>
         </q-form>
       </q-page>
@@ -32,7 +39,7 @@
 </template>
 
 <script>
-import { setLogin } from 'src/services/AuthService.js'
+import AuthService from 'src/services/AuthService.js'
 
 export default {
   name: 'LoginPage',
@@ -40,17 +47,24 @@ export default {
     return {
       form: {
         email: '',
-        password: ''
+        emailRules: {
+          required: v => !!v || 'Veuillez renseigner l\'email',
+          min: v => /.+@.+/.test(v) || 'Veuillez renseigner un email valide'
+        },
+        password: '',
+        passwordRules: {
+          required: value => !!value || 'Veuillez renseigner le mot de passe',
+          min: v => v.length >= 6 || 'Minimum 6 caractères',
+          dontShow: true
+        }
       }
     }
   },
   methods: {
     onSubmit () {
-      setLogin(this.form)
+      AuthService.setLogin(this.form)
         .then(response => {
-          // const { user } = response.data.data
           const { token } = response.data.data
-          // this.$store.commit('setUser', user)
           this.$store.commit('setToken', token)
           if (this.$store.getters.getToken) {
             this.$router.push({ name: 'HomePage' })
