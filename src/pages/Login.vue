@@ -41,6 +41,8 @@
 <script>
 import AuthService from 'src/services/AuthService.js'
 
+const STATUS_CODE_401 = 401
+
 export default {
   name: 'LoginPage',
   data: () => {
@@ -69,8 +71,15 @@ export default {
           if (this.$store.getters.getToken) {
             this.$router.push({ name: 'HomePage' })
           }
-        }).catch(e => {
-          console.log(e)
+        }).catch((error) => {
+          if (STATUS_CODE_401 === error.response.status) {
+            this.$q.notify({
+              color: 'blue-grey',
+              message: 'Oups, il semble que les informations saisi sont incorrects',
+              icon: 'report_problem',
+              position: 'top'
+            })
+          }
         })
     }
   }

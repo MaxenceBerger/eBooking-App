@@ -10,7 +10,6 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-        <q-separator vertical inset />
         <q-toolbar-title>
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
@@ -38,6 +37,8 @@
           :key="link.title"
           v-bind="link"
         />
+        <q-separator inset class="q-mt-md"/>
+
         <q-item class="column items-center q-mt-lg">
           <q-btn v-if="$store.getters.getToken"
                  @click="logout"
