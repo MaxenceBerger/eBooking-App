@@ -1,13 +1,34 @@
 const routes = [
   {
     path: '/',
-    name: 'HomePublicPage',
-    component: () => import('pages/HomePublic.vue')
-  },
-  {
-    path: '/login',
-    name: 'LoginPage',
-    component: () => import('../pages/Login.vue')
+
+    component: () => import('layouts/MainPublicLayout.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'HomePublicPage',
+        component: () => import('pages/HomePublic.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
+        path: '/login',
+        name: 'LoginPage',
+        component: () => import('../pages/Login.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
+        path: '/register',
+        name: 'RegisterPage',
+        component: () => import('../pages/Register.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      }
+    ]
   },
   {
     path: '/home',
