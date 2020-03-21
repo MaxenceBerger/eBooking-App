@@ -4,24 +4,30 @@
       <q-page class="column items-center">
         <q-form
           @submit="onSubmit"
-          class="q-gutter-md q-mt-lg"
-        >
-          <q-input
-            v-model="form.email"
-            label="Adresse mail"
-            :rules="[form.emailRules.required]"
-            required
-            rounded outlined
-          />
-          <q-input
-            v-model="form.password"
-            :type="form.passwordRules.dontShow ? 'password' : 'text'"
-            label="Mot de passe"
-            :rules="[form.passwordRules.required, form.passwordRules.min]"
-            required
-            rounded outlined
-          >
-            <template v-slot:append>
+          class="q-gutter-md q-mt-lg">
+          <q-card>
+            <q-card-section>
+              <div class="text-h4 q-mt-lg q-ml-lg">Connexion</div>
+            </q-card-section>
+            <q-card-section>
+            <q-input
+              v-model="form.email"
+              label="Adresse mail"
+              :rules="[form.emailRules.required]"
+              required
+              rounded outlined
+              class="q-ma-lg"
+            />
+            <q-input
+              v-model="form.password"
+              :type="form.passwordRules.dontShow ? 'password' : 'text'"
+              label="Mot de passe"
+              :rules="[form.passwordRules.required, form.passwordRules.min]"
+              required
+              rounded outlined
+              class="q-ma-lg"
+            >
+              <template v-slot:append>
               <q-icon
                 :name="form.passwordRules.dontShow ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
@@ -29,9 +35,17 @@
               />
             </template>
           </q-input>
+            <q-separator/>
+              <div class="q-mt-lg q-mb-lg">
+                <a href="">Mot de passe oublié ?</a>
+                <br>
+                <q-btn :to="{ name: 'RegisterPage' }">Pas encorede compte ?</q-btn>
+              </div>
           <div>
             <q-btn unelevated rounded color="secondary" label="Connexion" type="submit"/>
           </div>
+          </q-card-section>
+          </q-card>
         </q-form>
       </q-page>
     </q-page-container>

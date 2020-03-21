@@ -36,8 +36,14 @@
               {{ lorem }}
             </div>
           </q-carousel-slide>
-          <q-carousel-slide name="map" class="column no-wrap flex-center" img-src="../assets/images/slide-04-mobile.jpg">
+          <q-carousel-slide name="map" class="column no-wrap flex-center bg-white">
             <div class="q-mt-md text-center">
+              <q-img
+                  class="q-mb-xl"
+                  src="../assets/images/logo_eBooking.svg"
+                  style="width: 100%"
+                  native-context-menu
+              />
               <q-btn
                   class="q-ma-sm"
                   :to="{ name: 'LoginPage' }"
@@ -52,6 +58,12 @@
                   rounded outlined>
                 Inscription
               </q-btn>
+              <q-img
+                  class="q-mt-xl"
+                  src="../assets/images/bg_connection_screen.svg"
+                  style="width: 100%"
+                  native-context-menu
+              />
             </div>
           </q-carousel-slide>
         </q-carousel>

@@ -88,7 +88,7 @@
                   />
                   <q-input
                     v-model="form.items.postalCode"
-                    label="Code Postale"
+                    label="Code Postal"
                     rounded outlined
                     class="q-ma-lg"
                   />
@@ -250,7 +250,7 @@
                   <div class="col-12 col-md-4">
                     <q-input
                       v-model="form.items.postalCode"
-                      label="Code Postale"
+                      label="Code Postal"
                       rounded outlined
                     />
                   </div>
