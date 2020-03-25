@@ -1,7 +1,7 @@
 <template>
   <q-page class="column items-center">
     <q-card
-      class="my-card"
+      class="my-card q-mt-sm q-mb-sm"
       v-for="publication in publicationsList"
       :key="publication._id"
       v-bind="publication"
