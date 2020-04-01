@@ -37,18 +37,6 @@
           :key="link.title"
           v-bind="link"
         />
-        <q-separator inset class="q-mt-md"/>
-
-        <q-item class="column items-center q-mt-lg">
-          <q-btn v-if="$store.getters.getToken"
-                 @click="logout"
-                 color="secondary"
-                 unelevated
-                 rounded >
-            Déconnexion
-          </q-btn>
-          <q-btn v-else :to="{ name: 'LoginPage' }" color="secondary">Connexion</q-btn>
-        </q-item>
       </q-list>
     </q-drawer>
 
@@ -84,7 +72,7 @@ export default {
           link: 'SearchPage'
         },
         {
-          title: 'Réservation',
+          title: 'Mes Réservations',
           icon: 'hotel',
           link: 'RentPage'
         },

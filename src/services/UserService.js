@@ -4,7 +4,10 @@ export default {
   getUser () {
     return apiHeader.get('user')
   },
-  setUserUpdate () {
-    return apiHeader.post('user/update')
+  setUserUpdate (data) {
+    return apiHeader.put('user/update', data)
+  },
+  updatePassword (data) {
+    return apiHeader.put('user/updatePassword', data)
   }
 }
