@@ -60,6 +60,22 @@ const routes = [
         }
       },
       {
+        path: '/publication/:idPublication',
+        name: 'PublicationDetailPage',
+        component: () => import('pages/PublicationDetail.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/reservation/:idReservation',
+        name: 'ReservationDetailPage',
+        component: () => import('pages/ReservationDetail.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: '/unlock',
         name: 'UnlockPage',
         component: () => import('pages/Unlock.vue'),
@@ -71,6 +87,38 @@ const routes = [
         path: '/account',
         name: 'MyAccountPage',
         component: () => import('pages/MyAccount.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/account/information',
+        name: 'MyAccountInformationPage',
+        component: () => import('pages/MyAccountInformation.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/account/modify-password',
+        name: 'MyAccountModifyPWPage',
+        component: () => import('pages/MyAccountModifyPW.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/advertisement/create',
+        name: 'AdvertisementCreatePage',
+        component: () => import('pages/AdvertisementCreate.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/general-conditions',
+        name: 'GeneralConditionsPage',
+        component: () => import('pages/GeneralConditions.vue'),
         meta: {
           requiresAuth: true
         }

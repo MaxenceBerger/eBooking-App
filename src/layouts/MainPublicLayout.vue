@@ -74,7 +74,7 @@ export default {
           link: 'SearchPage'
         },
         {
-          title: 'Réservation',
+          title: 'Mes Réservations',
           icon: 'hotel',
           link: 'RentPage'
         },
