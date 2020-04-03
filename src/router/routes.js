@@ -122,6 +122,14 @@ const routes = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: '/smart-key/install',
+        name: 'SmartKeyInstallPage',
+        component: () => import('pages/SmartKeyInstall.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   }
