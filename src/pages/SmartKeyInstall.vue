@@ -9,7 +9,7 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Installez votre serrure connectée</h2>
+        <h2 class="q-ml-xl">Configurez votre serrure connectée</h2>
       </div>
     </div>
     <q-form

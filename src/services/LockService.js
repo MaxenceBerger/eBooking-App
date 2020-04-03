@@ -6,5 +6,8 @@ export default {
   },
   initLock (data) {
     return apiHeader.post('lock', data)
+  },
+  getKey () {
+    return apiHeader.get('lock')
   }
 }
