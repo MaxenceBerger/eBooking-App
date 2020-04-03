@@ -16,8 +16,54 @@
       style="max-width: 500px"
       ref="form"
       class="q-ml-xl q-mr-xl"
-      @submit="updatePassword"
     >
+      <q-uploader
+        :factory="factoryFn"
+        label="Custom list"
+        multiple
+    >
+      <template v-slot:list="scope">
+        <q-list separator>
+
+          <q-item v-for="file in scope.files" :key="file.name">
+            <q-item-section>
+              <q-item-label class="full-width ellipsis">
+                {{ file.name }}
+              </q-item-label>
+
+              <q-item-label caption>
+                Status: {{ file.__status }}
+              </q-item-label>
+
+              <q-item-label caption>
+                {{ file.__sizeLabel }} / {{ file.__progressLabel }}
+              </q-item-label>
+            </q-item-section>
+
+            <q-item-section
+                v-if="file.__img"
+                thumbnail
+                class="gt-xs"
+            >
+              <img :src="file.__img.src">
+            </q-item-section>
+
+            <q-item-section top side>
+              <q-btn
+                  class="gt-xs"
+                  size="12px"
+                  flat
+                  dense
+                  round
+                  icon="delete"
+                  @click="scope.removeFile(file)"
+              />
+            </q-item-section>
+          </q-item>
+
+        </q-list>
+      </template>
+    </q-uploader>
       <q-input
         class="q-mb-lg"
         v-model="form.items.title"

@@ -4,7 +4,21 @@
 
     <div class="q-ma-xl" style="max-width: 500px">
       <q-list>
-        <q-item-label header>PARMÈTRES DU COMPTE</q-item-label>
+        <q-item-label header>INSTALLATION DE LA SMARTKEY</q-item-label>
+        <q-item
+            class="q-mb-lg"
+            clickable
+            v-ripple
+            :to="{ name: 'SmartKeyInstallPage' }"
+        >
+          <q-item-section>Configurez votre serrure connectée</q-item-section>
+          <q-item-section avatar>
+            <q-icon color="blue-grey-3" name="vpn_key" />
+          </q-item-section>
+        </q-item>
+
+        <q-separator />
+        <q-item-label header class="q-mt-lg">PARMÈTRES DU COMPTE</q-item-label>
         <q-item
             clickable
             v-ripple

@@ -9,84 +9,41 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Mes Informations personnelles</h2>
+        <h2 class="q-ml-xl">Installez votre serrure connectée</h2>
       </div>
     </div>
     <q-form
       style="max-width: 500px"
       ref="form"
       class="q-ml-xl q-mr-xl"
-      @submit="updateUser"
+      @submit="configKey"
     >
-      <div class="row">
-        <div class="col">
-          <q-input
-            class="q-mr-sm"
-            v-model="form.items.firstName"
-            label="Prénom"
-            :rules="[form.rules.firstName.required]"
-            required
-            rounded outlined
-          />
-        </div>
-        <div class="col">
-          <q-input
-            class="q-ml-sm"
-            v-model="form.items.lastName"
-            label="Nom"
-            :rules="[form.rules.lastName.required]"
-            required
-            rounded outlined
-          />
-        </div>
-      </div>
       <q-input
-          v-model="form.items.email"
-          label="Adresse mail"
-          :rules="[form.rules.email.required, form.rules.password.min]"
-          required
-          rounded outlined
+        class="q-mb-lg"
+        v-model="form.items.name"
+        label="Nom de votre serrure"
+        :rules="[form.rules.name.required]"
+        required
+        rounded outlined
       />
       <q-input
         class="q-mb-lg"
         v-model="form.items.address"
-        label="Adresse"
-        rounded outlined
-      />
-
-      <div class="row">
-        <div class="col-12 col-md-8">
-          <q-input
-            class="q-mb-lg q-mr-sm"
-            v-model="form.items.city"
-            label="Ville"
-            rounded outlined
-          />
-        </div>
-        <div class="col-12 col-md-4">
-          <q-input
-            class="q-mb-lg q-ml-sm"
-            v-model="form.items.postalCode"
-            label="Code Postale"
-            rounded outlined
-          />
-        </div>
-      </div>
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.country"
-        label="Pays"
-
+        label="L'adresse réseaux de votre serrure"
+        :rules="[form.rules.address.required]"
+        required
         rounded outlined
       />
       <q-input
         class="q-mb-lg"
-        v-model="form.items.phone"
-        label="Téléphone"
+        v-model="form.items.auth"
+        label="Le nom d'authentification"
+        :rules="[form.rules.auth.required]"
+        required
         rounded outlined
       />
       <div>
-        <q-btn unelevated rounded color="secondary" label="Modifier mon compte" type="submit" class="q-mt-lg"/>
+        <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg"/>
       </div>
     </q-form>
   </q-page>
@@ -94,88 +51,55 @@
 
 <script>
 
-import UserService from '../services/UserService'
-const STATUS_CODE_400 = 400
+import LockService from '../services/LockService'
 
 export default {
-  name: 'MyAccountInformationPage',
+  name: 'SmartKeyInstallPage',
   data: () => {
     return {
       dialogPassword: false,
       form: {
         items: {
-          firstName: '',
-          lastName: '',
+          name: '',
           address: '',
-          city: '',
-          postalCode: '',
-          country: '',
-          phone: '',
-          email: '',
-          oldPassword: '',
-          newPassword: '',
-          confirmPassword: ''
+          auth: ''
         },
         rules: {
-          firstName: {
-            required: v => !!v || 'Veuillez renseigner votre prénom'
+          name: {
+            required: v => !!v || 'Veuillez renseigner le nom de votre serrure'
           },
-          lastName: {
-            required: v => !!v || 'Veuillez renseigner votre nom'
+          address: {
+            required: v => !!v || 'Veuillez renseigner l\'adresse réseaux de votre serrure'
           },
-          email: {
-            required: v => !!v || 'Veuillez renseigner l\'email',
-            min: v => /.+@.+/.test(v) || 'Veuillez renseigner un email valide'
-          },
-          password: {
-            required: value => !!value || 'Veuillez renseigner le mot de passe',
-            min: v => v.length >= 6 || 'Minimum 6 caractères',
-            dontShow: true
+          auth: {
+            required: v => !!v || 'Veuillez renseigner l\'authentification de votre serrure'
           }
         }
       }
     }
   },
   methods: {
-    getUserProfile () {
-      UserService.getUser()
-        .then(response => {
-          this.form.items = response.data.data
-        }).catch(e => {
-          console.log(e)
-        })
-    },
-    updateUser () {
+    configKey () {
       this.$refs.form.validate()
-      UserService.setUserUpdate({
-        firstName: this.form.items.firstName,
-        lastName: this.form.items.lastName,
+      LockService.initLock({
+        name: this.form.items.name,
         address: this.form.items.address,
-        city: this.form.items.city,
-        country: this.form.items.country,
-        phone: this.form.items.phone,
-        email: this.form.items.email,
-        postalCode: this.form.items.postalCode
+        auth: this.form.items.auth
       })
         .then(() => {
           this.$q.notify({
             type: 'positive',
-            message: 'Vos informations ont bien été mis a jours',
+            message: 'Votre serrure est parfaitement configuré',
             position: 'top'
           })
-        }).catch((error) => {
-          if (STATUS_CODE_400 === error.response.status) {
-            this.$q.notify({
-              type: 'negative',
-              message: 'Veuillez réessayer',
-              position: 'top'
-            })
-          }
+        }).catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'Veuillez réessayer',
+            position: 'top'
+          })
         })
     }
-  },
-  created () {
-    this.getUserProfile()
   }
 }
 </script>
