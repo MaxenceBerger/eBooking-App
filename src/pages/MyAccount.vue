@@ -60,7 +60,7 @@
         <q-item
             clickable
             v-ripple
-            :to="{ name: 'MyAccountInformationPage' }"
+            :to="{ name: 'MyAccountCreatePublicationPage' }"
         >
           <q-item-section>Publiez votre annonce</q-item-section>
           <q-item-section avatar>

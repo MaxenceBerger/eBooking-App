@@ -100,6 +100,14 @@ const routes = [
         }
       },
       {
+        path: '/account/publication/create',
+        name: 'MyAccountCreatePublicationPage',
+        component: () => import('pages/MyAccountCreatePublication.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: '/account/modify-password',
         name: 'MyAccountModifyPWPage',
         component: () => import('pages/MyAccountModifyPW.vue'),

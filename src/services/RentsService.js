@@ -1,7 +1,7 @@
 import apiHeader from '../API/api-header.js'
 
 export default {
-  getAllRents () {
+  getRentsList () {
     return apiHeader.get('rent')
   },
   createRent (data) {

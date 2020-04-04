@@ -173,9 +173,7 @@ export default {
               name: response.data.data[i].name,
               address: response.data.data[i].address
             })
-            console.log('Id : ' + this.form.items.keyOptions[i].id + ' ---- Name : ' + this.form.items.keyOptions[i].name)
           }
-          console.log(this.form.items.keyOptions)
         }).catch(e => {
           console.log(e)
         })
