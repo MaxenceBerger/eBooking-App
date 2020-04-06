@@ -38,6 +38,7 @@
       <q-input
         class="q-mb-lg"
         v-model="form.items.capacity"
+        type="number"
         label="Capacité maximum"
         rounded outlined
         :rules="[val => !!val || 'La capacité maximum est requise']"
@@ -45,6 +46,7 @@
       <q-input
         class="q-mb-lg"
         v-model="form.items.price"
+        type="number"
         label="Prix"
         rounded outlined
         :rules="[val => !!val || 'Le prix est requis']"
@@ -56,6 +58,7 @@
       <q-input
         class="q-mb-lg"
         v-model="form.items.area"
+        type="number"
         label="Surface en m³"
         rounded outlined
         :rules="[val => !!val || 'La surface est requis']"
@@ -72,9 +75,49 @@
         option-label="name"
         v-model="form.items.key"
         :options="form.items.keyOptions"
-        label="Sélectionnez votre clé"
-        :rules="[val => !!val || 'Une sélection de clé est requis']"
+        label="Sélectionnez votre serrure"
+        :rules="[val => !!val || 'Une sélection de serrure est requise']"
       />
+
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <q-input class="q-mr-sm"
+                   v-model="date"
+                   mask="date"
+                   :rules="['date']"
+                   label="Disponible du"
+                   rounded
+                   outlined
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                  <q-date v-model="date" :locale="myLocale" @input="() => $refs.qDateProxy.hide()"></q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+        <div class="col-12 col-md-6">
+          <q-input
+            class="q-ml-sm"
+            v-model="date"
+            mask="date"
+            :rules="['date']"
+            label="Au"
+            rounded
+            outlined
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                  <q-date v-model="date" :locale="myLocale" @input="() => $refs.qDateProxy.hide()"></q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+        </div>
+      </div>
       <!--
       <q-select
         class="q-mb-lg"
@@ -141,7 +184,6 @@ export default {
   name: 'AdvertisementCreatePage',
   data: () => {
     return {
-      dialogPassword: false,
       form: {
         items: {
           title: '',
@@ -155,11 +197,21 @@ export default {
           postalCode: '',
           country: '',
           key: '',
+          startAt: '',
+          finishAt: '',
           keyOptions: [],
           countryOptions: [
             'France', 'Belgique', 'Suisse'
           ]
         }
+      },
+      date: '',
+      myLocale: {
+        days: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
+        daysShort: 'Dim_Lun_Mar_Mer_Jeu_Ven_Sam'.split('_'),
+        months: 'Janvier_Février_Mars_Avril_Mai_Juin_Julliet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
+        monthsShort: 'Jan_Fév_Mar_Avr_Mai_Jui_Jul_Aou_Sep_Oct_Nov_Déc'.split('_'),
+        firstDayOfWeek: 1
       }
     }
   },

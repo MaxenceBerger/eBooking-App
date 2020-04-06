@@ -62,31 +62,12 @@
             v-ripple
             :to="{ name: 'MyAccountCreatePublicationPage' }"
         >
-          <q-item-section>Publiez votre annonce</q-item-section>
+          <q-item-section>Gestion des biens</q-item-section>
           <q-item-section avatar>
             <q-icon color="blue-grey-3" name="event_available" />
           </q-item-section>
         </q-item>
-        <q-item
-            clickable
-            v-ripple
-            :to="{ name: 'MyAccountInformationPage' }"
-        >
-          <q-item-section>Modifiez votre annonce</q-item-section>
-          <q-item-section avatar>
-            <q-icon color="blue-grey-3" name="event_note" />
-          </q-item-section>
-        </q-item>
-        <q-item
-            clickable
-            v-ripple
-            :to="{ name: 'MyAccountInformationPage' }"
-        >
-          <q-item-section>Supprimez votre annonce</q-item-section>
-          <q-item-section avatar>
-            <q-icon color="blue-grey-3" name="event_busy" />
-          </q-item-section>
-        </q-item>
+
         <q-item
             class="q-mb-lg"
             clickable
@@ -98,7 +79,6 @@
             <q-icon color="blue-grey-3" name="show_chart" />
           </q-item-section>
         </q-item>
-
         <q-separator />
         <q-item-label header class="q-mt-lg">JURIDIQUE</q-item-label>
         <q-item
