@@ -39,7 +39,7 @@
               <div class="q-mt-lg q-mb-lg">
                 <a href="">Mot de passe oublié ?</a>
                 <br>
-                <q-btn :to="{ name: 'RegisterPage' }">Pas encorede compte ?</q-btn>
+                <router-link :to="{ name: 'RegisterPage' }">Pas encorede compte ?</router-link>
               </div>
           <div>
             <q-btn unelevated rounded color="secondary" label="Connexion" type="submit"/>

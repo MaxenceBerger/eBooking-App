@@ -60,7 +60,7 @@
         <q-item
             clickable
             v-ripple
-            :to="{ name: 'MyAccountCreatePublicationPage' }"
+            :to="{ name: 'DashboardPublicationsAndRentsPage' }"
         >
           <q-item-section>Gestion des biens</q-item-section>
           <q-item-section avatar>

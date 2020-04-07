@@ -100,9 +100,9 @@ const routes = [
         }
       },
       {
-        path: '/account/publication/create',
-        name: 'MyAccountCreatePublicationPage',
-        component: () => import('pages/MyAccountCreatePublication.vue'),
+        path: '/dashboard/host',
+        name: 'DashboardPublicationsAndRentsPage',
+        component: () => import('pages/DashboardPublicationsAndRents.vue'),
         meta: {
           requiresAuth: true
         }
