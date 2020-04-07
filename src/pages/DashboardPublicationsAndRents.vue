@@ -325,7 +325,7 @@ import { date } from 'quasar'
 import PublicationsService from '../services/PublicationsService'
 
 export default {
-  name: 'MyAccountCreatePublicationPage',
+  name: 'DashboardPublicationsAndRentsPage',
   data: () => {
     return {
       countryOptions: [

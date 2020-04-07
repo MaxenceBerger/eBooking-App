@@ -78,56 +78,6 @@
         label="Sélectionnez votre serrure"
         :rules="[val => !!val || 'Une sélection de serrure est requise']"
       />
-
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <q-input class="q-mr-sm"
-                   v-model="date"
-                   mask="date"
-                   :rules="['date']"
-                   label="Disponible du"
-                   rounded
-                   outlined
-          >
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" :locale="myLocale" @input="() => $refs.qDateProxy.hide()"></q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-        </div>
-        <div class="col-12 col-md-6">
-          <q-input
-            class="q-ml-sm"
-            v-model="date"
-            mask="date"
-            :rules="['date']"
-            label="Au"
-            rounded
-            outlined
-          >
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" :locale="myLocale" @input="() => $refs.qDateProxy.hide()"></q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-        </div>
-      </div>
-      <!--
-      <q-select
-        class="q-mb-lg"
-        rounded
-        outlined
-        v-model="form.items.keyOptions.name"
-        :options="form.items.keyOptions.id"
-        label="Sélectionnez votre clé"
-        :rules="[val => !!val || 'Une sélection de clé est requis']"
-      /> -->
       <q-separator class="q-mb-xl q-mt-xl"/>
 
       <q-item-label header class="q-mb-lg">COORDONNÉES DU BIEN</q-item-label>
@@ -204,14 +154,6 @@ export default {
             'France', 'Belgique', 'Suisse'
           ]
         }
-      },
-      date: '',
-      myLocale: {
-        days: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
-        daysShort: 'Dim_Lun_Mar_Mer_Jeu_Ven_Sam'.split('_'),
-        months: 'Janvier_Février_Mars_Avril_Mai_Juin_Julliet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
-        monthsShort: 'Jan_Fév_Mar_Avr_Mai_Jui_Jul_Aou_Sep_Oct_Nov_Déc'.split('_'),
-        firstDayOfWeek: 1
       }
     }
   },
@@ -249,6 +191,13 @@ export default {
           message: 'Le mot de passe a bien été mis à jours',
           position: 'top'
         })
+        this.$q.notify({
+          type: 'info',
+          message: 'Sur cette page vous avez la posibilité de gerer vos biens',
+          timeout: 4000,
+          position: 'top'
+        })
+        this.$router.push({ name: 'DashboardPublicationsAndRentsPage' })
       }).catch(() => {
         this.$q.notify({
           color: 'blue-grey',
