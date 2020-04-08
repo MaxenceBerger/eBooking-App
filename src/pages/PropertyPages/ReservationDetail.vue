@@ -2,11 +2,11 @@
   <q-page class="column">
     <div>
       <q-carousel
-          animated
-          v-model="slide"
-          arrows
-          navigation
-          infinite
+        swipeable
+        animated
+        v-model="slide"
+        thumbnails
+        infinite
       >
         <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
         <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
@@ -101,8 +101,8 @@
 
 <script>
 
-import ReservationService from '../services/ReservationService'
-import PublicationsService from '../services/PublicationsService'
+import ReservationService from '../../services/ReservationService'
+import PublicationsService from '../../services/PublicationsService'
 import { date } from 'quasar'
 
 export default {

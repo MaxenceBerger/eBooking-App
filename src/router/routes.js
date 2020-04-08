@@ -15,7 +15,7 @@ const routes = [
       {
         path: '/login',
         name: 'LoginPage',
-        component: () => import('../pages/Login.vue'),
+        component: () => import('pages/AuthPages/Login.vue'),
         meta: {
           requiresAuth: false
         }
@@ -23,7 +23,7 @@ const routes = [
       {
         path: '/register',
         name: 'RegisterPage',
-        component: () => import('../pages/Register.vue'),
+        component: () => import('pages/AuthPages/Register.vue'),
         meta: {
           requiresAuth: false
         }
@@ -38,7 +38,7 @@ const routes = [
       {
         path: '/home',
         name: 'HomePage',
-        component: () => import('pages/Home.vue'),
+        component: () => import('pages/PropertyPages/Home.vue'),
         meta: {
           requiresAuth: true
         }
@@ -54,7 +54,7 @@ const routes = [
       {
         path: '/rent',
         name: 'RentPage',
-        component: () => import('pages/Rent.vue'),
+        component: () => import('pages/PropertyPages/Rent.vue'),
         meta: {
           requiresAuth: true
         }
@@ -62,7 +62,7 @@ const routes = [
       {
         path: '/publication/:idPublication',
         name: 'PublicationDetailPage',
-        component: () => import('pages/PublicationDetail.vue'),
+        component: () => import('pages/PropertyPages/PublicationDetail.vue'),
         meta: {
           requiresAuth: true
         }
@@ -70,7 +70,7 @@ const routes = [
       {
         path: '/reservation/:idReservation',
         name: 'ReservationDetailPage',
-        component: () => import('pages/ReservationDetail.vue'),
+        component: () => import('pages/PropertyPages/ReservationDetail.vue'),
         meta: {
           requiresAuth: true
         }
@@ -86,7 +86,7 @@ const routes = [
       {
         path: '/account',
         name: 'MyAccountPage',
-        component: () => import('pages/MyAccount.vue'),
+        component: () => import('pages/AccountConfigPages/MyAccount.vue'),
         meta: {
           requiresAuth: true
         }
@@ -94,7 +94,7 @@ const routes = [
       {
         path: '/account/information',
         name: 'MyAccountInformationPage',
-        component: () => import('pages/MyAccountInformation.vue'),
+        component: () => import('pages/AccountConfigPages/MyAccountInformation.vue'),
         meta: {
           requiresAuth: true
         }
@@ -102,7 +102,7 @@ const routes = [
       {
         path: '/dashboard/host',
         name: 'DashboardPublicationsAndRentsPage',
-        component: () => import('pages/DashboardPublicationsAndRents.vue'),
+        component: () => import('pages/AccountConfigPages/DashboardPublicationsAndRents.vue'),
         meta: {
           requiresAuth: true
         }
@@ -110,7 +110,7 @@ const routes = [
       {
         path: '/account/modify-password',
         name: 'MyAccountModifyPWPage',
-        component: () => import('pages/MyAccountModifyPW.vue'),
+        component: () => import('pages/AccountConfigPages/MyAccountModifyPW.vue'),
         meta: {
           requiresAuth: true
         }
@@ -118,7 +118,7 @@ const routes = [
       {
         path: '/advertisement/create',
         name: 'AdvertisementCreatePage',
-        component: () => import('pages/AdvertisementCreate.vue'),
+        component: () => import('pages/AccountConfigPages/AdvertisementCreate.vue'),
         meta: {
           requiresAuth: true
         }
@@ -126,7 +126,7 @@ const routes = [
       {
         path: '/general-conditions',
         name: 'GeneralConditionsPage',
-        component: () => import('pages/GeneralConditions.vue'),
+        component: () => import('pages/AccountConfigPages/GeneralConditions.vue'),
         meta: {
           requiresAuth: true
         }
@@ -134,7 +134,7 @@ const routes = [
       {
         path: '/smart-key/install',
         name: 'SmartKeyInstallPage',
-        component: () => import('pages/SmartKeyInstall.vue'),
+        component: () => import('pages/AccountConfigPages/SmartKeyInstall.vue'),
         meta: {
           requiresAuth: true
         }

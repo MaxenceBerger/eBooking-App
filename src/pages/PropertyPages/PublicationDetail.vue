@@ -2,10 +2,10 @@
   <q-page class="column">
     <div>
       <q-carousel
+        swipeable
         animated
         v-model="slide"
-        arrows
-        navigation
+        thumbnails
         infinite
       >
         <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
@@ -101,8 +101,8 @@
 
 <script>
 
-import PublicationsService from '../services/PublicationsService'
-import ReservationService from '../services/ReservationService'
+import PublicationsService from '../../services/PublicationsService'
+import ReservationService from '../../services/ReservationService'
 import { date } from 'quasar'
 
 const STATUS_CODE_401 = 401
@@ -111,7 +111,9 @@ export default {
   name: 'PublicationDetail',
   data: () => ({
     slide: 1,
-    publication: null,
+    publication: {
+      rent: {}
+    },
     idPublication: '',
     dialog: false
   }),

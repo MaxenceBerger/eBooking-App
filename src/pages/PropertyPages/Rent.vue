@@ -23,7 +23,7 @@
 
 <script>
 
-import ReservationService from '../services/ReservationService'
+import ReservationService from '../../services/ReservationService'
 
 export default {
   name: 'RentPage',

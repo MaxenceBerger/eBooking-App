@@ -51,7 +51,7 @@
 
 <script>
 
-import LockService from '../services/LockService'
+import LockService from '../../services/LockService'
 
 export default {
   name: 'SmartKeyInstallPage',

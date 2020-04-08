@@ -127,8 +127,8 @@
 
 <script>
 
-import RentsService from '../services/RentsService'
-import LockService from '../services/LockService'
+import RentsService from '../../services/RentsService'
+import LockService from '../../services/LockService'
 
 export default {
   name: 'AdvertisementCreatePage',

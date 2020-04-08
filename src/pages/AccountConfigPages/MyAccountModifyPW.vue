@@ -75,7 +75,7 @@
 
 <script>
 
-import UserService from '../services/UserService'
+import UserService from '../../services/UserService'
 const STATUS_CODE_400 = 400
 
 export default {

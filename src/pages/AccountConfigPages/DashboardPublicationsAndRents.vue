@@ -319,10 +319,10 @@
 
 <script>
 
-import RentsService from '../services/RentsService'
-import LockService from '../services/LockService'
+import RentsService from '../../services/RentsService'
+import LockService from '../../services/LockService'
 import { date } from 'quasar'
-import PublicationsService from '../services/PublicationsService'
+import PublicationsService from '../../services/PublicationsService'
 
 export default {
   name: 'DashboardPublicationsAndRentsPage',

@@ -26,7 +26,7 @@
       bordered
       content-class="bg-grey-4"
     >
-      <q-list>
+      <q-list style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
         <q-item-label
           header
           class="text-grey-1"
@@ -38,8 +38,16 @@
           v-bind="link"
         />
       </q-list>
+      <q-img class="absolute-top" src="../assets/images/bg-profile.png" style="height: 150px">
+        <div class="absolute-bottom bg-transparent">
+          <q-avatar size="56px" class="q-mb-sm">
+            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+          </q-avatar>
+          <div class="text-weight-bold">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
+          <div class="text-blue-grey-2" v-if="userInfo.role = 'ROLE_ADMIN' ">Administrateur</div>
+        </div>
+      </q-img>
     </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -49,6 +57,7 @@
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
 import AuthService from '../services/AuthService'
+import UserService from '../services/UserService'
 
 export default {
   name: 'MainLayout',
@@ -59,6 +68,9 @@ export default {
 
   data () {
     return {
+      userInfo: {
+        role: 'ROLE_ADMIN'
+      },
       leftDrawerOpen: false,
       essentialLinks: [
         {
@@ -90,9 +102,18 @@ export default {
     }
   },
   methods: {
+    getUserProfile () {
+      UserService.getUser()
+        .then(response => {
+          this.userInfo = response.data.data
+        })
+    },
     logout () {
       AuthService.logout()
     }
+  },
+  created () {
+    this.getUserProfile()
   }
 }
 </script>
