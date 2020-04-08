@@ -138,6 +138,14 @@ const routes = [
         meta: {
           requiresAuth: true
         }
+      },
+      {
+        path: '/dashboard',
+        name: 'AdminDashboardPage',
+        component: () => import('pages/Admin/AdminDashboard.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   }

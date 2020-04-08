@@ -32,6 +32,22 @@
           class="text-grey-1"
         >
         </q-item-label>
+        <q-item
+          v-if="this.$store.state.user.role === 'ADMIN'"
+          clickable
+          tag="a"
+          :to="{ name: 'AdminDashboardPage' }"
+        >
+          <q-item-section
+            avatar
+          >
+            <q-icon name="show_chart" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Dashboard Admin</q-item-label>
+          </q-item-section>
+        </q-item>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
@@ -44,7 +60,8 @@
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
           <div class="text-weight-bold">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
-          <div class="text-blue-grey-2" v-if="userInfo.role = 'ROLE_ADMIN' ">Administrateur</div>
+          <div class="text-blue-grey-2" v-if="this.$store.state.user.role === 'ADMIN'">Administrateur</div>
+
         </div>
       </q-img>
     </q-drawer>
@@ -68,9 +85,7 @@ export default {
 
   data () {
     return {
-      userInfo: {
-        role: 'ROLE_ADMIN'
-      },
+      userInfo: {},
       leftDrawerOpen: false,
       essentialLinks: [
         {
