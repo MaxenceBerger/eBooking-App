@@ -1,3 +1,5 @@
+import store from '../store/index.js'
+
 const routes = [
   {
     path: '/',
@@ -145,6 +147,13 @@ const routes = [
         component: () => import('pages/Admin/AdminDashboard.vue'),
         meta: {
           requiresAuth: true
+        },
+        beforeEnter: (to, from, next) => {
+          if (store.getters.getRole !== 'ADMIN') {
+            next({ path: '/home' })
+          } else {
+            next()
+          }
         }
       }
     ]
