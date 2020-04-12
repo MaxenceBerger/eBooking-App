@@ -81,8 +81,10 @@ export default {
       AuthService.setLogin(this.form)
         .then(response => {
           const { role } = response.data.data
+          const { email } = response.data.data
           const { token } = response.data.data
           this.$store.commit('setRole', role)
+          this.$store.commit('setEmail', email)
           this.$store.commit('setToken', token)
           if (this.$store.getters.getToken) {
             this.$router.push({ name: 'HomePage' })

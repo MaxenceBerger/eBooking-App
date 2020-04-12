@@ -3,15 +3,10 @@
     <q-header elevated class="bg-secondary">
       <q-toolbar>
         <q-toolbar-title v-if="this.$q.platform.is.mobile">
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
+            <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 25px" class="q-mt-sm">
         </q-toolbar-title>
         <q-toolbar-title v-if="this.$q.platform.is.desktop">
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
-          eBooking
+            <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 25px" class="q-mt-sm">
         </q-toolbar-title>
         <div  v-if="this.$q.platform.is.mobile">
           <q-btn

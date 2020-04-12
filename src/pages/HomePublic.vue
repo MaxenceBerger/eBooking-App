@@ -106,7 +106,7 @@
             </div>
           </q-carousel-slide>
           <q-carousel-slide name="map" class="column no-wrap flex-center" img-src="https://cdn.quasar.dev/img/quasar.jpg">
-            <q-icon name="terrain" size="56px" />
+            <q-img src="../assets/logo_eBooking.png" style="width: 20%" />
             <div class="q-mt-md text-center">
               <q-btn
                   class="q-ma-lg"

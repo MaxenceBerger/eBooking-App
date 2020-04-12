@@ -201,7 +201,7 @@ export default {
       }).catch(() => {
         this.$q.notify({
           color: 'blue-grey',
-          message: 'Oups, il semble que nous rencontrons des difficultés à modifier votre mot de passe',
+          message: 'Oups, il semble que nous rencontrons des difficultés',
           icon: 'report_problem',
           position: 'top'
         })
