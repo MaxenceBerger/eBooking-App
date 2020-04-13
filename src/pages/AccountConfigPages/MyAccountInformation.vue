@@ -9,86 +9,96 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Mes Informations personnelles</h2>
+        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Mes Informations personnelles</h3>
       </div>
     </div>
-    <q-form
-      style="max-width: 500px"
-      ref="form"
-      class="q-ml-xl q-mr-xl"
-      @submit="updateUser"
-    >
-      <div class="row">
-        <div class="col">
+    <div class="row">
+      <div class="col-8">
+        <q-form
+          style="max-width: 600px"
+          ref="form"
+          class="q-ml-xl q-mr-xl"
+          @submit="updateUser"
+        >
+          <div class="row">
+            <div class="col">
+              <q-input
+                class="q-mr-sm"
+                v-model="form.items.firstName"
+                label="Prénom"
+                :rules="[form.rules.firstName.required]"
+                required
+                rounded outlined
+              />
+            </div>
+            <div class="col">
+              <q-input
+                class="q-ml-sm"
+                v-model="form.items.lastName"
+                label="Nom"
+                :rules="[form.rules.lastName.required]"
+                required
+                rounded outlined
+              />
+            </div>
+          </div>
           <q-input
-            class="q-mr-sm"
-            v-model="form.items.firstName"
-            label="Prénom"
-            :rules="[form.rules.firstName.required]"
+            v-model="form.items.email"
+            label="Adresse mail"
+            :rules="[form.rules.email.required, form.rules.password.min]"
             required
             rounded outlined
           />
-        </div>
-        <div class="col">
           <q-input
-            class="q-ml-sm"
-            v-model="form.items.lastName"
-            label="Nom"
-            :rules="[form.rules.lastName.required]"
-            required
+            class="q-mb-lg"
+            v-model="form.items.address"
+            label="Adresse"
             rounded outlined
           />
-        </div>
-      </div>
-      <q-input
-          v-model="form.items.email"
-          label="Adresse mail"
-          :rules="[form.rules.email.required, form.rules.password.min]"
-          required
-          rounded outlined
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.address"
-        label="Adresse"
-        rounded outlined
-      />
 
-      <div class="row">
-        <div class="col-12 col-md-8">
+          <div class="row">
+            <div class="col-12 col-md-8">
+              <q-input
+                class="q-mb-lg q-mr-sm"
+                v-model="form.items.city"
+                label="Ville"
+                rounded outlined
+              />
+            </div>
+            <div class="col-12 col-md-4">
+              <q-input
+                class="q-mb-lg q-ml-sm"
+                v-model="form.items.postalCode"
+                label="Code Postale"
+                rounded outlined
+              />
+            </div>
+          </div>
           <q-input
-            class="q-mb-lg q-mr-sm"
-            v-model="form.items.city"
-            label="Ville"
-            rounded outlined
-          />
-        </div>
-        <div class="col-12 col-md-4">
-          <q-input
-            class="q-mb-lg q-ml-sm"
-            v-model="form.items.postalCode"
-            label="Code Postale"
-            rounded outlined
-          />
-        </div>
-      </div>
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.country"
-        label="Pays"
+            class="q-mb-lg"
+            v-model="form.items.country"
+            label="Pays"
 
-        rounded outlined
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.phone"
-        label="Téléphone"
-        rounded outlined
-      />
-      <div>
-        <q-btn unelevated rounded color="secondary" label="Modifier mon compte" type="submit" class="q-mt-lg"/>
+            rounded outlined
+          />
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.phone"
+            label="Téléphone"
+            rounded outlined
+          />
+          <div>
+            <q-btn unelevated rounded color="secondary" label="Modifier mon compte" type="submit" class="q-mt-lg"/>
+          </div>
+        </q-form>
       </div>
-    </q-form>
+      <div class="col-4">
+        <q-img
+          fade
+          src="../../assets/images/Modify-profil.png"
+          style="max-width: 80%;"/>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -180,4 +190,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

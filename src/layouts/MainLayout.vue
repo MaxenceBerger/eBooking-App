@@ -21,14 +21,19 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-4"
+      content-class="bg-blue-grey-7"
     >
-      <q-list style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
+      <q-list style="height: calc(100% - 200px); margin-top: 200px; border-right: 1px solid #ddd">
         <q-item-label
           header
           class="text-grey-1"
         >
         </q-item-label>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
         <q-item
           v-if="this.$store.state.user.role === 'ADMIN'"
           clickable
@@ -38,31 +43,26 @@
           <q-item-section
             avatar
           >
-            <q-icon name="show_chart" />
+            <q-icon name="dashboard"/>
           </q-item-section>
 
           <q-item-section>
-            <q-item-label>Dashboard Admin</q-item-label>
+            <q-item-label class="font-Raleway">Dashboard Admin</q-item-label>
           </q-item-section>
         </q-item>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
       </q-list>
-      <q-img class="absolute-top" src="../assets/images/bg-profile.png" style="height: 150px">
-        <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+      <q-img class="absolute-top" src="../assets/images/bg-profile.png" style="height: 200px">
+        <div class="absolute-bottom bg-transparent q-mb-lg">
+          <q-avatar size="56px" class="q-mb-lg">
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
-          <div class="text-weight-bold">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
-          <div class="text-blue-grey-2" v-if="this.$store.state.user.role === 'ADMIN'">Administrateur</div>
+          <div class="text-weight-bold font-Raleway">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
+          <div class="text-blue-grey-2 font-Raleway" v-if="this.$store.state.user.role === 'ADMIN'">Administrateur</div>
 
         </div>
       </q-img>
     </q-drawer>
-    <q-page-container>
+    <q-page-container class="bg-blue-grey-2">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -130,8 +130,15 @@ export default {
 }
 </script>
 
-<style scoped>
-  .q-item.q-router-link--active, .q-item--active {
-    color: #26A69A;
-  }
+<style lang="sass" scoped>
+  .q-item
+    color: #DDD !important
+  .q-router-link--active, .q-item--active
+    color: #4db6ac !important
+  .bg-blue-custom
+    background: rgb(45,64,78)
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

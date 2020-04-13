@@ -143,7 +143,7 @@ export default {
           this.$router.push({ name: 'RentPage' })
           this.$q.notify({
             type: 'positive',
-            message: 'Notre réservation a bien été supprimé',
+            message: 'Votre réservation a bien été supprimé',
             position: 'top'
           })
         })

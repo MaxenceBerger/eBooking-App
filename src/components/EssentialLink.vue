@@ -12,7 +12,7 @@
     </q-item-section>
 
     <q-item-section>
-      <q-item-label>{{ title }}</q-item-label>
+      <q-item-label class="font-Raleway">{{ title }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
@@ -38,3 +38,14 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+  .q-item.q-router-link--active, .q-item--active
+    color: #269b8f
+  .bg-blue-custom
+    background: rgb(45,64,78)
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
+</style>

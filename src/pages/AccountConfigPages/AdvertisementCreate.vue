@@ -9,119 +9,129 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Créez votre annonce</h2>
+        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Créez votre annonce</h3>
       </div>
     </div>
-    <q-form
-      style="max-width: 500px"
-      ref="form"
-      class="q-ml-xl q-mr-xl"
-      @submit="createRent"
-    >
-      <q-item-label header class="q-mb-lg">DESCRIPTION DU BIEN</q-item-label>
+    <div class="row">
+      <div class="col-8">
+        <q-form
+          style="max-width: 650px"
+          ref="form"
+          class="q-ml-xl q-mr-xl"
+          @submit="createRent"
+        >
+          <q-item-label header class="q-mb-lg">DESCRIPTION DU BIEN</q-item-label>
 
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.title"
-        label="Titre de l'annonce"
-        rounded outlined
-        :rules="[val => !!val || 'Le titre de l\'annonce est requis']"
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.description"
-        type="textarea"
-        label="Description"
-        rounded outlined
-        :rules="[val => !!val || 'La description est requise']"
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.capacity"
-        type="number"
-        label="Capacité maximum"
-        rounded outlined
-        :rules="[val => !!val || 'La capacité maximum est requise']"
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.price"
-        type="number"
-        label="Prix"
-        rounded outlined
-        :rules="[val => !!val || 'Le prix est requis']"
-      >
-        <template v-slot:append>
-          <q-icon name="euro" />
-        </template>
-      </q-input>
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.area"
-        type="number"
-        label="Surface en m³"
-        rounded outlined
-        :rules="[val => !!val || 'La surface est requis']"
-      >
-        <template v-slot:append>
-          <q-icon name="aspect_ratio" />
-        </template>
-      </q-input>
-      <q-select
-        class="q-mb-lg"
-        rounded
-        outlined
-        option-value="id"
-        option-label="name"
-        v-model="form.items.key"
-        :options="form.items.keyOptions"
-        label="Sélectionnez votre serrure"
-        :rules="[val => !!val || 'Une sélection de serrure est requise']"
-      />
-      <q-separator class="q-mb-xl q-mt-xl"/>
-
-      <q-item-label header class="q-mb-lg">COORDONNÉES DU BIEN</q-item-label>
-      <q-input
-          class="q-mb-lg"
-          v-model="form.items.address"
-          label="Adresse"
-          rounded outlined
-          :rules="[val => !!val || 'Une adresse est requise']"
-      />
-
-      <div class="row">
-        <div class="col-12 col-md-8">
           <q-input
-              class="q-mb-lg q-mr-sm"
-              v-model="form.items.city"
-              label="Ville"
-              rounded outlined
-              :rules="[val => !!val || 'Une ville est requise']"
+            class="q-mb-lg"
+            v-model="form.items.title"
+            label="Titre de l'annonce"
+            rounded outlined
+            :rules="[val => !!val || 'Le titre de l\'annonce est requis']"
           />
-        </div>
-        <div class="col-12 col-md-4">
           <q-input
-              class="q-mb-lg q-ml-sm"
-              v-model="form.items.postalCode"
-              label="Code Postal"
-              rounded outlined
-              :rules="[val => !!val || 'Un code postal est requis']"
+            class="q-mb-lg"
+            v-model="form.items.description"
+            type="textarea"
+            label="Description"
+            rounded outlined
+            :rules="[val => !!val || 'La description est requise']"
           />
-        </div>
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.capacity"
+            type="number"
+            label="Capacité maximum"
+            rounded outlined
+            :rules="[val => !!val || 'La capacité maximum est requise']"
+          />
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.price"
+            type="number"
+            label="Prix"
+            rounded outlined
+            :rules="[val => !!val || 'Le prix est requis']"
+          >
+            <template v-slot:append>
+              <q-icon name="euro" />
+            </template>
+          </q-input>
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.area"
+            type="number"
+            label="Surface en m³"
+            rounded outlined
+            :rules="[val => !!val || 'La surface est requis']"
+          >
+            <template v-slot:append>
+              <q-icon name="aspect_ratio" />
+            </template>
+          </q-input>
+          <q-select
+            class="q-mb-lg"
+            rounded
+            outlined
+            option-value="id"
+            option-label="name"
+            v-model="form.items.key"
+            :options="form.items.keyOptions"
+            label="Sélectionnez votre serrure"
+            :rules="[val => !!val || 'Une sélection de serrure est requise']"
+          />
+          <q-separator class="q-mb-xl q-mt-xl"/>
+
+          <q-item-label header class="q-mb-lg">COORDONNÉES DU BIEN</q-item-label>
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.address"
+            label="Adresse"
+            rounded outlined
+            :rules="[val => !!val || 'Une adresse est requise']"
+          />
+
+          <div class="row">
+            <div class="col-12 col-md-8">
+              <q-input
+                class="q-mb-lg q-mr-sm"
+                v-model="form.items.city"
+                label="Ville"
+                rounded outlined
+                :rules="[val => !!val || 'Une ville est requise']"
+              />
+            </div>
+            <div class="col-12 col-md-4">
+              <q-input
+                class="q-mb-lg q-ml-sm"
+                v-model="form.items.postalCode"
+                label="Code Postal"
+                rounded outlined
+                :rules="[val => !!val || 'Un code postal est requis']"
+              />
+            </div>
+          </div>
+          <q-select
+            class="q-mb-lg"
+            rounded
+            outlined
+            v-model="form.items.country"
+            :options="form.items.countryOptions"
+            label="Sélectionnez le Pays"
+            :rules="[val => !!val || 'Un pays est requis']"
+          />
+          <div>
+            <q-btn unelevated rounded color="secondary" label="Création de l'annonce" type="submit" class="q-mt-lg q-mb-xl"/>
+          </div>
+        </q-form>
       </div>
-      <q-select
-        class="q-mb-lg"
-        rounded
-        outlined
-        v-model="form.items.country"
-        :options="form.items.countryOptions"
-        label="Sélectionnez le Pays"
-        :rules="[val => !!val || 'Un pays est requis']"
-      />
-      <div>
-        <q-btn unelevated rounded color="secondary" label="Création de l'annonce" type="submit" class="q-mt-lg q-mb-xl"/>
+      <div class="col-4">
+        <q-img
+          fade
+          src="../../assets/images/Create-Ad.png"
+          style="max-width: 80%;"/>
       </div>
-    </q-form>
+    </div>
   </q-page>
 </template>
 
@@ -214,4 +224,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

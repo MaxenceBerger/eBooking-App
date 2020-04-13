@@ -1,7 +1,7 @@
 <template>
   <q-page class="column q-ma-lg">
     <div class="row">
-      <div class="col-12 col-md-8">
+      <div class="col-12 q-mb-xl">
         <q-btn
           outline
           round
@@ -9,43 +9,53 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Configurez votre serrure connectée</h2>
+        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Configurez votre serrure connectée</h3>
       </div>
     </div>
-    <q-form
-      style="max-width: 500px"
-      ref="form"
-      class="q-ml-xl q-mr-xl"
-      @submit="configKey"
-    >
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.name"
-        label="Nom de votre serrure"
-        :rules="[form.rules.name.required]"
-        required
-        rounded outlined
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.address"
-        label="L'adresse réseaux de votre serrure"
-        :rules="[form.rules.address.required]"
-        required
-        rounded outlined
-      />
-      <q-input
-        class="q-mb-lg"
-        v-model="form.items.auth"
-        label="Le nom d'authentification"
-        :rules="[form.rules.auth.required]"
-        required
-        rounded outlined
-      />
-      <div>
-        <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg"/>
+    <div class="row">
+      <div class="col-8">
+        <q-form
+          style="max-width: 500px"
+          ref="form"
+          class="q-ml-xl q-mr-xl"
+          @submit="configKey"
+        >
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.name"
+            label="Nom de votre serrure"
+            :rules="[form.rules.name.required]"
+            required
+            rounded outlined
+          />
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.address"
+            label="L'adresse réseaux de votre serrure"
+            :rules="[form.rules.address.required]"
+            required
+            rounded outlined
+          />
+          <q-input
+            class="q-mb-lg"
+            v-model="form.items.auth"
+            label="Le nom d'authentification"
+            :rules="[form.rules.auth.required]"
+            required
+            rounded outlined
+          />
+          <div>
+            <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg"/>
+          </div>
+        </q-form>
       </div>
-    </q-form>
+      <div class="col-4">
+        <q-img
+          fade
+          src="../../assets/images/Mobile-unlock.png"
+          style="max-width: 80%;"/>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -104,4 +114,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

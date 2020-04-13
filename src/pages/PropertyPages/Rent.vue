@@ -1,6 +1,21 @@
 <template>
-  <q-page class="column items-center">
-    <h5 class="items-end">Mes Réservations</h5>
+  <q-page class="column">
+    <div class="bg-title-custom" style="height: 400px;">
+      <div class="row q-ma-xl">
+        <div class="col-9">
+          <h3 class="items-end font-Raleway text-white">Mes Réservations</h3>
+          <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway">
+            Retrouvez toutes vos réservations en un clic
+          </div>
+        </div>
+        <div class="col-3">
+          <q-img
+            fade
+            src="../../assets/images/Reservation.png"
+            style="max-width: 90%;"/>
+        </div>
+      </div>
+    </div>
     <q-card
         class="my-card q-mb-lg rounded-borders"
         v-for="reservation in reservationList"
@@ -59,4 +74,8 @@ export default {
   .my-card
     width: 100%
     max-width: 350px
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

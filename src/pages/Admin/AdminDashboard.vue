@@ -1,10 +1,25 @@
 <template>
   <q-page class="column">
-    <h2 class="q-ml-xl q-mt-xl">Dashboard d'administration</h2>
+    <div class="bg-blue-custom" style="height: 400px;">
+      <div class="row q-ma-xl">
+        <div class="col-9">
+          <h3 class="items-end font-Raleway text-white">Dashboard d'administration</h3>
+          <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway">
+            Dans ce Dashboard, vous avez toutes les informations nécessaire à l'administration de la platforme
+          </div>
+        </div>
+        <div class="col-3">
+          <q-img
+            fade
+            src="../../assets/images/Admin.png"
+            style="max-width: 83%;"/>
+        </div>
+      </div>
+    </div>
     <div class="column q-ma-lg">
       <div class="row">
         <div class="col-3">
-          <q-card class="my-card q-ma-xl bg-teal-4 text-white">
+          <q-card flat class="my-card q-ma-xl bg-teal-4 text-white">
             <q-item class="custom-card">
               <q-item-section avatar>
                 <q-icon color="white" name="group" />
@@ -22,7 +37,7 @@
           </q-card>
         </div>
         <div class="col-3">
-          <q-card class="my-card q-ma-xl bg-teal-4 text-white">
+          <q-card flat class="my-card q-ma-xl bg-teal-4 text-white">
             <q-item class="custom-card">
               <q-item-section avatar>
                 <q-icon color="white" name="person_add" />
@@ -40,7 +55,7 @@
           </q-card>
         </div>
         <div class="col-3">
-          <q-card class="my-card q-ma-xl bg-teal-4 text-white">
+          <q-card flat class="my-card q-ma-xl bg-teal-4 text-white">
             <q-item class="custom-card">
               <q-item-section avatar>
                 <q-icon color="white" name="location_city" />
@@ -58,7 +73,7 @@
           </q-card>
         </div>
         <div class="col-3">
-          <q-card class="my-card q-ma-xl bg-teal-4 text-white">
+          <q-card flat class="my-card q-ma-xl bg-teal-4 text-white">
             <q-item class="custom-card">
               <q-item-section avatar>
                 <q-icon color="white" name="card_travel" />
@@ -78,7 +93,8 @@
       </div>
     </div>
     <q-table
-      class="q-ml-xl q-mr-xl"
+      flat
+      class="q-ml-xl q-mr-xl q-mb-xl"
       :data="data"
       :columns="columns"
       :loading="loading"
@@ -286,4 +302,10 @@ export default {
     max-width: 250px
   .custom-card
     min-height: 100px
+  .bg-blue-custom
+    background: rgb(45,64,78)
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

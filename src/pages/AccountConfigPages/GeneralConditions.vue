@@ -9,7 +9,7 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Conditions générales</h2>
+        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Conditions générales</h3>
       </div>
     </div>
     <div class="q-ml-xl q-mr-xl">
@@ -441,4 +441,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

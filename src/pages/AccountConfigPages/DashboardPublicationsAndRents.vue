@@ -1,15 +1,26 @@
 <template>
-  <q-page class="column q-ma-lg">
-    <div class="row">
-      <div class="col-12 col-md-8">
-        <q-btn
-          outline
-          round
-          color="secondary"
-          icon="arrow_back"
-          :to="{ name: 'MyAccountPage' }"
-        />
-        <h2 class="q-ml-xl">Gestion des biens</h2>
+  <q-page class="column">
+    <div class="bg-blue-custom q-mb-xl">
+      <div class="row q-ma-xl">
+        <div class="col-9">
+          <q-btn
+            outline
+            round
+            color="secondary"
+            icon="arrow_back"
+            :to="{ name: 'MyAccountPage' }"
+          />
+          <h3 class="items-end font-Raleway text-white q-ml-xl">Gestion des biens</h3>
+          <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway q-ml-xl">
+            Dans cette page, vous avez toutes les informations nécessaire à l'administration vos biens
+          </div>
+        </div>
+        <div class="col-3">
+          <q-img
+            fade
+            src="../../assets/images/Config-rent.png"
+            style="max-width: 80%;"/>
+        </div>
       </div>
     </div>
     <q-card class="my-card q-mb-xl q-ml-xl q-mr-xl"
@@ -45,78 +56,69 @@
           <q-separator class="q-mt-xl q-mb-sm"/>
           <div v-if="rent.is_rented === false && rent.is_published === true" class="q-mt-lg q-mb-sm">
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               disable
               unelevated
-              rounded
-              color="primary">
+              rounded>
               Modifier
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              color="primary"
               @click="openDialogConfirmDelete(rent._id)" >
             Supprimer
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              color="primary"
               @click="openDialogConfirmUnpublish(rent._id)">
               Retirer l'annonce
             </q-btn>
           </div>
           <div v-if="rent.is_rented === true && rent.is_published === true" class="q-mt-lg q-mb-sm">
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               disable
               unelevated
-              rounded
-              color="primary">
+              rounded >
               Modifier
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               disable
               unelevated
-              rounded
-              color="primary">
+              rounded >
             Supprimer
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               disable
               unelevated
-              rounded
-              color="primary">
+              rounded >
               Retirer l'annonce
             </q-btn>
           </div>
           <div v-if="rent.is_published === false" class="q-mt-lg q-mb-sm">
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              color="primary"
               @click="getPropertyDetails(rent._id)">
               Modifier
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              color="primary"
               @click="openDialogConfirmDelete(rent._id)" >
             Supprimer
             </q-btn>
             <q-btn
-              class="q-ma-sm"
+              class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              color="primary"
               @click="openDialogConfirmPublish(rent._id)" >
             Publier l'annonce
             </q-btn>
@@ -513,5 +515,14 @@ export default {
   }
 }
 </script>
+
 <style lang="sass" scoped>
+  .bg-blue-custom
+    background: rgb(45,64,78)
+  .btn-blue-custom
+    background: rgb(45,64,78)
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

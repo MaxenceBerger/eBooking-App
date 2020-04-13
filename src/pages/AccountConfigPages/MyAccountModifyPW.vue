@@ -9,67 +9,76 @@
           icon="arrow_back"
           :to="{ name: 'MyAccountPage' }"
         />
-        <h2 class="q-ml-xl">Modifier mon mot de passe</h2>
+        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Modifier mon mot de passe</h3>
       </div>
     </div>
-    <q-form
-      style="max-width: 500px"
-      ref="form"
-      class="q-ml-xl q-mr-xl"
-      @submit="updatePassword"
-    >
-      <q-input
-        v-model="form.items.oldPassword"
-        :type="form.rules.password.dontShow ? 'password' : 'text'"
-        label="Ancien mot de passe"
-        :rules="[form.rules.password.required, form.rules.password.min]"
-        required
-        rounded outlined
-      >
-        <template v-slot:append>
-          <q-icon
-            :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="form.rules.password.dontShow = !form.rules.password.dontShow"
-          />
-        </template>
-      </q-input>
-      <q-input
-        v-model="form.items.newPassword"
-        :type="form.rules.password.dontShow ? 'password' : 'text'"
-        label="Nouveau mot de passe"
-        :rules="[form.rules.password.required, form.rules.password.min]"
-        required
-        rounded outlined
-      >
-        <template v-slot:append>
-          <q-icon
-            :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="form.rules.password.dontShow = !form.rules.password.dontShow"
-          />
-        </template>
-      </q-input>
-      <q-input
-        v-model="form.items.confirmPassword"
-        :type="form.rules.password.dontShow ? 'password' : 'text'"
-        label="Confirmation du nouveau mot de passe"
-        :rules="[form.rules.password.required, form.rules.password.min]"
-        required
-        rounded outlined
-      >
-        <template v-slot:append>
-          <q-icon
-            :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="form.rules.password.dontShow = !form.rules.password.dontShow"
-          />
-        </template>
-      </q-input>
-      <div>
-        <q-btn unelevated rounded color="secondary" label="Modifier mon mot de passe" type="submit" class="q-mt-lg"/>
+    <div class="row">
+      <div class="col-8">
+        <q-form
+          style="max-width: 500px"
+          ref="form"
+          class="q-ml-xl q-mr-xl"
+          @submit="updatePassword"
+        >
+          <q-input
+            v-model="form.items.oldPassword"
+            :type="form.rules.password.dontShow ? 'password' : 'text'"
+            label="Ancien mot de passe"
+            :rules="[form.rules.password.required, form.rules.password.min]"
+            required
+            rounded outlined
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="form.rules.password.dontShow = !form.rules.password.dontShow"
+              />
+            </template>
+          </q-input>
+          <q-input
+            v-model="form.items.newPassword"
+            :type="form.rules.password.dontShow ? 'password' : 'text'"
+            label="Nouveau mot de passe"
+            :rules="[form.rules.password.required, form.rules.password.min]"
+            required
+            rounded outlined
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="form.rules.password.dontShow = !form.rules.password.dontShow"
+              />
+            </template>
+          </q-input>
+          <q-input
+            v-model="form.items.confirmPassword"
+            :type="form.rules.password.dontShow ? 'password' : 'text'"
+            label="Confirmation du nouveau mot de passe"
+            :rules="[form.rules.password.required, form.rules.password.min]"
+            required
+            rounded outlined
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="form.rules.password.dontShow ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="form.rules.password.dontShow = !form.rules.password.dontShow"
+              />
+            </template>
+          </q-input>
+          <div>
+            <q-btn unelevated rounded color="secondary" label="Modifier mon mot de passe" type="submit" class="q-mt-lg"/>
+          </div>
+        </q-form>
       </div>
-    </q-form>
+      <div class="col-4">
+        <q-img
+          fade
+          src="../../assets/images/Search-rent.png"
+          style="max-width: 80%;"/>
+      </div>    </div>
   </q-page>
 </template>
 
@@ -143,4 +152,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+    .font-Roboto
+      font-family: 'Roboto', sans-serif
 </style>
