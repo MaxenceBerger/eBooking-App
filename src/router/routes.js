@@ -23,6 +23,14 @@ const routes = [
         }
       },
       {
+        path: '/reset-password',
+        name: 'ResetPasswordPage',
+        component: () => import('pages/AuthPages/ResetPassword.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
         path: '/register',
         name: 'RegisterPage',
         component: () => import('pages/AuthPages/Register.vue'),

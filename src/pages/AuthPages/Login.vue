@@ -37,9 +37,9 @@
           </q-input>
             <q-separator/>
               <div class="q-mt-lg q-mb-lg">
-                <a href="">Mot de passe oublié ?</a>
+                <router-link :to="{ name: 'ResetPasswordPage' }">Mot de passe oublié ?</router-link>
                 <br>
-                <router-link :to="{ name: 'RegisterPage' }">Pas encorede compte ?</router-link>
+                <router-link :to="{ name: 'RegisterPage' }">Pas encore de compte ?</router-link>
               </div>
           <div>
             <q-btn unelevated rounded color="secondary" label="Connexion" type="submit"/>

@@ -15,6 +15,9 @@ export default {
   resendConfirmRegister (data) {
     return apiHeader.post('auth/resend-verify-otp', data)
   },
+  resetPassword (data) {
+    return apiHeader.post('user/resetPassword', data)
+  },
   logout () {
     store.dispatch('logout')
     router.back()
