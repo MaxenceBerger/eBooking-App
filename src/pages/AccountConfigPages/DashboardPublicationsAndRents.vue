@@ -73,7 +73,7 @@
               class="q-ma-sm btn-blue-custom text-secondary"
               unelevated
               rounded
-              @click="openDialogConfirmUnpublish(rent._id)">
+              @click="openDialogConfirmUnpublish(rent.publication_id)">
               Retirer l'annonce
             </q-btn>
           </div>
@@ -378,6 +378,7 @@ export default {
       RentsService.getRentsList()
         .then((response) => {
           this.getRents = response.data.data
+          console.log(this.getRents)
         }).catch(e => {
           console.log(e)
         })
@@ -475,6 +476,7 @@ export default {
     openDialogConfirmUnpublish (id) {
       this.dialogUnpublish.dialog = true
       this.dialogUnpublish.id = id
+      console.log(id)
     },
     deletePublish (id) {
       PublicationsService.deletePublish(id)
