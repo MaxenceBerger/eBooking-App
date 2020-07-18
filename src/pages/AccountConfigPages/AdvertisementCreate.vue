@@ -259,7 +259,7 @@ export default {
       }).then(() => {
         this.$q.notify({
           type: 'positive',
-          message: 'Le mot de passe a bien été mis à jours',
+          message: 'Le bien a été créé avec succès',
           position: 'top'
         })
         this.$q.notify({
