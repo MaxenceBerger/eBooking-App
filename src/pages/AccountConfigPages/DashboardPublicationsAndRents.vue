@@ -31,15 +31,21 @@
       <q-card-section horizontal>
         <q-img
           class="col-5"
-          src="https://cdn.quasar.dev/img/parallax1.jpg"
-        ></q-img>
+          :src="'http://localhost:3000/uploads/' + rent.pictures[0]"
+        >
+          <template v-slot:error>
+            <div class="absolute-full flex flex-center bg-negative text-white">
+              L'image n'a pas pu charger correctement
+            </div>
+          </template>
+        </q-img>
 
         <q-card-section>
-          <q-item-label header class="q-mb-lg">
+          <q-item-label header>
             <div v-if="rent.is_published === true">
               {{rent.title.toUpperCase()}}
               <q-chip color="teal" dense text-color="white" label="Publié" class="q-pl-md q-pr-md"/>
-              <q-chip v-if="rent.is_rented === true" color="info"
+              <q-chip v-if="rent.reservations.length > 0" color="info"
                       dense
                       text-color="white"
                       label="Réservé"
@@ -49,12 +55,23 @@
               {{rent.title.toUpperCase()}}
               <q-chip color="red" dense text-color="white" label="Non Publié" class="q-pl-md q-pr-md"/>
             </div>
+            <div class="q-mt-sm"
+            v-for="reservations in rent.reservations" :key="reservations">
+              <q-list bordered separator>
+                <q-item>
+                  <q-item-section>
+                    <q-item-label overline>Date de réservation :</q-item-label>
+                    <q-item-label>Du {{ reservations.from | moment}} au {{ reservations.to | moment}}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </div>
           </q-item-label>
-          <div class="q-ml-sm">
+          <div class="q-mt-sm q-ml-sm">
             {{rent.description}}
           </div>
           <q-separator class="q-mt-xl q-mb-sm"/>
-          <div v-if="rent.is_rented === false && rent.is_published === true" class="q-mt-lg q-mb-sm">
+          <div v-if="rent.reservations.length === 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
             <q-btn
               class="q-ma-sm btn-blue-custom text-secondary"
               disable
@@ -77,7 +94,7 @@
               Retirer l'annonce
             </q-btn>
           </div>
-          <div v-if="rent.is_rented === true && rent.is_published === true" class="q-mt-lg q-mb-sm">
+          <div v-if="rent.reservations.length > 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
             <q-btn
               class="q-ma-sm btn-blue-custom text-secondary"
               disable
@@ -324,12 +341,14 @@
 import RentsService from '../../services/RentsService'
 import LockService from '../../services/LockService'
 import { date } from 'quasar'
+import moment from 'moment'
 import PublicationsService from '../../services/PublicationsService'
 
 export default {
   name: 'DashboardPublicationsAndRentsPage',
   data: () => {
     return {
+      toto: 'http://localhost:3000/uploads/',
       countryOptions: [
         'France', 'Belgique', 'Suisse'
       ],
@@ -422,7 +441,7 @@ export default {
         capacity: this.form.rent.capacity,
         price: this.form.rent.price,
         area: this.form.rent.area,
-        pictures: this.form.rent.title,
+        pictures: this.form.rent.pictures,
         address: this.form.rent.address,
         city: this.form.rent.city,
         country: this.form.rent.country,
@@ -509,6 +528,11 @@ export default {
         }).catch(e => {
           console.log(e)
         })
+    }
+  },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('DD/MM/YYYY')
     }
   },
   created () {
