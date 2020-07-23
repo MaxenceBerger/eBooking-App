@@ -29,9 +29,9 @@
       :key="rent._id"
       v-bind="rent">
       <q-card-section horizontal>
-        <q-img
+          <q-img
           class="col-5"
-          :src="'http://localhost:3000/uploads/' + rent.pictures[0]"
+          :src="imageUrl + rent.pictures[0]"
         >
           <template v-slot:error>
             <div class="absolute-full flex flex-center bg-negative text-white">
@@ -56,7 +56,7 @@
               <q-chip color="red" dense text-color="white" label="Non Publié" class="q-pl-md q-pr-md"/>
             </div>
             <div class="q-mt-sm"
-            v-for="reservations in rent.reservations" :key="reservations">
+            v-for="reservations in rent.reservations" :key="reservations._id">
               <q-list bordered separator>
                 <q-item>
                   <q-item-section>
@@ -305,27 +305,60 @@
                 <q-input
                   class="q-mr-sm"
                   v-model="dialogPublish.startAt"
-                  mask="##/##/####"
                   label="Disponible du"
                   rounded
                   outlined
+                  color="secondary"
                   :rules="[val => !!val || 'Une date est requise']"
-                />
+                >
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer" color="secondary">
+                      <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                        <q-date mask="DD/MM/YYYY"
+                                :locale="myLocale"
+                                v-model="dialogPublish.startAt"
+                                today-btn
+                                minimal
+                                color="secondary">
+                          <div class="row items-center justify-end q-gutter-sm">
+                            <q-btn label="OK" color="secondary" flat v-close-popup />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
               </div>
               <div class="col-12 col-md-6">
                 <q-input
-                  class="q-ml-sm"
-                  v-model="dialogPublish.finishAt"
-                  mask="##/##/####"
-                  label="Au"
-                  rounded
-                  outlined
-                  :rules="[val => !!val || 'Une date est requise']"
-                />
+                    class="q-ml-sm"
+                    v-model="dialogPublish.finishAt"
+                    label="Au"
+                    rounded
+                    outlined
+                    color="secondary"
+                    :rules="[val => !!val || 'Une date est requise']"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="event" class="cursor-pointer" color="secondary">
+                        <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                          <q-date mask="DD/MM/YYYY"
+                                  :locale="myLocale"
+                                  v-model="dialogPublish.finishAt"
+                                  today-btn
+                                  minimal
+                                  color="secondary">
+                            <div class="row items-center justify-end q-gutter-sm">
+                              <q-btn label="OK" color="secondary" flat v-close-popup />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
               </div>
-            </div>
-          </q-card-section>
-
+            </q-card-section>
           <q-card-actions align="right">
             <q-btn flat label="Non" color="teal" v-close-popup />
             <q-btn flat label="Oui" color="teal" @click="publishProperty(dialogPublish.id)" v-close-popup />
@@ -340,7 +373,6 @@
 
 import RentsService from '../../services/RentsService'
 import LockService from '../../services/LockService'
-import { date } from 'quasar'
 import moment from 'moment'
 import PublicationsService from '../../services/PublicationsService'
 
@@ -348,7 +380,7 @@ export default {
   name: 'DashboardPublicationsAndRentsPage',
   data: () => {
     return {
-      toto: 'http://localhost:3000/uploads/',
+      imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED,
       countryOptions: [
         'France', 'Belgique', 'Suisse'
       ],
@@ -389,6 +421,13 @@ export default {
           country: '',
           associatedLock: ''
         }
+      },
+      myLocale: {
+        days: 'Dimanche_Lundi_Mardi_Mercredi_Jeudi_Vendredi_Samedi'.split('_'),
+        daysShort: 'Dim_Lun_Mar_Mer_Jeu_Ven_Sam'.split('_'),
+        months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
+        monthsShort: 'Janv_Fév_Mars_Avr_Mais_Juin_Juil_Août_Sept_Oct_Nov_Déc'.split('_'),
+        firstDayOfWeek: 1
       }
     }
   },
@@ -397,7 +436,7 @@ export default {
       RentsService.getRentsList()
         .then((response) => {
           this.getRents = response.data.data
-          console.log(this.getRents)
+          console.log(process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED)
         }).catch(e => {
           console.log(e)
         })
@@ -468,13 +507,11 @@ export default {
       this.dialogPublish.dialog = true
       this.dialogPublish.id = id
     },
-    async publishProperty () {
-      const startAt = date.formatDate(this.dialogPublish.startAt, 'YYYY-MM-DD')
-      const finishAt = date.formatDate(this.dialogPublish.finishAt, 'YYYY-MM-DD')
+    async publishProperty (id) {
       await PublicationsService.publishProperty({
-        start_at: startAt,
-        end_at: finishAt,
-        rent: this.dialogPublish.id
+        end_at: moment(this.dialogPublish.finishAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+        start_at: moment(this.dialogPublish.startAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+        rent: id
       })
         .then(() => {
           this.$q.notify({
