@@ -7,6 +7,20 @@
           <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway">
             Recherchez une réservation parmi notre selection
           </div>
+          <q-form
+          @submit="getPublications">
+            <q-input dark
+                     dense
+                     standout
+                     v-model="searchPublish"
+                     class="q-mt-lg font-Raleway"
+                     style="max-width: 500px"
+                     label="Où allez-vous ?">
+              <template v-slot:append>
+                <q-icon name="search" class="cursor-pointer" type="submit" />
+              </template>
+            </q-input>
+          </q-form>
         </div>
         <div class="col-3">
           <q-img
@@ -16,21 +30,107 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-4">
+        <q-card
+          class="my-card q-mb-lg rounded-borders q-ma-lg"
+          v-for="publication in publicationsList"
+          :key="publication._id"
+          v-bind="publication"
+        >
+          <router-link :to="{ path: '/publication/'+publication._id }"
+          >
+            <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
+              <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                {{ publication.rent.title }}
+              </div>
+              <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                {{ publication.rent.price }} €
+              </h4>
+              <div v-if="publication.rent.is_rented === true"
+                   class="absolute-bottom text-center bg-secondary text-h4 color-text-custom">
+                Déjà Reservé
+              </div>
+            </q-img>
+          </router-link>
+        </q-card>
+        <div v-if="this.isLoading === true">
+          <q-card flat class="custom-skeleton-card q-mb-lg rounded-borders q-ma-lg">
+            <div class="q-gutter-y-md">
+              <q-skeleton
+                width="250px"
+                height="65px"
+                class="custom-skeleton-border"
+              />
+            </div>
+            <q-card-section align="right">
+              <q-skeleton type="text" width="40%" class="text-subtitle1 custom-skeleton-mt" />
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
 
+import PublicationsService from 'src/services/PublicationsService'
+
 export default {
-  name: 'SearchPage'
+  name: 'SearchPage',
+  data: () => ({
+    searchPublish: '',
+    isLoading: false,
+    slide: 1,
+    publicationsList: null,
+    rentsList: null,
+    suggestions: ['Bordeaux', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Montpellier', 'Strasbourg', 'Lille'],
+    ramdomSuggestions: '',
+    urlImg: ''
+  }),
+  methods: {
+    getPublications () {
+      this.isLoading = true
+      PublicationsService.getPublishByCity(this.searchPublish.toLowerCase())
+        .then(response => {
+          this.publicationsList = response.data.data
+          this.isLoading = false
+          console.log(this.searchPublish)
+        }).catch(e => {
+          console.log(e)
+        })
+    }
+  }
 }
 </script>
 
 <style lang="sass" scoped>
+  .text-shadow
+      text-shadow: 1px 1px 6px black
+  .rounded-borders
+    border-radius: 15px
+  .rounded-borders-title
+    border-radius: 15px 0
+  .custom-skeleton-border
+    border-radius: 15px 0
+  .custom-skeleton-mt
+    margin-top: 115px
+  .custom-skeleton-card
+    margin-top: 40px
+    width: 100%
+    max-width: 350px
+    max-height: 233px
+    height: 100%
   .bg-blue-custom
     background: rgb(45,64,78)
+  .color-text-custom
+    color: rgb(45,64,78)
+  .my-card
+    width: 100%
+    max-width: 350px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
-      font-family: 'Roboto', sans-serif
+    font-family: 'Roboto', sans-serif
 </style>

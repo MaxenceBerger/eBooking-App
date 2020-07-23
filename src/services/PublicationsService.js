@@ -10,6 +10,9 @@ export default {
   getPublish (idPublication) {
     return apiHeader.get(`publication/${idPublication}`)
   },
+  getPublishByCity (cityPublish) {
+    return apiHeader.get(`publication?city=${cityPublish}`)
+  },
   deletePublish (idPublication) {
     return apiHeader.delete(`publication/${idPublication}`)
   }

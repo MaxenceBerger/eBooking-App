@@ -69,7 +69,6 @@ export default {
     getSuggestions () {
       this.ramdomSuggestions = this.suggestions[Math.floor(Math.random() * this.suggestions.length)]
       this.urlImg = 'img/Bordeaux.jpg'.toString()
-      // this.urlImg = 'img/' + this.ramdomSuggestions + '.jpg'
       console.log(this.urlImg)
     },
     getPublications () {

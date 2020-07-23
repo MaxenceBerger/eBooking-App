@@ -112,9 +112,6 @@
               <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
               <div class="col">
                 <div class="q-uploader__title">Insérez vos images</div>
-<!--
-                <div class="q-uploader__subtitle">{{ scope.uploadSizeLabel }} / {{ scope.uploadProgressLabel }}</div>
--->
               </div>
               <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
                 <q-uploader-add-trigger ></q-uploader-add-trigger>
@@ -252,7 +249,7 @@ export default {
         area: this.form.items.area,
         pictures: this.form.items.pictures,
         address: this.form.items.address,
-        city: this.form.items.city,
+        city: this.form.items.city.toLowerCase(),
         country: this.form.items.country,
         postalCode: this.form.items.postalCode,
         associatedLock: this.form.items.key.id

@@ -482,7 +482,7 @@ export default {
         area: this.form.rent.area,
         pictures: this.form.rent.pictures,
         address: this.form.rent.address,
-        city: this.form.rent.city,
+        city: this.form.rent.city.toLowerCase(),
         country: this.form.rent.country,
         postalCode: this.form.rent.postalCode,
         associatedLock: this.form.rent.associatedLock
