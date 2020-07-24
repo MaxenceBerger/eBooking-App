@@ -30,14 +30,29 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-4">
+    <q-linear-progress v-if="this.isLoading === true" indeterminate color="secondary" />
+    <q-banner v-if="this.noRents === true" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+      <template v-slot:avatar>
+        <q-img
+          src="~assets/sad.svg"
+          style="width:30vw;max-width:50px;"
+        />
+      </template>
+      Désolé, il n'y a pas encore d'annonce pour ce lieu
+    </q-banner>
+    <div class="col-12 q-mt-xl">
+      <div class="row">
         <q-card
-          class="my-card q-mb-lg rounded-borders q-ma-lg"
+          class="my-card rounded-borders  q-ml-xl q-mr-xl q-mb-xl col-4"
           v-for="publication in publicationsList"
           :key="publication._id"
           v-bind="publication"
         >
+          <template v-slot:error>
+            <div class="absolute-full flex flex-center bg-negative text-white">
+              L'image n'a pas pu charger correctement
+            </div>
+          </template>
           <router-link :to="{ path: '/publication/'+publication._id }"
           >
             <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
@@ -47,10 +62,6 @@
               <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
                 {{ publication.rent.price }} €
               </h4>
-              <div v-if="publication.rent.is_rented === true"
-                   class="absolute-bottom text-center bg-secondary text-h4 color-text-custom">
-                Déjà Reservé
-              </div>
             </q-img>
           </router-link>
         </q-card>
@@ -68,6 +79,7 @@
             </q-card-section>
           </q-card>
         </div>
+        <div v-if="this.noRents === true"></div>
       </div>
     </div>
   </q-page>
@@ -82,6 +94,7 @@ export default {
   data: () => ({
     searchPublish: '',
     isLoading: false,
+    noRents: false,
     slide: 1,
     publicationsList: null,
     rentsList: null,
@@ -95,9 +108,11 @@ export default {
       PublicationsService.getPublishByCity(this.searchPublish.toLowerCase())
         .then(response => {
           this.publicationsList = response.data.data
+          this.noRents = response.data.data.length === 0
           this.isLoading = false
-          console.log(this.searchPublish)
         }).catch(e => {
+          this.isLoading = false
+          this.noRents = true
           console.log(e)
         })
     }

@@ -186,6 +186,7 @@ export default {
           }
           this.dateArray = arrayDiff(RentDateArray, ReservationDateArray)
           this.publication = response.data.data
+          this.publication.rent.city = response.data.data.rent.city.charAt(0).toUpperCase() + response.data.data.rent.city.substring(1).toLowerCase()
           this.publication.start_at = moment(response.data.data.start_at).format('YYYY/MM/DD')
           this.publication.end_at = moment(response.data.data.end_at).format('YYYY/MM/DD')
           this.today_date = moment().format('YYYY/MM/DD')

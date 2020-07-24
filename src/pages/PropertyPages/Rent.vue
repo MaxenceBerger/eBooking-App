@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <div class="bg-title-custom" style="height: 400px;">
+    <div class="bg-title-custom q-mb-xl" style="height: 400px;">
       <div class="row q-ma-xl">
         <div class="col-9">
           <h3 class="items-end font-Raleway text-white">Mes Réservations</h3>
@@ -16,23 +16,27 @@
         </div>
       </div>
     </div>
-    <q-card
-        class="my-card q-mb-lg rounded-borders"
-        v-for="reservation in reservationList"
-        :key="reservation._id"
-        v-bind="reservation"
-    >
-      <router-link :to="{ path: '/reservation/'+reservation._id }">
-        <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
-          <div class="text-h5 text-secondary bg-title-custom rounded-borders-title">
-            {{ reservation._id }}
-          </div>
-          <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-            49 {{ reservation.price }} €/nuit
-          </h4>
-        </q-img>
-      </router-link>
-    </q-card>
+    <div class="col-12">
+      <div class="row">
+        <q-card
+          class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
+          v-for="reservation in reservationList"
+          :key="reservation._id"
+          v-bind="reservation"
+        >
+          <router-link :to="{ path: '/reservation/'+reservation._id }">
+            <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
+              <div class="text-h5 text-secondary bg-title-custom rounded-borders-title">
+                {{ reservation.rent.title }}
+              </div>
+              <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                {{ reservation.rent.price }} €/nuit
+              </h4>
+            </q-img>
+          </router-link>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 

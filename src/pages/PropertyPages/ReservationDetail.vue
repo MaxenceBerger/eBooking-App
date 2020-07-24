@@ -131,6 +131,7 @@ export default {
       PublicationsService.getPublish(this.idPublication)
         .then(response => {
           this.publication = response.data.data
+          this.publication.rent.city = response.data.data.rent.city.charAt(0).toUpperCase() + response.data.data.rent.city.substring(1).toLowerCase()
           this.publication.start_at = date.formatDate(response.data.data.start_at, 'DD/MM/YYYY')
           this.publication.end_at = date.formatDate(response.data.data.end_at, 'DD/MM/YYYY')
         }).catch(e => {

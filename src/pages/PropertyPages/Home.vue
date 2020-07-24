@@ -1,6 +1,6 @@
 <template>
   <q-page class="column">
-    <div class="bg-blue-custom" style="height: 400px;">
+    <div class="bg-blue-custom q-mb-xl" style="height: 400px;">
       <div class="row q-ma-xl">
         <div class="col-9">
           <h3 class="items-end font-Raleway text-white">Que diriez-vous<br>d'un séjour à {{ ramdomSuggestions }} ?</h3>
@@ -13,36 +13,30 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-4">
-        <q-card
-          class="my-card q-mb-lg rounded-borders q-ma-lg"
-          v-for="publication in publicationsList"
-          :key="publication._id"
-          v-bind="publication"
-        >
-          <template slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
-              Désolé, il n'y a pas encore d'annonce pour ce lieu :(
-            </v-alert>
-          </template>
-          <router-link :disabled="publication.rent.is_rented === true"
-                       :to="{ path: '/publication/'+publication._id }"
+    <div class="col-12">
+      <div class="row">
+          <q-card
+            class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
+            v-for="publication in publicationsList"
+            :key="publication._id"
+            v-bind="publication"
           >
-            <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
-              <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
-                {{ publication.rent.title }}
-              </div>
-              <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                {{ publication.rent.price }} €
-              </h4>
-              <div v-if="publication.rent.is_rented === true"
-                   class="absolute-bottom text-center bg-secondary text-h4 color-text-custom">
-                Déjà Reservé
-              </div>
-            </q-img>
-          </router-link>
-        </q-card>
+            <template slot="no-data">
+              <q-alert :value="true" color="error" icon="warning">
+                Désolé, il n'y a pas encore d'annonce pour ce lieu :(
+              </q-alert>
+            </template>
+            <router-link :to="{ path: '/publication/'+publication._id }">
+              <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ publication.rent.title }}
+                </div>
+                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ publication.rent.price }} €
+                </h4>
+              </q-img>
+            </router-link>
+          </q-card>
       </div>
     </div>
   </q-page>
@@ -69,10 +63,11 @@ export default {
     getSuggestions () {
       this.ramdomSuggestions = this.suggestions[Math.floor(Math.random() * this.suggestions.length)]
       this.urlImg = 'img/Bordeaux.jpg'.toString()
+      this.getPublications()
       console.log(this.urlImg)
     },
     getPublications () {
-      PublicationsService.getAllPublish()
+      PublicationsService.getPublishByCity(this.ramdomSuggestions.toLowerCase())
         .then(response => {
           this.publicationsList = response.data.data
           console.log(response.data.data)
@@ -82,7 +77,6 @@ export default {
     }
   },
   mounted () {
-    this.getPublications()
     this.getSuggestions()
   }
 }
