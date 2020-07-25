@@ -7,14 +7,13 @@
         v-model="slide"
         thumbnails
         infinite
+        v-for="picture in pictures"
+        :key="picture._id"
+        v-bind="picture"
       >
-        <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
-        <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-        <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-        <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
+        <q-carousel-slide :name="picture" :img-src="imageUrl + picture" />
       </q-carousel>
     </div>
-
     <div class="q-pa-xl">
       <div class="text-h3">{{ publication.rent.title }}</div>
       <div class="text-subtitle2 q-mb-xl">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
@@ -113,7 +112,9 @@ export default {
     idReservation: '',
     publication: null,
     idPublication: '',
-    dialog: false
+    pictures: null,
+    dialog: false,
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
     getReservation () {
@@ -122,6 +123,8 @@ export default {
           this.reservation = response.data.data
           this.idReservation = response.data.data.id
           this.idPublication = response.data.data.publication._id
+          this.pictures = response.data.data.publication.rent.pictures
+          this.slide = response.data.data.publication.rent.pictures[0]
           this.getPublication()
         }).catch(e => {
           console.log(e)

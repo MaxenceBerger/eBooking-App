@@ -118,6 +118,7 @@ export default {
       UserService.getUser()
         .then(response => {
           this.userInfo = response.data.data
+          console.log(this.userInfo)
         })
     },
     logout () {

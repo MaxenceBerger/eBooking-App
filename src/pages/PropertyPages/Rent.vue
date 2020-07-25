@@ -24,6 +24,7 @@
           :key="reservation._id"
           v-bind="reservation"
         >
+          <!--
           <router-link :to="{ path: '/reservation/'+reservation._id }">
             <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
               <div class="text-h5 text-secondary bg-title-custom rounded-borders-title">
@@ -33,6 +34,35 @@
                 {{ reservation.rent.price }} €/nuit
               </h4>
             </q-img>
+          </router-link>
+-->
+          <router-link :to="{ path: '/reservation/'+reservation._id }">
+            <div v-if="reservation.publication.rent.pictures[0]">
+              <q-img class="rounded-borders" :src="imageUrl + reservation.publication.rent.pictures[0]" style="height: 233px; width: 350px">
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ reservation.rent.title }}
+                </div>
+                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ reservation.rent.price }} €
+                </h4>
+              </q-img>
+            </div>
+            <div v-else>
+              <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
+                <!--<q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg" style="height: 233px; width: 350px">-->
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ reservation.rent.title }}
+                </div>
+                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ reservation.rent.price }} €
+                </h4>
+                <template v-slot:error>
+                  <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
+                    L'anonnce n'a pas pu charger correctement
+                  </div>
+                </template>
+              </q-img>
+            </div>
           </router-link>
         </q-card>
       </div>
@@ -48,14 +78,14 @@ export default {
   name: 'RentPage',
 
   data: () => ({
-    reservationList: null
+    reservationList: null,
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
     getMyOwnReservation () {
       ReservationService.getAllReservation()
         .then(response => {
           this.reservationList = response.data.data
-          console.log(response.data.data)
         })
         .catch(e => {
           console.log(e)

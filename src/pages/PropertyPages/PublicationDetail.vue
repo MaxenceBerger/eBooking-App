@@ -1,19 +1,18 @@
 <template>
   <q-page class="column">
-    <div>
-      <q-carousel
-        swipeable
-        animated
-        v-model="slide"
-        thumbnails
-        infinite
-      >
-        <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
-        <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-        <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-        <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" />
-      </q-carousel>
-    </div>
+    <q-carousel
+      swipeable
+      animated
+      v-model="slide"
+      thumbnails
+      infinite
+      v-for="picture in pictures"
+      :key="picture._id"
+      v-bind="picture"
+    >
+      <q-carousel-slide v-if="picture" :name="picture" :img-src="imageUrl + picture" />
+      <q-carousel-slide v-else :name="'no-images'" :img-src="require('src/assets/images/default-house.jpg')" />
+    </q-carousel>
 
     <div class="q-pa-xl">
       <div class="text-h3">{{ publication.rent.title }}</div>
@@ -156,7 +155,8 @@ export default {
       months: 'Janvier_Février_Mars_Avril_Mai_Juin_Juillet_Août_Septembre_Octobre_Novembre_Décembre'.split('_'),
       monthsShort: 'Janv_Fév_Mars_Avr_Mais_Juin_Juil_Août_Sept_Oct_Nov_Déc'.split('_'),
       firstDayOfWeek: 1
-    }
+    },
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
     getPublication () {
@@ -191,6 +191,12 @@ export default {
           this.publication.end_at = moment(response.data.data.end_at).format('YYYY/MM/DD')
           this.today_date = moment().format('YYYY/MM/DD')
           this.form.idPublication = response.data.data._id
+          this.pictures = response.data.data.rent.pictures
+          if (response.data.data.rent.pictures[0].length >= 1) {
+            this.slide = response.data.data.rent.pictures[0]
+          } else {
+            this.slide = 'no-images'
+          }
         }).catch(e => {
           console.log(e)
         })

@@ -21,20 +21,33 @@
             :key="publication._id"
             v-bind="publication"
           >
-            <template slot="no-data">
-              <q-alert :value="true" color="error" icon="warning">
-                Désolé, il n'y a pas encore d'annonce pour ce lieu :(
-              </q-alert>
-            </template>
             <router-link :to="{ path: '/publication/'+publication._id }">
-              <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
-                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
-                  {{ publication.rent.title }}
-                </div>
-                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                  {{ publication.rent.price }} €
-                </h4>
-              </q-img>
+              <div v-if="publication.rent.pictures[0]">
+                <q-img class="rounded-borders" :src="imageUrl + publication.rent.pictures[0]" style="height: 233px; width: 350px">
+                  <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                    {{ publication.rent.title }}
+                  </div>
+                  <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                    {{ publication.rent.price }} €
+                  </h4>
+                </q-img>
+              </div>
+              <div v-else>
+                <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
+                <!--<q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg" style="height: 233px; width: 350px">-->
+                  <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                    {{ publication.rent.title }}
+                  </div>
+                  <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                    {{ publication.rent.price }} €
+                  </h4>
+                  <template v-slot:error>
+                    <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
+                      L'anonnce n'a pas pu charger correctement
+                    </div>
+                  </template>
+                </q-img>
+              </div>
             </router-link>
           </q-card>
       </div>
@@ -54,12 +67,9 @@ export default {
     rentsList: null,
     suggestions: ['Bordeaux', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Montpellier', 'Strasbourg', 'Lille'],
     ramdomSuggestions: '',
-    urlImg: ''
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
-    getImage () {
-      return `img/${this.ramdomSuggestions}.jpg`
-    },
     getSuggestions () {
       this.ramdomSuggestions = this.suggestions[Math.floor(Math.random() * this.suggestions.length)]
       this.urlImg = 'img/Bordeaux.jpg'.toString()
@@ -67,6 +77,7 @@ export default {
       console.log(this.urlImg)
     },
     getPublications () {
+      // PublicationsService.getPublishByCity('bordeaux')
       PublicationsService.getPublishByCity(this.ramdomSuggestions.toLowerCase())
         .then(response => {
           this.publicationsList = response.data.data
@@ -95,6 +106,8 @@ export default {
   .my-card
     width: 100%
     max-width: 350px
+    max-height: 233px
+    height: 100%
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto

@@ -29,7 +29,7 @@
       :key="rent._id"
       v-bind="rent">
       <q-card-section horizontal>
-          <q-img
+        <q-img
           class="col-5"
           :src="imageUrl + rent.pictures[0]"
         >
@@ -436,7 +436,6 @@ export default {
       RentsService.getRentsList()
         .then((response) => {
           this.getRents = response.data.data
-          console.log(process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED)
         }).catch(e => {
           console.log(e)
         })

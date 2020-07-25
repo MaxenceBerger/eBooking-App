@@ -43,26 +43,37 @@
     <div class="col-12 q-mt-xl">
       <div class="row">
         <q-card
-          class="my-card rounded-borders  q-ml-xl q-mr-xl q-mb-xl col-4"
+          class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
           v-for="publication in publicationsList"
           :key="publication._id"
           v-bind="publication"
         >
-          <template v-slot:error>
-            <div class="absolute-full flex flex-center bg-negative text-white">
-              L'image n'a pas pu charger correctement
+          <router-link :to="{ path: '/publication/'+publication._id }">
+            <div v-if="publication.rent.pictures[0]">
+              <q-img class="rounded-borders" :src="imageUrl + publication.rent.pictures[0]" style="height: 233px; width: 350px">
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ publication.rent.title }}
+                </div>
+                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ publication.rent.price }} €
+                </h4>
+              </q-img>
             </div>
-          </template>
-          <router-link :to="{ path: '/publication/'+publication._id }"
-          >
-            <q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg">
-              <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
-                {{ publication.rent.title }}
-              </div>
-              <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                {{ publication.rent.price }} €
-              </h4>
-            </q-img>
+            <div v-else>
+              <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ publication.rent.title }}
+                </div>
+                <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ publication.rent.price }} €
+                </h4>
+                <template v-slot:error>
+                  <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
+                    L'anonnce n'a pas pu charger correctement
+                  </div>
+                </template>
+              </q-img>
+            </div>
           </router-link>
         </q-card>
         <div v-if="this.isLoading === true">
@@ -100,7 +111,7 @@ export default {
     rentsList: null,
     suggestions: ['Bordeaux', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Montpellier', 'Strasbourg', 'Lille'],
     ramdomSuggestions: '',
-    urlImg: ''
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
     getPublications () {

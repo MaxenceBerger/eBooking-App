@@ -14,6 +14,41 @@
     </div>
     <div class="row">
       <div class="col-8">
+        <q-uploader
+          :factory="factoryFn"
+          field-name="multipleFiles"
+          label="Custom header"
+          color="secondary"
+          style="min-width: 600px"
+          class="q-ml-xl q-mr-xl"
+          batch
+        >
+          <template v-slot:header="scope">
+            <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
+              <q-btn v-if="scope.queuedFiles.length > 0" icon="clear_all" @click="scope.removeQueuedFiles" round dense flat >
+                <q-tooltip>Supprimer</q-tooltip>
+              </q-btn>
+              <q-btn v-if="scope.uploadedFiles.length > 0" icon="done_all" @click="scope.removeUploadedFiles" round dense flat >
+                <q-tooltip>Supprimer les images envoyé</q-tooltip>
+              </q-btn>
+              <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
+              <div class="col">
+                <div class="q-uploader__title">Insérez vos images</div>
+              </div>
+              <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
+                <q-uploader-add-trigger ></q-uploader-add-trigger>
+                <q-tooltip>Ajouter des images</q-tooltip>
+              </q-btn>
+              <q-btn v-if="scope.canUpload" label="Envoyer" icon="cloud_upload" @click="scope.upload" dense flat >
+                <q-tooltip>Envoyer vos images</q-tooltip>
+              </q-btn>
+
+              <q-btn v-if="scope.isUploading" icon="clear" @click="scope.abort" dense flat >
+                <q-tooltip>Abort Upload</q-tooltip>
+              </q-btn>
+            </div>
+          </template>
+        </q-uploader>
         <q-form
           style="max-width: 600px"
           ref="form"
@@ -105,10 +140,12 @@
 <script>
 
 import UserService from '../../services/UserService'
+import uploadImgMixin from 'src/mixins/uploadImgMixin'
 const STATUS_CODE_400 = 400
 
 export default {
   name: 'MyAccountInformationPage',
+  mixins: [uploadImgMixin],
   data: () => {
     return {
       dialogPassword: false,
@@ -153,6 +190,26 @@ export default {
           this.form.items = response.data.data
         }).catch(e => {
           console.log(e)
+        })
+    },
+    updateUserAvatar () {
+      UserService.updateImage({
+        pictures: this.form.items.pictures
+      })
+        .then(() => {
+          this.$q.notify({
+            type: 'positive',
+            message: 'Votre image de profil a bien été mis a jours',
+            position: 'top'
+          })
+        }).catch((error) => {
+          if (STATUS_CODE_400 === error.response.status) {
+            this.$q.notify({
+              type: 'negative',
+              message: 'Veuillez réessayer',
+              position: 'top'
+            })
+          }
         })
     },
     updateUser () {

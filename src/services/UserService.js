@@ -9,5 +9,8 @@ export default {
   },
   updatePassword (data) {
     return apiHeader.put('user/updatePassword', data)
+  },
+  updateImage (data) {
+    return apiHeader.put('user/updateImage', data)
   }
 }
