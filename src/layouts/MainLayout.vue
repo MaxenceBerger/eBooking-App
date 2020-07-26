@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf" class="shadow-2 rounded-borders">
     <q-header elevated class="bg-secondary">
       <q-toolbar>
         <q-btn
@@ -13,17 +13,15 @@
         <q-toolbar-title>
             <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 25px" class="q-mt-sm">
         </q-toolbar-title>
-
       </q-toolbar>
     </q-header>
-
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
+      elevated
       content-class="bg-blue-grey-7"
     >
-      <q-list style="height: calc(100% - 200px); margin-top: 200px; border-right: 1px solid #ddd">
+      <q-list style="height: calc(100% - 200px); margin-top: 200px;">
         <q-item-label
           header
           class="text-grey-1"
@@ -51,14 +49,14 @@
           </q-item-section>
         </q-item>
       </q-list>
-      <q-img class="absolute-top" src="../assets/images/bg-profile.png" style="height: 200px">
+      <q-img class="absolute-top" src="../assets/images/bg-template.jpg" style="height: 200px">
         <div class="absolute-bottom bg-transparent q-mb-lg">
           <q-avatar size="56px" class="q-mb-lg">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <q-img v-if="profilePictureDefault === true" :ratio="1" size="56px" src="../assets/images/default-profile.jpg"/>
+            <q-img v-else :ratio="1" size="56px" :src="this.profilePicture"/>
           </q-avatar>
           <div class="text-weight-bold font-Raleway">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
           <div class="text-blue-grey-2 font-Raleway" v-if="this.$store.state.user.role === 'ADMIN'">Administrateur</div>
-
         </div>
       </q-img>
     </q-drawer>
@@ -110,7 +108,10 @@ export default {
           icon: 'account_circle',
           link: 'MyAccountPage'
         }
-      ]
+      ],
+      imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED,
+      profilePicture: '',
+      profilePictureDefault: true
     }
   },
   methods: {
@@ -118,7 +119,12 @@ export default {
       UserService.getUser()
         .then(response => {
           this.userInfo = response.data.data
-          console.log(this.userInfo)
+          if (response.data.data.picture.length >= 1) {
+            this.profilePicture = this.imageUrl + response.data.data.picture
+            this.profilePictureDefault = false
+          } else {
+            this.profilePictureDefault = true
+          }
         })
     },
     logout () {

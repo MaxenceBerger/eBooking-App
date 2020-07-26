@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf" class="shadow-2 rounded-borders">
     <q-header elevated class="bg-secondary">
       <q-toolbar>
         <q-toolbar-title v-if="this.$q.platform.is.mobile">

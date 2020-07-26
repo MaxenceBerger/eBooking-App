@@ -14,41 +14,6 @@
     </div>
     <div class="row">
       <div class="col-8">
-        <q-uploader
-          :factory="factoryFn"
-          field-name="multipleFiles"
-          label="Custom header"
-          color="secondary"
-          style="min-width: 600px"
-          class="q-ml-xl q-mr-xl"
-          batch
-        >
-          <template v-slot:header="scope">
-            <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
-              <q-btn v-if="scope.queuedFiles.length > 0" icon="clear_all" @click="scope.removeQueuedFiles" round dense flat >
-                <q-tooltip>Supprimer</q-tooltip>
-              </q-btn>
-              <q-btn v-if="scope.uploadedFiles.length > 0" icon="done_all" @click="scope.removeUploadedFiles" round dense flat >
-                <q-tooltip>Supprimer les images envoyé</q-tooltip>
-              </q-btn>
-              <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
-              <div class="col">
-                <div class="q-uploader__title">Insérez vos images</div>
-              </div>
-              <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
-                <q-uploader-add-trigger ></q-uploader-add-trigger>
-                <q-tooltip>Ajouter des images</q-tooltip>
-              </q-btn>
-              <q-btn v-if="scope.canUpload" label="Envoyer" icon="cloud_upload" @click="scope.upload" dense flat >
-                <q-tooltip>Envoyer vos images</q-tooltip>
-              </q-btn>
-
-              <q-btn v-if="scope.isUploading" icon="clear" @click="scope.abort" dense flat >
-                <q-tooltip>Abort Upload</q-tooltip>
-              </q-btn>
-            </div>
-          </template>
-        </q-uploader>
         <q-form
           style="max-width: 600px"
           ref="form"
@@ -58,68 +23,110 @@
           <div class="row">
             <div class="col">
               <q-input
-                class="q-mr-sm"
+                class="q-mr-sm font-Raleway"
                 v-model="form.items.firstName"
                 label="Prénom"
                 :rules="[form.rules.firstName.required]"
                 required
+                bg-color="white"
                 rounded outlined
               />
             </div>
             <div class="col">
               <q-input
-                class="q-ml-sm"
+                class="q-ml-sm font-Raleway"
                 v-model="form.items.lastName"
                 label="Nom"
                 :rules="[form.rules.lastName.required]"
                 required
+                bg-color="white"
                 rounded outlined
               />
             </div>
           </div>
           <q-input
+            class="font-Raleway"
             v-model="form.items.email"
             label="Adresse mail"
             :rules="[form.rules.email.required, form.rules.password.min]"
             required
+            bg-color="white"
             rounded outlined
           />
+          <q-uploader
+            :factory="factoryFn"
+            field-name="multipleFiles"
+            label="Custom header"
+            color="secondary"
+            style="min-width: 600px"
+            class="q-mb-lg font-Raleway"
+          >
+            <template v-slot:header="scope">
+              <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
+                <q-btn v-if="scope.queuedFiles.length > 0" icon="clear_all" @click="scope.removeQueuedFiles" round dense flat >
+                  <q-tooltip>Supprimer</q-tooltip>
+                </q-btn>
+                <q-btn v-if="scope.uploadedFiles.length > 0" icon="done_all" @click="scope.removeUploadedFiles" round dense flat >
+                  <q-tooltip>Supprimer l'image envoyé</q-tooltip>
+                </q-btn>
+                <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
+                <div class="col">
+                  <div class="q-uploader__title">Insérez votre photo de profile</div>
+                </div>
+                <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
+                  <q-uploader-add-trigger ></q-uploader-add-trigger>
+                  <q-tooltip>Ajouter l'image</q-tooltip>
+                </q-btn>
+                <q-btn v-if="scope.canUpload" label="Envoyer" icon="cloud_upload" @click="scope.upload" dense flat >
+                  <q-tooltip>Envoyer l'image</q-tooltip>
+                </q-btn>
+
+                <q-btn v-if="scope.isUploading" icon="clear" @click="scope.abort" dense flat >
+                  <q-tooltip>Abort Upload</q-tooltip>
+                </q-btn>
+              </div>
+            </template>
+          </q-uploader>
           <q-input
-            class="q-mb-lg"
+            class="q-mb-lg font-Raleway"
             v-model="form.items.address"
             label="Adresse"
+            bg-color="white"
             rounded outlined
           />
 
           <div class="row">
             <div class="col-12 col-md-8">
               <q-input
-                class="q-mb-lg q-mr-sm"
+                class="q-mb-lg q-mr-sm font-Raleway"
                 v-model="form.items.city"
                 label="Ville"
+                bg-color="white"
                 rounded outlined
               />
             </div>
             <div class="col-12 col-md-4">
               <q-input
-                class="q-mb-lg q-ml-sm"
+                class="q-mb-lg q-ml-sm font-Raleway"
                 v-model="form.items.postalCode"
                 label="Code Postale"
+                bg-color="white"
                 rounded outlined
               />
             </div>
           </div>
           <q-input
-            class="q-mb-lg"
+            class="q-mb-lg font-Raleway"
             v-model="form.items.country"
             label="Pays"
-
+            bg-color="white"
             rounded outlined
           />
           <q-input
-            class="q-mb-lg"
+            class="q-mb-lg font-Raleway"
             v-model="form.items.phone"
             label="Téléphone"
+            bg-color="white"
             rounded outlined
           />
           <div>
@@ -188,6 +195,7 @@ export default {
       UserService.getUser()
         .then(response => {
           this.form.items = response.data.data
+          console.log(response.data.data)
         }).catch(e => {
           console.log(e)
         })
@@ -222,12 +230,13 @@ export default {
         country: this.form.items.country,
         phone: this.form.items.phone,
         email: this.form.items.email,
-        postalCode: this.form.items.postalCode
+        postalCode: this.form.items.postalCode,
+        picture: this.form.items.pictures[0]
       })
         .then(() => {
           this.$q.notify({
             type: 'positive',
-            message: 'Vos informations ont bien été mis a jours',
+            message: 'Vos informations serons mise à jour lors de votre prochaine connexion',
             position: 'top'
           })
         }).catch((error) => {
