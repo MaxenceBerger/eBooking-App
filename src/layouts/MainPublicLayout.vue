@@ -1,48 +1,32 @@
 <template>
   <q-layout view="hHh Lpr lFf" class="shadow-2 rounded-borders">
-    <q-header elevated class="bg-secondary">
-      <q-toolbar>
-        <q-toolbar-title v-if="this.$q.platform.is.mobile">
-            <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 25px" class="q-mt-sm">
-        </q-toolbar-title>
-        <q-toolbar-title v-if="this.$q.platform.is.desktop">
-            <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 25px" class="q-mt-sm">
-        </q-toolbar-title>
-        <div  v-if="this.$q.platform.is.mobile">
-          <q-btn
+    <q-header reveal elevated class="bg-white">
+      <div class="col-12">
+        <q-toolbar>
+          <div class="col-4"/>
+          <div class="col-4">
+            <q-toolbar-title class="text-center">
+              <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 50px" class="q-mt-md">
+            </q-toolbar-title>
+          </div>
+          <div>
+          <div class="col-4 vertical-center font-Raleway">
+            <router-link
               :to="{ name: 'LoginPage' }"
-              class="q-ml-sm"
-              color="light"
-              rounded outline>
-            Connexion
-          </q-btn>
-          <q-btn
+              class="text-bold text-h6 custom-router-link"
+            >
+              Connexion
+            </router-link>
+            <q-btn
               :to="{ name: 'RegisterPage' }"
-              class="q-ml-sm"
-              color="light"
-              rounded outline>
-            Inscription
-          </q-btn>
-        </div>
-        <div v-if="this.$q.platform.is.desktop">
-          <q-btn
-              :to="{ name: 'LoginPage' }"
-              class="q-ml-lg"
-              color="light"
-              rounded outline>
-            Connexion
-          </q-btn>
-          <q-btn
-              :to="{ name: 'RegisterPage' }"
-              class="q-ml-lg"
-              color="light"
-              rounded outline>
-            Inscription
-          </q-btn>
-        </div>
-      </q-toolbar>
+              class="q-ml-xl text-bold text-h6 bg-blue-custom"
+              label="Inscription"
+              rounded no-caps/>
+          </div>
+          </div>
+        </q-toolbar>
+      </div>
     </q-header>
-
     <q-page-container class="bg-blue-grey-1">
       <router-view />
     </q-page-container>
@@ -94,8 +78,25 @@ export default {
 }
 </script>
 
-<style scoped>
-  .q-item.q-router-link--active, .q-item--active {
-    color: #26A69A;
-  }
+<style lang="sass" scoped>
+  .q-item.q-router-link--active, .q-item--active
+    color: #26A69A
+  .vertical-center
+    margin: 0
+    position: absolute
+    top: 50%
+    left: 80%
+    -ms-transform: translateY(-50%)
+    transform: translateY(-50%)
+  .bg-blue-custom
+    background-color: rgb(45,64,78)
+  .custom-router-link
+    color: #2D404E
+    text-decoration: none
+  .custom-router-link:hover
+    color: rgba(45, 64, 78, 0.75)
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+      font-family: 'Roboto', sans-serif
 </style>

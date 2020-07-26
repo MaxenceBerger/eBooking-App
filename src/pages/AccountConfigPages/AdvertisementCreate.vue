@@ -254,6 +254,7 @@ export default {
         postalCode: this.form.items.postalCode,
         associatedLock: this.form.items.key.id
       }).then(() => {
+        console.log(this.form.items.pictures)
         this.$q.notify({
           type: 'positive',
           message: 'Le bien a été créé avec succès',
