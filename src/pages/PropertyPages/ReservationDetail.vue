@@ -1,19 +1,36 @@
 <template>
   <q-page class="column">
-    <div>
-      <q-carousel
-        swipeable
-        animated
-        v-model="slide"
-        thumbnails
-        infinite
+    <q-carousel
+      swipeable
+      animated
+      v-model="slide"
+      :fullscreen.sync="fullscreen"
+      thumbnails
+      infinite
+    >
+      <q-carousel-slide
         v-for="picture in pictures"
         :key="picture._id"
         v-bind="picture"
-      >
-        <q-carousel-slide :name="picture" :img-src="imageUrl + picture" />
-      </q-carousel>
-    </div>
+        :name="picture"
+        :img-src="imageUrl + picture" >
+      </q-carousel-slide>
+      <q-carousel-slide v-if="this.slide === 'no-images'" name="'no-images'" :img-src="require('src/assets/images/default-house.jpg')" />
+      <template v-slot:control>
+        <q-carousel-control
+          position="bottom-right"
+          :offset="[18, 18]"
+        >
+          <q-btn
+            unelevated rounded dense
+            class="q-pl-sm q-pr-sm bg-white-opacity-50 color-blue-custom"
+            :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+            :label="fullscreen ? 'Quiiter le plein écran' : 'Plein écran'"
+            @click="fullscreen = !fullscreen"
+          ></q-btn>
+        </q-carousel-control>
+      </template>
+    </q-carousel>
     <div class="q-pa-xl">
       <div class="text-h3">{{ publication.rent.title }}</div>
       <div class="text-subtitle2 q-mb-xl">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
@@ -108,6 +125,7 @@ export default {
   name: 'ReservationDetail',
   data: () => ({
     slide: 1,
+    fullscreen: false,
     reservation: null,
     idReservation: '',
     publication: null,
@@ -166,3 +184,12 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+  .my-card
+    width: 100%
+    max-width: 250px
+  .bg-white-opacity-50
+    background-color: rgba(255, 255, 255, 0.50)
+  .color-blue-custom
+    color: rgb(45, 64, 78)
+</style>
