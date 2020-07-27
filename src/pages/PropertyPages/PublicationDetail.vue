@@ -25,7 +25,7 @@
             unelevated rounded dense
             class="q-pl-sm q-pr-sm bg-white-opacity-50 color-blue-custom"
             :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
-            :label="fullscreen ? 'Quiiter le plein écran' : 'Plein écran'"
+            :label="fullscreen ? 'Quitter le plein écran' : 'Plein écran'"
             @click="fullscreen = !fullscreen"
           ></q-btn>
         </q-carousel-control>

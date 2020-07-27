@@ -1,13 +1,13 @@
 <template>
-  <q-layout>
+  <q-layout class="font-Raleway">
     <q-page-container>
-      <q-page class="column items-center">
+      <q-page class="column items-center bg-login">
         <q-form
           @submit="onSubmit"
-          class="q-gutter-md q-mt-lg">
+          class="q-gutter-md q-mt-xl q-pt-xl">
           <q-card>
             <q-card-section>
-              <div class="text-h4 q-mt-lg q-ml-lg">Connexion</div>
+              <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Connexion</div>
             </q-card-section>
             <q-card-section>
             <q-input
@@ -17,6 +17,7 @@
               required
               rounded outlined
               class="q-ma-lg"
+              color="secondary"
             />
             <q-input
               v-model="form.password"
@@ -26,6 +27,7 @@
               required
               rounded outlined
               class="q-ma-lg"
+              color="secondary"
             >
               <template v-slot:append>
               <q-icon
@@ -48,17 +50,20 @@
           </q-card>
         </q-form>
       </q-page>
+      <Footer/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import AuthService from 'src/services/AuthService.js'
+import Footer from 'components/Footer'
 
 const STATUS_CODE_401 = 401
 
 export default {
   name: 'LoginPage',
+  components: { Footer },
   data: () => {
     return {
       form: {
@@ -103,3 +108,17 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
+  .color-blue-custom
+    color: rgb(45, 64, 78)
+  .bg-login
+    background-image: url('../../assets/images/Mobile-login.png')
+    background-size: 30%
+    background-repeat: no-repeat
+    background-position: 95% 45%
+    background-color: rgb(45, 64, 78)
+</style>

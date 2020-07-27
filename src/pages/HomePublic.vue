@@ -1,7 +1,7 @@
 <template>
   <q-layout>
     <q-page-container>
-      <div class="bg-blue-fade-custom" style="height: 46rem;">
+      <div class="bg-blue-custom" style="height: 46rem;">
         <div class="col-12">
           <div class="row">
             <div
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="bg-blue-fade-custom text-center" style="height: 7rem;">
+      <div class="bg-blue-custom text-center" style="height: 7rem;">
         <a href="#detail" style="text-decoration: none">
           <q-btn
             class="text-bold text-h6 bg-white color-mint-custom q-mt-lg"
@@ -75,27 +75,18 @@
           </div>
         </div>
       </div>
-      <div class="bg-mint-custom" style="height: 5rem;">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-2"/>
-            <div class="col-8">
-              footer
-            </div>
-            <div class="col-2"/>
-          </div>
-        </div>
-      </div>
+      <Footer/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import PublicationsService from 'src/services/PublicationsService.js'
+import Footer from 'components/Footer'
 
 export default {
   name: 'HomePublicPage',
-
+  components: { Footer },
   data: () => ({
     publicationsList: null,
     slide: 'style',
@@ -117,8 +108,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-  .bg-blue-fade-custom
-    background: rgba(45, 64, 78, 0.85)
   .bg-blue-custom
     background: rgb(45, 64, 78)
   .bg-mint-custom

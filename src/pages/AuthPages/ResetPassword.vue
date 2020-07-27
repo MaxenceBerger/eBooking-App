@@ -1,14 +1,14 @@
 <template>
-  <q-layout>
+  <q-layout class="font-Raleway">
     <q-page-container>
-      <q-page class="column items-center">
+      <q-page class="column items-center bg-reset-password">
         <q-form
           ref="form"
           @submit="sendByMail"
-          class="q-gutter-md q-mt-lg">
+          class="q-gutter-md q-mt-xl q-pt-xl">
           <q-card>
             <q-card-section>
-              <div class="text-h4 q-ma-lg">Réinitialisation<br>de votre mot de passe</div>
+              <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Réinitialisation de<br>votre mot de passe</div>
               <div class="text q-mt-lg q-ml-lg">Un nouveau mot de passe vous sera envoyé par mail.
               </div>
             </q-card-section>
@@ -20,6 +20,7 @@
                 required
                 rounded outlined
                 class="q-mr-lg q-ml-lg"
+                color="secondary"
               />
             </q-card-section>
             <div class="q-mr-lg q-ml-lg">
@@ -30,15 +31,18 @@
           </q-card>
         </q-form>
       </q-page>
+      <Footer/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import AuthService from 'src/services/AuthService'
+import Footer from 'components/Footer'
 
 export default {
   name: 'ResetPasswordPage',
+  components: { Footer },
   data: () => {
     return {
       accept: false,
@@ -81,3 +85,17 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
+  .color-blue-custom
+    color: rgb(45, 64, 78)
+  .bg-reset-password
+    background-image: url('../../assets/images/Forgot-password.png')
+    background-size: 30%
+    background-repeat: no-repeat
+    background-position: 95% 45%
+    background-color: rgb(45, 64, 78)
+</style>

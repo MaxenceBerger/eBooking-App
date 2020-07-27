@@ -6,7 +6,9 @@
           <div class="col-4"/>
           <div class="col-4">
             <q-toolbar-title class="text-center">
-              <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 50px" class="q-mt-md">
+              <router-link :to="{ name: 'HomePublicPage' }">
+                <img src="../assets/logo_eBooking.png" alt="logo" style="max-height: 50px" class="q-mt-md">
+              </router-link>
             </q-toolbar-title>
           </div>
           <div>

@@ -31,6 +31,14 @@ const routes = [
         }
       },
       {
+        path: '/terms-and-conditions',
+        name: 'TermsAndConditionsPage',
+        component: () => import('pages/TermsAndConditions.vue'),
+        meta: {
+          requiresAuth: false
+        }
+      },
+      {
         path: '/register',
         name: 'RegisterPage',
         component: () => import('pages/AuthPages/Register.vue'),
