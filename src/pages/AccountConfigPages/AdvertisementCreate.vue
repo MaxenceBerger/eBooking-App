@@ -18,7 +18,7 @@
           style="max-width: 650px"
           ref="form"
           class="q-ml-xl q-mr-xl"
-          @submit="createRent"
+          @submit="organizePictures"
         >
           <q-item-label header class="q-mb-lg">DESCRIPTION DU BIEN</q-item-label>
 
@@ -55,7 +55,7 @@
             class="q-mb-lg"
             v-model="form.items.price"
             type="number"
-            label="Prix"
+            label="Prix par nuit"
             rounded outlined
             bg-color="white"
             color="secondary"
@@ -69,7 +69,7 @@
             class="q-mb-lg"
             v-model="form.items.area"
             type="number"
-            label="Surface en m³"
+            label="Surface en m²"
             rounded outlined
             bg-color="white"
             color="secondary"
@@ -99,7 +99,10 @@
           multiple
           color="secondary"
           style="min-width: 650px"
-          batch
+          auto-upload
+          hide-upload-btn
+          :max-files="5"
+          @removed = "removePicture"
         >
           <template v-slot:header="scope">
             <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
@@ -111,7 +114,7 @@
               </q-btn>
               <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
               <div class="col">
-                <div class="q-uploader__title">Insérez vos images</div>
+                <div class="q-uploader__title">Insérez vos images (maximum 5)</div>
               </div>
               <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
                 <q-uploader-add-trigger ></q-uploader-add-trigger>
@@ -196,6 +199,8 @@ import RentsService from '../../services/RentsService'
 import LockService from '../../services/LockService'
 import uploadImgMixin from '../../mixins/uploadImgMixin'
 
+const STATUS_CODE_406 = 406
+
 export default {
   name: 'AdvertisementCreatePage',
   mixins: [uploadImgMixin],
@@ -222,7 +227,17 @@ export default {
             'France', 'Belgique', 'Suisse'
           ]
         }
-      }
+      },
+      pictureAdded: {
+        title: '',
+        ref: ''
+      },
+      pictureRemoved: {
+        title: ''
+      },
+      tempPictures: [],
+      tempPicturesToDelete: [],
+      tempPicturesAdded: []
     }
   },
   methods: {
@@ -240,6 +255,36 @@ export default {
           console.log(e)
         })
     },
+    tempPicture () {
+      this.tempPictures.push(this.pictureAdded)
+      this.tempPicturesAdded.push(this.pictureAdded.ref)
+    },
+    removePicture (files) {
+      this.pictureRemoved.title = files[0].name
+      for (let i = 0; i < this.tempPictures.length; i += 1) {
+        if (this.tempPictures[i].title === files[0].name) {
+          console.log(this.tempPictures)
+          const allPictures = this.tempPictures
+          this.tempPicturesToDelete.push(allPictures[i].ref)
+        }
+      }
+    },
+    organizePictures () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        delay: 400
+      })
+      const PicturesAdded = this.tempPicturesAdded
+      const PicturesDeleted = this.tempPicturesToDelete
+      function arrayDiff (PicturesAdded, PicturesDeleted) {
+        return [
+          ...PicturesAdded.filter(x => !PicturesDeleted.includes(x)),
+          ...PicturesDeleted.filter(x => !PicturesAdded.includes(x))
+        ]
+      }
+      this.form.items.pictures = arrayDiff(PicturesAdded, PicturesDeleted)
+      this.createRent()
+    },
     createRent () {
       RentsService.createRent({
         title: this.form.items.title,
@@ -255,6 +300,7 @@ export default {
         associatedLock: this.form.items.key.id
       }).then(() => {
         console.log(this.form.items.pictures)
+        this.$q.loading.hide()
         this.$q.notify({
           type: 'positive',
           message: 'Le bien a été créé avec succès',
@@ -267,13 +313,23 @@ export default {
           position: 'top'
         })
         this.$router.push({ name: 'DashboardPublicationsAndRentsPage' })
-      }).catch(() => {
-        this.$q.notify({
-          color: 'blue-grey',
-          message: 'Oups, il semble que nous rencontrons des difficultés',
-          icon: 'report_problem',
-          position: 'top'
-        })
+      }).catch((error) => {
+        this.$q.loading.hide()
+        if (STATUS_CODE_406 === error.response.status) {
+          this.$q.notify({
+            color: 'blue-grey',
+            message: 'Oups, il semble que nous rencontrons des difficultés à uploader vos photos',
+            icon: 'report_problem',
+            position: 'top'
+          })
+        } else {
+          this.$q.notify({
+            color: 'blue-grey',
+            message: 'Oups, il semble que nous rencontrons des difficultés',
+            icon: 'report_problem',
+            position: 'top'
+          })
+        }
       })
     }
   },

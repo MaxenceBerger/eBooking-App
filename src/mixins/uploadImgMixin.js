@@ -17,7 +17,10 @@ export default {
             Authorization: `Bearer ${this.$store.getters.getToken}`
           }
         }).then((response) => {
-        this.form.items.pictures = response.data.data
+        // this.form.items.pictures.push(response.data.data[0])
+        // console.log(this.form.items.pictures)
+        this.pictureAdded = response.data.data[0]
+        this.tempPicture()
       })
     }
   }

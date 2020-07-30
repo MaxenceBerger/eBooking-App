@@ -18,7 +18,7 @@
           style="max-width: 600px"
           ref="form"
           class="q-ml-xl q-mr-xl"
-          @submit="updateUser"
+          @submit="organizePictures"
         >
           <div class="row">
             <div class="col">
@@ -53,13 +53,24 @@
             bg-color="white"
             rounded outlined
           />
+          <q-toggle
+            v-model="changePicture"
+            color="secondary"
+            class="q-mb-lg font-Raleway"
+            label="Changer la photo de profil"
+          />
           <q-uploader
+            v-if="changePicture"
             :factory="factoryFn"
             field-name="multipleFiles"
             label="Custom header"
             color="secondary"
             style="min-width: 600px"
             class="q-mb-lg font-Raleway"
+            auto-upload
+            hide-upload-btn
+            :max-files="1"
+            @removed = "removePicture"
           >
             <template v-slot:header="scope">
               <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
@@ -71,7 +82,7 @@
                 </q-btn>
                 <q-spinner v-if="scope.isUploading" class="q-uploader__spinner"></q-spinner>
                 <div class="col">
-                  <div class="q-uploader__title">Insérez votre photo de profile</div>
+                  <div class="q-uploader__title">Insérez votre nouvelle photo de profil</div>
                 </div>
                 <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" round dense flat>
                   <q-uploader-add-trigger ></q-uploader-add-trigger>
@@ -156,6 +167,7 @@ export default {
   data: () => {
     return {
       dialogPassword: false,
+      changePicture: false,
       form: {
         items: {
           firstName: '',
@@ -187,10 +199,47 @@ export default {
             dontShow: true
           }
         }
-      }
+      },
+      pictureAdded: {
+        title: '',
+        ref: ''
+      },
+      pictureRemoved: {
+        title: ''
+      },
+      tempPictures: [],
+      tempPicturesToDelete: [],
+      tempPicturesAdded: []
     }
   },
   methods: {
+    tempPicture () {
+      this.tempPictures.push(this.pictureAdded)
+      this.tempPicturesAdded.push(this.pictureAdded.ref)
+    },
+    removePicture (files) {
+      this.pictureRemoved.title = files[0].name
+      for (let i = 0; i < this.tempPictures.length; i += 1) {
+        if (this.tempPictures[i].title === files[0].name) {
+          console.log(this.tempPictures)
+          const allPictures = this.tempPictures
+          this.tempPicturesToDelete.push(allPictures[i].ref)
+        }
+      }
+    },
+    organizePictures () {
+      const PicturesAdded = this.tempPicturesAdded
+      const PicturesDeleted = this.tempPicturesToDelete
+      function arrayDiff (PicturesAdded, PicturesDeleted) {
+        return [
+          ...PicturesAdded.filter(x => !PicturesDeleted.includes(x)),
+          ...PicturesDeleted.filter(x => !PicturesAdded.includes(x))
+        ]
+      }
+      console.log(arrayDiff(PicturesAdded, PicturesDeleted))
+      this.form.items.pictures = arrayDiff(PicturesAdded, PicturesDeleted)
+      this.updateUser()
+    },
     getUserProfile () {
       UserService.getUser()
         .then(response => {
@@ -200,28 +249,9 @@ export default {
           console.log(e)
         })
     },
-    updateUserAvatar () {
-      UserService.updateImage({
-        pictures: this.form.items.pictures
-      })
-        .then(() => {
-          this.$q.notify({
-            type: 'positive',
-            message: 'Votre image de profil a bien été mis a jours',
-            position: 'top'
-          })
-        }).catch((error) => {
-          if (STATUS_CODE_400 === error.response.status) {
-            this.$q.notify({
-              type: 'negative',
-              message: 'Veuillez réessayer',
-              position: 'top'
-            })
-          }
-        })
-    },
     updateUser () {
       this.$refs.form.validate()
+      console.log(this.form.items.pictures[0])
       UserService.setUserUpdate({
         firstName: this.form.items.firstName,
         lastName: this.form.items.lastName,
