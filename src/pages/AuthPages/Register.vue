@@ -6,7 +6,7 @@
           ref="form"
           @submit="matchPassword"
           class="q-gutter-md q-mt-lg">
-            <q-card>
+            <q-card class="my-card">
               <q-card-section>
                 <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">S'inscrire</div>
               </q-card-section>
@@ -321,6 +321,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .my-card
+    width: 100%
+    min-width: 500px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -329,7 +332,7 @@ export default {
     color: rgb(45, 64, 78)
   .bg-register
     background-image: url('../../assets/images/Mobile-login.png')
-    background-size: 30%
+    background-size: 29%
     background-repeat: no-repeat
     background-position: 95% 45%
     background-color: rgb(45, 64, 78)

@@ -6,7 +6,7 @@
           ref="form"
           @submit="sendByMail"
           class="q-gutter-md q-mt-xl q-pt-xl">
-          <q-card>
+          <q-card class="my-card">
             <q-card-section>
               <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Réinitialisation de<br>votre mot de passe</div>
               <div class="text q-mt-lg q-ml-lg">Un nouveau mot de passe vous sera envoyé par mail.
@@ -25,7 +25,7 @@
             </q-card-section>
             <div class="q-mr-lg q-ml-lg">
               <div>
-                <q-btn unelevated rounded color="secondary" label="Envoyer" type="submit" class="q-mb-xl q-mt-lg"/>
+                <q-btn unelevated rounded color="secondary" label="Envoyer" type="submit" class="q-mb-xl q-mt-lg q-ml-lg"/>
               </div>
             </div>
           </q-card>
@@ -86,6 +86,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .my-card
+    width: 100%
+    min-width: 500px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -94,7 +97,7 @@ export default {
     color: rgb(45, 64, 78)
   .bg-reset-password
     background-image: url('../../assets/images/Forgot-password.png')
-    background-size: 30%
+    background-size: 29%
     background-repeat: no-repeat
     background-position: 95% 45%
     background-color: rgb(45, 64, 78)

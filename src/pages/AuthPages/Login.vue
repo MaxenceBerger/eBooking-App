@@ -5,7 +5,7 @@
         <q-form
           @submit="onSubmit"
           class="q-gutter-md q-mt-xl q-pt-xl">
-          <q-card>
+          <q-card class="my-card">
             <q-card-section>
               <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Connexion</div>
             </q-card-section>
@@ -39,12 +39,12 @@
           </q-input>
             <q-separator/>
               <div class="q-mt-lg q-mb-lg">
-                <router-link :to="{ name: 'ResetPasswordPage' }">Mot de passe oublié ?</router-link>
+                <router-link :to="{ name: 'ResetPasswordPage' }" class="q-ml-lg">Mot de passe oublié ?</router-link>
                 <br>
-                <router-link :to="{ name: 'RegisterPage' }">Pas encore de compte ?</router-link>
+                <router-link :to="{ name: 'RegisterPage' }" class="q-ml-lg">Pas encore de compte ?</router-link>
               </div>
           <div>
-            <q-btn unelevated rounded color="secondary" label="Connexion" type="submit"/>
+            <q-btn unelevated rounded class="q-ml-lg q-mb-lg" color="secondary" label="Connexion" type="submit"/>
           </div>
           </q-card-section>
           </q-card>
@@ -109,6 +109,9 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .my-card
+    width: 100%
+    min-width: 500px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -117,7 +120,7 @@ export default {
     color: rgb(45, 64, 78)
   .bg-login
     background-image: url('../../assets/images/Mobile-login.png')
-    background-size: 30%
+    background-size: 29%
     background-repeat: no-repeat
     background-position: 95% 45%
     background-color: rgb(45, 64, 78)
