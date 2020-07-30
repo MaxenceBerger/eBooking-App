@@ -84,14 +84,9 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'Suggestion',
+          title: 'Annonces',
           icon: 'flight_takeoff',
           link: 'HomePage'
-        },
-        {
-          title: 'Rechercher',
-          icon: 'search',
-          link: 'SearchPage'
         },
         {
           title: 'Mes Réservations',
