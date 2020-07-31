@@ -134,9 +134,14 @@
                          type="submit">
                     Reservation
                   </q-btn>
+                  <q-btn label="emul pay" color="primary" @click="payementDialog = true" />
                 </q-card-actions>
             </q-card>
           </q-form>
+          <q-dialog v-model="payementDialog">
+            <PayementSystem :form="form"
+                            :publication="publication"/>
+          </q-dialog>
         </div>
       </div>
     </div>
@@ -147,12 +152,15 @@
 import moment from 'moment'
 import PublicationsService from '../../services/PublicationsService'
 import ReservationService from '../../services/ReservationService'
+import PayementSystem from 'components/PayementSystem'
 
 const STATUS_CODE_401 = 401
 
 export default {
   name: 'PublicationDetail',
+  components: { PayementSystem },
   data: () => ({
+    payementDialog: false,
     slide: 1,
     fullscreen: false,
     publication: {

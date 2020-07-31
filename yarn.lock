@@ -1189,6 +1189,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.7.7.tgz#1628e6461ba8cc9b53196dfeaeec7b07fa6eea99"
   integrity sha512-Uo4chgKbnPNlxQwoFmYIwctkQVkMMmsAoGGU4JKwLuvBefF0pCq4FybNSnfkfRCpC7ZW7kttcC/TrRtAJsvGtg==
 
+"@types/node@>=8.1.0":
+  version "14.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.27.tgz#a151873af5a5e851b51b3b065c9e63390a9e0eb1"
+  integrity sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
@@ -6594,6 +6599,18 @@ mocha@1.9.0:
     mkdirp "0.3.3"
     ms "0.3.0"
 
+moment-timezone@^0.5.31:
+  version "0.5.31"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.31.tgz#9c40d8c5026f0c7ab46eda3d63e49c155148de05"
+  integrity sha512-+GgHNg8xRhMXfEbv81iDtrVeTcWt0kWmTEY1XQK14dICTXnWJnT0dxdlPspwqF3keKMVPXwayEsk1DI0AA/jdA==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0":
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
+  integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
+
 moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
@@ -7240,6 +7257,13 @@ p-try@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
+
+package-lock-only@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/package-lock-only/-/package-lock-only-0.0.4.tgz#5cf4f379d54d0f3d18d50c92e54d92e177f2f754"
+  integrity sha512-fV1YHeTMWH5LKmdVqfWskm2/SG0iF2IrxJn3ziaPVx9CnpecGJzt8xXtLV+CYINENZwPFMtbxO5qupz0asNz1A==
+  dependencies:
+    chalk "^2.4.1"
 
 pages@^0.0.16:
   version "0.0.16"
@@ -8052,6 +8076,11 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+qs@^6.6.0:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -9363,6 +9392,14 @@ strip-json-comments@^3.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.0.1.tgz#85713975a91fb87bf1b305cca77395e40d2a64a7"
   integrity sha512-VTyMAUfdm047mwKl+u79WIdrZxtFtn+nBxHeb844XBQ9uMNTuTHdx2hc5RiAJYqwTj3wc/xe5HLSdJSkJ+WfZw==
 
+stripe@^8.81.0:
+  version "8.81.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-8.81.0.tgz#c5ef1e57a8a806c1e908dc509ad137cd8f3c7cf6"
+  integrity sha512-eGnx3WcP7fsn0uCxuPSb7UQj7U3yZLv9WE5rIU2LArgggaq54fejNvf7IbzUs1jDhoJRgUERJylc651WmbF/ow==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.6.0"
+
 stylehacks@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/stylehacks/-/stylehacks-4.0.3.tgz#6718fcaf4d1e07d8a1318690881e8d96726a71d5"
@@ -10092,6 +10129,13 @@ vue-server-renderer@2.6.11:
     resolve "^1.2.0"
     serialize-javascript "^2.1.2"
     source-map "0.5.6"
+
+vue-stripe-checkout@^3.5.7:
+  version "3.5.7"
+  resolved "https://registry.yarnpkg.com/vue-stripe-checkout/-/vue-stripe-checkout-3.5.7.tgz#cd5e880ad9ccee7a493ef6bea2254a17d0f7c303"
+  integrity sha512-lJoSd7RR1ffSwcqQClYqY1gHuHD0BFPXFnmYTJgDPke+Rtn697REHPytIZEKpjQavQZAZglEu3er2060Egfjlw==
+  dependencies:
+    package-lock-only "0.0.4"
 
 vue-style-loader@4.1.2, vue-style-loader@^4.1.0:
   version "4.1.2"
