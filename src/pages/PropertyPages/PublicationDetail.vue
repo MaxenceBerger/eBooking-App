@@ -53,7 +53,7 @@
                 <q-icon color="secondary" name="aspect_ratio" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>La superficie est de {{ publication.rent.area }} m³</q-item-label>
+                <q-item-label>La superficie est de {{ publication.rent.area }} m²</q-item-label>
               </q-item-section>
             </q-item>
           </q-item-section>
@@ -65,7 +65,7 @@
           <q-form @submit="reserveRent">
             <q-card class="my-card">
               <q-card-section>
-                <div class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> la location</div>
+                <div class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / par nuit</div>
                 <q-separator />
                 <q-item-section class="q-mt-lg">
                   <q-item>
@@ -175,7 +175,8 @@ export default {
       monthsShort: 'Janv_Fév_Mars_Avr_Mais_Juin_Juil_Août_Sept_Oct_Nov_Déc'.split('_'),
       firstDayOfWeek: 1
     },
-    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED,
+    countReservation: null
   }),
   methods: {
     getPublication () {
@@ -224,7 +225,6 @@ export default {
       ReservationService.setReservation({
         publication: this.form.idPublication,
         start_at: moment(this.form.startAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
-        // api crash => end_at: "Invalid date"
         end_at: moment(this.form.finishAt, 'DD/MM/YYYY').format('YYYY-MM-DD')
       }).then(() => {
         this.$q.notify({

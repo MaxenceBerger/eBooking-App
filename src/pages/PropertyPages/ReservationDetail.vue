@@ -52,7 +52,7 @@
                 <q-icon color="secondary" name="aspect_ratio" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>La superficie est de {{ publication.rent.area }} m³</q-item-label>
+                <q-item-label>La superficie est de {{ publication.rent.area }} m²</q-item-label>
               </q-item-section>
             </q-item>
           </q-item-section>
@@ -69,7 +69,8 @@
         <div class="col-12 col-md-4 column items-center">
           <q-card class="my-card">
             <q-card-section>
-              <div class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> la location</div>
+              <q-item-label class="text-subtitle1 q-ma-sm"> <strong>XXX €</strong> aux total</q-item-label>
+              <q-item-label caption class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / nuit</q-item-label>
               <q-separator />
               <q-item-section class="q-mt-lg">
                 <q-item>
@@ -78,9 +79,9 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label caption>Début</q-item-label>
-                    <q-item-label>{{ publication.start_at }}</q-item-label>
+                    <q-item-label>{{ reservation.start_at }}</q-item-label>
                     <q-item-label caption>Fin</q-item-label>
-                    <q-item-label>{{ publication.end_at }}</q-item-label>
+                    <q-item-label>{{ reservation.end_at }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-item-section>
@@ -139,10 +140,13 @@ export default {
       ReservationService.getReservation(this.$route.params.idReservation)
         .then(response => {
           this.reservation = response.data.data
+          console.log(response.data.data)
           this.idReservation = response.data.data.id
           this.idPublication = response.data.data.publication._id
           this.pictures = response.data.data.publication.rent.pictures
           this.slide = response.data.data.publication.rent.pictures[0]
+          this.reservation.start_at = date.formatDate(response.data.data.start_at, 'DD/MM/YYYY')
+          this.reservation.end_at = date.formatDate(response.data.data.end_at, 'DD/MM/YYYY')
           this.getPublication()
         }).catch(e => {
           console.log(e)
@@ -153,8 +157,6 @@ export default {
         .then(response => {
           this.publication = response.data.data
           this.publication.rent.city = response.data.data.rent.city.charAt(0).toUpperCase() + response.data.data.rent.city.substring(1).toLowerCase()
-          this.publication.start_at = date.formatDate(response.data.data.start_at, 'DD/MM/YYYY')
-          this.publication.end_at = date.formatDate(response.data.data.end_at, 'DD/MM/YYYY')
         }).catch(e => {
           console.log(e)
         })
