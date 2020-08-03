@@ -1,61 +1,144 @@
 <template>
-  <q-page class="column q-ma-lg">
-    <div class="row">
-      <div class="col-12 q-mb-xl">
-        <q-btn
-          outline
-          round
-          color="secondary"
-          icon="arrow_back"
-          :to="{ name: 'MyAccountPage' }"
-        />
-        <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Configurez votre serrure connectée</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <q-form
-          style="max-width: 500px"
-          ref="form"
-          class="q-ml-xl q-mr-xl"
-          @submit="configKey"
-        >
-          <q-input
-            class="q-mb-lg"
-            v-model="form.items.name"
-            label="Nom de votre serrure"
-            :rules="[form.rules.name.required]"
-            required
-            rounded outlined
-          />
-          <q-input
-            class="q-mb-lg"
-            v-model="form.items.address"
-            label="L'adresse réseaux de votre serrure"
-            :rules="[form.rules.address.required]"
-            required
-            rounded outlined
-          />
-          <q-input
-            class="q-mb-lg"
-            v-model="form.items.auth"
-            label="Le nom d'authentification"
-            :rules="[form.rules.auth.required]"
-            required
-            rounded outlined
-          />
-          <div>
-            <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg"/>
+  <q-page class="column">
+    <!-- MOBILE PLATFORM-->
+    <template v-if="this.$q.platform.is.mobile">
+      <div class="bg-blue-custom">
+        <div class="row q-ml-md q-mt-md">
+          <div class="col-12">
+            <q-btn
+                outline
+                round
+                color="secondary"
+                icon="arrow_back"
+                :to="{ name: 'MyAccountPage' }"
+            />
           </div>
-        </q-form>
+        </div>
+
+        <div class="row q-ml-md q-mr-md q-mb-md">
+          <div class="col-8">
+            <h5 class="items-end font-Raleway text-white">Configurez votre serrure connectée</h5>
+          </div>
+          <div class="col-4">
+            <q-img
+                class="q-mt-lg"
+                fade
+                src="../../assets/images/Mobile-unlock.png"
+                style="max-width: 90%;"/>
+          </div>
+        </div>
       </div>
-      <div class="col-4">
-        <q-img
-          fade
-          src="../../assets/images/Mobile-unlock.png"
-          style="max-width: 80%;"/>
+      <div class="row">
+        <div class="col-12">
+          <q-form
+            style="max-width: 500px"
+            ref="form"
+            class="q-ml-xl q-mr-xl"
+            @submit="configKey"
+          >
+            <q-input
+              class="q-mb-sm q-mt-xl font-Raleway"
+              v-model="form.items.name"
+              label="Nom de votre serrure"
+              :rules="[form.rules.name.required]"
+              bg-color="white"
+              color="secondary"
+              required
+              rounded outlined
+            />
+            <q-input
+              class="q-mb-sm font-Raleway"
+              v-model="form.items.address"
+              label="L'adresse réseaux de votre serrure"
+              :rules="[form.rules.address.required]"
+              bg-color="white"
+              color="secondary"
+              required
+              rounded outlined
+            />
+            <q-input
+              class="q-mb-sm font-Raleway"
+              v-model="form.items.auth"
+              label="Le nom d'authentification"
+              bg-color="white"
+              color="secondary"
+              :rules="[form.rules.auth.required]"
+              required
+              rounded outlined
+            />
+            <div>
+              <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg font-Raleway"/>
+            </div>
+          </q-form>
+        </div>
       </div>
-    </div>
+    </template>
+    <!-- /MOBILE PLATFORM-->
+    <!-- DESKTOP PLATFORM-->
+    <template v-if="this.$q.platform.is.desktop">
+      <div class="row q-ma-lg">
+        <div class="col-12 q-mb-xl">
+          <q-btn
+            outline
+            round
+            color="secondary"
+            icon="arrow_back"
+            :to="{ name: 'MyAccountPage' }"
+          />
+          <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Configurez votre serrure connectée</h3>
+        </div>
+      </div>
+      <div class="row q-ma-lg">
+        <div class="col-8">
+          <q-form
+            style="max-width: 500px"
+            ref="form"
+            class="q-ml-xl q-mr-xl"
+            @submit="configKey"
+          >
+            <q-input
+              class="q-mb-lg font-Raleway"
+              v-model="form.items.name"
+              label="Nom de votre serrure"
+              bg-color="white"
+              color="secondary"
+              :rules="[form.rules.name.required]"
+              required
+              rounded outlined
+            />
+            <q-input
+              class="q-mb-lg font-Raleway"
+              v-model="form.items.address"
+              label="L'adresse réseaux de votre serrure"
+              bg-color="white"
+              color="secondary"
+              :rules="[form.rules.address.required]"
+              required
+              rounded outlined
+            />
+            <q-input
+              class="q-mb-lg font-Raleway"
+              v-model="form.items.auth"
+              label="Le nom d'authentification"
+              bg-color="white"
+              color="secondary"
+              :rules="[form.rules.auth.required]"
+              required
+              rounded outlined
+            />
+            <div>
+              <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg font-Raleway"/>
+            </div>
+          </q-form>
+        </div>
+        <div class="col-4">
+          <q-img
+            fade
+            src="../../assets/images/Mobile-unlock.png"
+            style="max-width: 80%;"/>
+        </div>
+      </div>
+    </template>
   </q-page>
 </template>
 
@@ -114,6 +197,17 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+  .text-shadow
+    text-shadow: 1px 1px 6px black
+  .rounded-borders
+    border-radius: 15px
+  .rounded-borders-title
+    border-radius: 15px 0
+  .bg-blue-custom
+    background: rgba(45,64,78,1)
+  .my-card
+    width: 100%
+    max-width: 350px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto

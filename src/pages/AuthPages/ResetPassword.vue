@@ -1,6 +1,55 @@
 <template>
   <q-layout class="font-Raleway">
-    <q-page-container>
+    <q-page-container v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
+      <div class="q-pa-sm bg-blue-grey-2">
+        <q-btn
+            outline
+            round
+            class="q-ml-sm q-mt-sm"
+            color="secondary"
+            icon="arrow_back"
+            :to="{ name: 'HomePublicPage' }"
+        />
+        <div class="row">
+          <div class="col-8">
+            <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Réinitialisation de votre<br>mot de passe</div>
+          </div>
+          <div class="col-4">
+            <q-img style="width: 100%" class="q-mt-lg" src="../../assets/images/Forgot-password.png"></q-img>
+          </div>
+        </div>
+        <div class="text q-mt-lg q-ml-lg">Un nouveau mot de passe vous sera envoyé par mail.
+        </div>
+      </div>
+      <q-page class="column items-center" style="height: 100vh">
+        <q-form
+          ref="form"
+          @submit="sendByMail"
+          class="q-gutter-sm q-mt-lg">
+          <q-card class="q-mr-md q-ml-lg q-pt-md my-card-mobile">
+            <q-card-section>
+              <q-input
+                v-model="form.items.email"
+                label="Adresse mail *"
+                :rules="[form.rules.email.required, form.rules.email.min]"
+                required
+                rounded outlined
+                class="q-ma-md"
+                color="secondary"
+              />
+            </q-card-section>
+            <div class="q-ma-md">
+              <div>
+                <q-btn unelevated rounded color="secondary" label="Envoyer" type="submit" class="q-mb-xl q-ml-lg"/>
+              </div>
+            </div>
+          </q-card>
+        </q-form>
+      </q-page>
+    </q-page-container>
+    <!-- /MOBILE PLATFORM-->
+    <!-- DESKTOP PLATFORM-->
+    <q-page-container  v-if="this.$q.platform.is.desktop">
       <q-page class="column items-center bg-reset-password">
         <q-form
           ref="form"
@@ -89,6 +138,8 @@ export default {
   .my-card
     width: 100%
     min-width: 500px
+  .my-card-mobile
+    min-width: 375px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -101,4 +152,9 @@ export default {
     background-repeat: no-repeat
     background-position: 95% 45%
     background-color: rgb(45, 64, 78)
+  .bg-reset-password-mobile
+    background-image: url('../../assets/images/Forgot-password.png')
+    background-size: 29%
+    background-repeat: no-repeat
+    background-position: 90% 90%
 </style>

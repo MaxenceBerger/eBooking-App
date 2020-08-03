@@ -1,6 +1,22 @@
 <template>
   <q-layout view="hHh Lpr lFf" class="shadow-2 rounded-borders">
-    <q-header reveal elevated class="bg-white">
+    <!-- MOBILE PLATFORM-->
+    <q-header  v-if="this.$q.platform.is.mobile" reveal elevated class="bg-white">
+      <div class="col-12">
+        <q-toolbar>
+          <div class="col-12">
+            <q-toolbar-title class="text-center">
+              <router-link :to="{ name: 'HomePublicPage' }">
+                <img src="../assets/logo_eBooking.png" alt="logo" style="height: 35px" class="q-mt-md">
+              </router-link>
+            </q-toolbar-title>
+          </div>
+        </q-toolbar>
+      </div>
+    </q-header>
+    <!-- /MOBILE PLATFORM-->
+    <!-- DESKTOP PLATFORM-->
+    <q-header v-if="this.$q.platform.is.desktop" reveal elevated class="bg-white">
       <div class="col-12">
         <q-toolbar>
           <div class="col-4"/>
@@ -29,6 +45,7 @@
         </q-toolbar>
       </div>
     </q-header>
+    <!-- /DESKTOP PLATFORM-->
     <q-page-container class="bg-blue-grey-1">
       <router-view />
     </q-page-container>

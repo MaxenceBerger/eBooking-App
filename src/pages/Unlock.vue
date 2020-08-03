@@ -1,30 +1,37 @@
 <template>
   <q-page class="column">
-    <div class="bg-blue-custom" style="height: 400px;">
-      <div class="row q-ma-xl">
-        <div class="col-9">
-          <h3 class="items-end font-Raleway text-white">Déverrouiller votre porte</h3>
-          <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway">
-            Vous avez la possibilité de déverrouiller votre porte avec votre smartphone
+    <template v-if="this.$q.platform.is.mobile">
+      <div class="bg-blue-custom">
+        <div class="row q-ma-md">
+          <div class="col-8">
+            <h5 class="font-Raleway text-white">Déverrouiller votre porte</h5>
+          </div>
+          <div class="col-4">
+            <q-img
+              class="q-mt-lg"
+              fade
+              src="../assets/images/Mobile-unlock.png"
+              style="max-width: 90%;"/>
           </div>
         </div>
-        <div class="col-3">
-          <q-img
-            fade
-            src="../assets/images/Mobile-unlock.png"
-            style="max-width: 90%;"/>
+        <div class="row q-ml-md q-mr-md q-mb-md">
+          <div class="col-12">
+            <div class="text-weight-regular text-justify text-grey-5 font-Raleway">
+              Vous avez la possibilité de déverrouiller votre porte avec votre smartphone
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="column items-center q-ma-xl">
-      <q-btn
-        outline
-        round
-        color="secondary"
-        icon="vpn_key"
-        @click="getUserProfile"
-      />
-    </div>
+      <div class="column items-center q-ma-xl">
+        <q-btn
+          outline
+          round
+          color="secondary"
+          icon="vpn_key"
+          @click="getUserProfile"
+        />
+      </div>
+    </template>
   </q-page>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <q-layout>
-    <q-page-container class="q-pa-xl font-Raleway">
+    <q-page-container class="q-pa-md-xl font-Raleway">
         <div class="row">
           <div class="col-12 col-md-8">
             <q-btn

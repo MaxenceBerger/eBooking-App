@@ -1,6 +1,47 @@
 <template>
   <q-layout>
-    <q-page-container>
+    <!-- MOBILE PLATFORM-->
+    <q-page-container  v-if="this.$q.platform.is.mobile">
+      <div class="bg-blue-custom" style="height: 100vh;">
+        <div class="col-12">
+          <div class="row">
+            <div class="font-Raleway">
+              <div class="q-ma-lg text-center">
+                <h3 class="text-bold text-grey-3">
+                  Lorem ipsum dolor sit amet
+                </h3>
+                <p class="text-bold text-grey-5">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <div class="text-center">
+                  <q-img
+                    :src="require('src/assets/images/Search-rent.png')"
+                    style="width: 50vw;"
+                  />
+                </div>
+              </div>
+              <div class="text-center font-Raleway q-mt-xl">
+                <q-btn
+                    :to="{ name: 'LoginPage' }"
+                    class="q-ma-md text-bold text-h6"
+                    color="secondary"
+                    label="Connexion"
+                    rounded no-caps/>
+                <q-btn
+                    :to="{ name: 'RegisterPage' }"
+                    class="q-ma-md text-bold text-h6"
+                    color="secondary"
+                    label="Inscription"
+                    rounded no-caps/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </q-page-container>
+    <!-- /MOBILE PLATFORM-->
+    <!-- DESKTOP PLATFORM-->
+    <q-page-container v-if="this.$q.platform.is.desktop">
       <div class="bg-blue-custom" style="height: 46rem;">
         <div class="col-12">
           <div class="row">
@@ -30,14 +71,14 @@
         </div>
       </div>
       <div class="bg-blue-custom text-center" style="height: 7rem;">
-        <a href="#detail" style="text-decoration: none">
+        <a href="#detail_mobile" style="text-decoration: none">
           <q-btn
             class="text-bold text-h6 bg-white color-mint-custom q-mt-lg"
             icon="keyboard_arrow_down"
             round/>
         </a>
       </div>
-      <div id="detail" class="bg-white" style="height: 20rem;">
+      <div id="detail_mobile" class="bg-white" style="height: 20rem;">
         <div
           class="col-6 font-Raleway"
           style="padding: 2rem;"
@@ -77,6 +118,7 @@
       </div>
       <Footer/>
     </q-page-container>
+    <!-- /DESKTOP PLATFORM-->
   </q-layout>
 </template>
 

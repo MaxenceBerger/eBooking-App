@@ -1,6 +1,69 @@
 <template>
   <q-layout class="font-Raleway">
-    <q-page-container>
+    <!-- MOBILE PLATFORM-->
+    <q-page-container v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
+      <div class="q-pa-sm bg-login-mobile">
+        <q-btn
+            outline
+            round
+            class="q-ml-sm q-mt-sm"
+            color="secondary"
+            icon="arrow_back"
+            :to="{ name: 'HomePublicPage' }"
+        />
+        <div class="text-h4 q-mt-lg q-ml-sm text-bold color-blue-custom">Connexion</div>
+      </div>
+
+      <q-page class="column items-center bg-blue-grey-2">
+        <q-form
+          @submit="onSubmit"
+          class="q-gutter-sm q-mt-lg">
+          <q-card class="q-mr-md q-ml-lg q-pt-md my-card-mobile">
+            <q-card-section>
+            <q-input
+              v-model="form.email"
+              label="Adresse mail"
+              :rules="[form.emailRules.required]"
+              required
+              rounded outlined
+              class="q-ma-lg"
+              color="secondary"
+            />
+            <q-input
+              v-model="form.password"
+              :type="form.passwordRules.dontShow ? 'password' : 'text'"
+              label="Mot de passe"
+              :rules="[form.passwordRules.required, form.passwordRules.min]"
+              required
+              rounded outlined
+              class="q-ma-lg"
+              color="secondary"
+            >
+              <template v-slot:append>
+              <q-icon
+                :name="form.passwordRules.dontShow ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="form.passwordRules.dontShow = !form.passwordRules.dontShow"
+              />
+            </template>
+          </q-input>
+            <q-separator/>
+              <div class="q-mt-lg q-mb-lg">
+                <router-link :to="{ name: 'ResetPasswordPage' }" class="q-ml-lg">Mot de passe oublié ?</router-link>
+                <br>
+                <router-link :to="{ name: 'RegisterPage' }" class="q-ml-lg">Pas encore de compte ?</router-link>
+              </div>
+          <div>
+            <q-btn unelevated rounded class="q-ml-lg q-mb-lg" color="secondary" label="Connexion" type="submit"/>
+          </div>
+          </q-card-section>
+          </q-card>
+        </q-form>
+      </q-page>
+    </q-page-container>
+    <!-- /MOBILE PLATFORM-->
+    <!-- DESKTOP PLATFORM-->
+    <q-page-container  v-if="this.$q.platform.is.desktop">
       <q-page class="column items-center bg-login">
         <q-form
           @submit="onSubmit"
@@ -52,6 +115,7 @@
       </q-page>
       <Footer/>
     </q-page-container>
+    <!-- /DESKTOP PLATFORM-->
   </q-layout>
 </template>
 
@@ -112,6 +176,8 @@ export default {
   .my-card
     width: 100%
     min-width: 500px
+  .my-card-mobile
+    min-width: 375px
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -124,4 +190,10 @@ export default {
     background-repeat: no-repeat
     background-position: 95% 45%
     background-color: rgb(45, 64, 78)
+  .bg-login-mobile
+    background-image: url('../../assets/images/Mobile-login.png')
+    background-size: 29%
+    background-repeat: no-repeat
+    background-position: 90% 90%
+    justify-content: center
 </style>
