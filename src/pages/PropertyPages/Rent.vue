@@ -136,12 +136,17 @@ export default {
   }),
   methods: {
     getMyOwnReservation () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       ReservationService.getAllReservation()
         .then(response => {
+          this.$q.loading.hide()
           this.reservationList = response.data.data
         })
-        .catch(e => {
-          console.log(e)
+        .catch(() => {
+          this.$q.loading.hide()
         })
     }
   },

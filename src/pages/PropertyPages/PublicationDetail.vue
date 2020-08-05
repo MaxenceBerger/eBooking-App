@@ -1,5 +1,5 @@
 <template>
-  <q-page class="column">
+  <q-page class="column bg-white">
     <!-- MOBILE PLATFORM-->
     <template v-if="this.$q.platform.is.mobile">
       <q-carousel
@@ -36,13 +36,13 @@
 
       <div class="q-pt-xl">
         <div class="q-ml-lg">
-          <div class="text-h3 font-Raleway">{{ publication.rent.title }}</div>
-          <div class="text-subtitle2 q-mb-xl font-Raleway">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
+          <div class="text-h4 font-Raleway color-blue-custom">{{ publication.rent.title }}</div>
+          <div class="text-subtitle2 q-mb-xl font-Raleway color-blue-custom-opacity">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
         </div>
         <div class="row">
           <div class="col-12 col-md-8">
             <q-separator />
-            <div class="text-h5 q-ma-lg font-Raleway">Informations</div>
+            <div class="text-h5 q-ma-lg font-Raleway color-blue-custom">Informations</div>
             <q-item-section class="q-ma-lg">
               <q-item>
                 <q-item-section avatar>
@@ -62,7 +62,7 @@
               </q-item>
             </q-item-section>
             <q-separator />
-            <div class="text-h5 q-ma-lg font-Raleway">Description</div>
+            <div class="text-h5 q-ma-lg font-Raleway color-blue-custom">Description</div>
             <div class="text-weight-regular text-body2 text-justify q-ma-lg font-Raleway">{{ publication.rent.description }}</div>
           </div>
           <div class="col-12 col-md-4 column items-center">
@@ -392,11 +392,16 @@ export default {
         })
     },
     reserveRent () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       ReservationService.setReservation({
         publication: this.form.idPublication,
         start_at: moment(this.form.startAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
         end_at: moment(this.form.finishAt, 'DD/MM/YYYY').format('YYYY-MM-DD')
       }).then(() => {
+        this.$q.loading.hide()
         this.$q.notify({
           type: 'positive',
           message: 'Votre réservation a bien été enregistré',
@@ -405,6 +410,7 @@ export default {
         this.confirmReservation = false
         this.getPublication()
       }).catch((error) => {
+        this.$q.loading.hide()
         if (STATUS_CODE_401 === error.response.status) {
           this.$q.notify({
             color: 'blue-grey',
@@ -436,6 +442,8 @@ export default {
     background-color: rgba(255, 255, 255, 0.50)
   .color-blue-custom
     color: rgb(45, 64, 78)
+  .color-blue-custom-opacity
+    color: rgba(45, 64, 78, 0.5)
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
@@ -444,5 +452,5 @@ export default {
     .q-carousel__slide
       background-size: contain
       background-repeat: no-repeat
-      background-color: rgb(45, 64, 78)
+      background-color: rgba(45, 64, 78, 1)
 </style>

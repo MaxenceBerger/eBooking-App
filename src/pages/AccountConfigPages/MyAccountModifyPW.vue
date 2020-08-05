@@ -230,16 +230,22 @@ export default {
   methods: {
     updatePassword () {
       if (this.form.items.confirmPassword === this.form.items.newPassword) {
+        this.$q.loading.show({
+          spinnerColor: 'secondary',
+          backgroundColor: '#2d404e'
+        })
         UserService.updatePassword({
           oldPassword: this.form.items.oldPassword,
           newPassword: this.form.items.newPassword
         }).then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Le mot de passe a bien été mis à jours',
             position: 'top'
           })
         }).catch((error) => {
+          this.$q.loading.hide()
           if (STATUS_CODE_400 === error.response.status) {
             this.$q.notify({
               color: 'blue-grey',
@@ -250,6 +256,7 @@ export default {
           }
         })
       } else {
+        this.$q.loading.hide()
         this.$q.notify({
           type: 'negative',
           message: 'Le mot de passe et la confirmation ne correspond pas',

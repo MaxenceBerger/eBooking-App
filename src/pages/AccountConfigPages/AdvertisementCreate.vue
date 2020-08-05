@@ -483,6 +483,10 @@ export default {
       this.createRent()
     },
     createRent () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       RentsService.createRent({
         title: this.form.items.title,
         description: this.form.items.description,
@@ -496,7 +500,6 @@ export default {
         postalCode: this.form.items.postalCode,
         associatedLock: this.form.items.key.id
       }).then(() => {
-        console.log(this.form.items.pictures)
         this.$q.loading.hide()
         this.$q.notify({
           type: 'positive',
@@ -520,6 +523,7 @@ export default {
             position: 'top'
           })
         } else {
+          this.$q.loading.hide()
           this.$q.notify({
             color: 'blue-grey',
             message: 'Oups, il semble que nous rencontrons des difficultés',

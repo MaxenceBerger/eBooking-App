@@ -173,6 +173,10 @@ export default {
   },
   methods: {
     configKey () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       this.$refs.form.validate()
       LockService.initLock({
         name: this.form.items.name,
@@ -180,12 +184,14 @@ export default {
         auth: this.form.items.auth
       })
         .then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Votre serrure est parfaitement configuré',
             position: 'top'
           })
         }).catch(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'negative',
             message: 'Veuillez réessayer',

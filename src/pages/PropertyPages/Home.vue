@@ -336,12 +336,17 @@ export default {
       console.log(this.urlImg)
     },
     getPublications () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       PublicationsService.getPublishByCity('bordeaux')
         .then(response => {
+          this.$q.loading.hide()
           this.publicationsList = response.data.data
           console.log(response.data.data)
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
+          this.$q.loading.hide()
         })
     },
     getSearch () {
@@ -353,11 +358,10 @@ export default {
           this.isSearch = true
           this.isSuggestions = false
           this.isLoading = false
-        }).catch(e => {
+        }).catch(() => {
           this.isLoading = false
           this.noRents = true
           this.isSearch = false
-          console.log(e)
         })
     },
     getLimit (limit) {

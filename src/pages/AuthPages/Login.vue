@@ -147,8 +147,13 @@ export default {
   },
   methods: {
     onSubmit () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       AuthService.setLogin(this.form)
         .then(response => {
+          this.$q.loading.hide()
           const { role } = response.data.data
           const { email } = response.data.data
           const { token } = response.data.data
@@ -159,6 +164,7 @@ export default {
             this.$router.push({ name: 'HomePage' })
           }
         }).catch((error) => {
+          this.$q.loading.hide()
           if (STATUS_CODE_401 === error.response.status) {
             this.$q.notify({
               color: 'blue-grey',

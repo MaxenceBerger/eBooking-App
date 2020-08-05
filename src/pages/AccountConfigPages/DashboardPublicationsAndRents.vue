@@ -867,6 +867,10 @@ export default {
         })
     },
     updateProperty () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       RentsService.updateRent(this.dialogModify.id, {
         title: this.form.rent.title,
         description: this.form.rent.description,
@@ -881,6 +885,7 @@ export default {
         associatedLock: this.form.rent.associatedLock
       })
         .then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Vôtre bien a bien été mis à jour',
@@ -889,6 +894,7 @@ export default {
           this.$router.push(this.$route.path)
           this.getRentsList()
         }).catch(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'negative',
             message: 'Veuillez réessayer',
@@ -901,12 +907,17 @@ export default {
       this.dialogPublish.id = id
     },
     async publishProperty (id) {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       await PublicationsService.publishProperty({
         end_at: moment(this.dialogPublish.finishAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
         start_at: moment(this.dialogPublish.startAt, 'DD/MM/YYYY').format('YYYY-MM-DD'),
         rent: id
       })
         .then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Vôtre bien a bien été mis à jour',
@@ -915,6 +926,7 @@ export default {
           this.$router.push(this.$route.path)
           this.getRentsList()
         }).catch(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'negative',
             message: 'Veuillez réessayer',
@@ -928,8 +940,13 @@ export default {
       console.log(id)
     },
     deletePublish (id) {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       PublicationsService.deletePublish(id)
         .then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Vôtre publication a bien été retirer',
@@ -938,6 +955,7 @@ export default {
           this.$router.push(this.$route.path)
           this.getRentsList()
         }).catch(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'negative',
             message: 'Veuillez réessayer',

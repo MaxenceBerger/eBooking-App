@@ -419,7 +419,10 @@ export default {
     },
     updateUser () {
       this.$refs.form.validate()
-      console.log(this.form.items.pictures[0])
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       UserService.setUserUpdate({
         firstName: this.form.items.firstName,
         lastName: this.form.items.lastName,
@@ -432,12 +435,14 @@ export default {
         picture: this.form.items.pictures[0]
       })
         .then(() => {
+          this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
             message: 'Vos informations serons mise à jour lors de votre prochaine connexion',
             position: 'top'
           })
         }).catch((error) => {
+          this.$q.loading.hide()
           if (STATUS_CODE_400 === error.response.status) {
             this.$q.notify({
               type: 'negative',

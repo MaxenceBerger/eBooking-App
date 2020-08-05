@@ -4,12 +4,15 @@ const BASE_URL = apiBaseUrl()
 export default {
   methods: {
     factoryFn (file) {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        message: 'Photo en cours de télécharchement<br>Veuillez patientez',
+        messageColor: 'white'
+      })
       const formData = new FormData()
-
       Object.keys(file).forEach(key => {
         formData.append('multipleFiles', file[key])
       })
-
       this.$axios.post(`${BASE_URL}upload/multiple`, formData,
         {
           headers: {
@@ -17,8 +20,7 @@ export default {
             Authorization: `Bearer ${this.$store.getters.getToken}`
           }
         }).then((response) => {
-        // this.form.items.pictures.push(response.data.data[0])
-        // console.log(this.form.items.pictures)
+        this.$q.loading.hide()
         this.pictureAdded = response.data.data[0]
         this.tempPicture()
       })

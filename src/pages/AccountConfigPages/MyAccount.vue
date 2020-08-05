@@ -26,27 +26,27 @@
       <div class="col-12 q-ma-lg">
       <div class="column">
         <q-list>
-          <q-item-label header>INSTALLATION DE LA SMARTKEY</q-item-label>
+          <q-item-label header class="font-Raleway color-blue-custom text-bold">INSTALLATION DE LA SMARTKEY</q-item-label>
           <q-item
               class="q-mb-lg"
               clickable
               v-ripple
               :to="{ name: 'SmartKeyInstallPage' }"
           >
-            <q-item-section>Configurez votre serrure connectée</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Configurez votre serrure connectée</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="vpn_key" />
             </q-item-section>
           </q-item>
 
           <q-separator />
-          <q-item-label header class="q-mt-lg">PARMÈTRES DU COMPTE</q-item-label>
+          <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">PARMÈTRES DU COMPTE</q-item-label>
           <q-item
               clickable
               v-ripple
               :to="{ name: 'MyAccountInformationPage' }"
           >
-            <q-item-section>Information personnelles</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Information personnelles</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="account_circle" />
             </q-item-section>
@@ -57,34 +57,34 @@
               v-ripple
               :to="{ name: 'MyAccountModifyPWPage' }"
           >
-            <q-item-section>Modifier mon mot de passe</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Modifier mon mot de passe</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="cached" />
             </q-item-section>
           </q-item>
 
           <q-separator />
-          <q-item-label header class="q-mt-lg">HÉBERGEMENT DE VOYAGEURS</q-item-label>
+          <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">HÉBERGEMENT DE VOYAGEURS</q-item-label>
           <q-item
               class="q-mb-lg"
               clickable
               v-ripple
               :to="{ name: 'AdvertisementCreatePage' }"
           >
-            <q-item-section>Créez votre annonce</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Créez votre annonce</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="create" />
             </q-item-section>
           </q-item>
 
           <q-separator />
-          <q-item-label header class="q-mt-lg">ADMINISTRATION</q-item-label>
+          <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">ADMINISTRATION</q-item-label>
           <q-item
               clickable
               v-ripple
               :to="{ name: 'DashboardPublicationsAndRentsPage' }"
           >
-            <q-item-section>Gestion des biens</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Gestion des biens</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="event_available" />
             </q-item-section>
@@ -96,25 +96,25 @@
               v-ripple
               :to="{ name: 'MyAccountInformationPage' }"
           >
-            <q-item-section>Statistiques</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Statistiques</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="show_chart" />
             </q-item-section>
           </q-item>
           <q-separator />
-          <q-item-label header class="q-mt-lg">JURIDIQUE</q-item-label>
+          <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">JURIDIQUE</q-item-label>
           <q-item
               clickable
               v-ripple
               :to="{ name: 'GeneralConditionsPage' }"
           >
-            <q-item-section>Condition générales</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Condition générales</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="library_books" />
             </q-item-section>
           </q-item>
         </q-list>
-        <q-btn class="q-mt-xl q-ml-sm"
+        <q-btn class="q-mt-xl q-ml-sm font-Raleway"
                v-if="$store.getters.getToken"
                @click="logout"
                color="secondary"
@@ -265,6 +265,8 @@ export default {
 <style lang="sass" scoped>
   .bg-blue-custom
     background: rgb(45,64,78)
+  .color-blue-custom
+    color: rgb(45,64,78)
   .font-Raleway
     font-family: 'Raleway', sans-serif
   .font-Roboto
