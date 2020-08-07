@@ -152,6 +152,11 @@ export default {
           link: 'RentPage'
         },
         {
+          title: 'Déverrouillage',
+          icon: 'vpn_key',
+          link: 'UnlockPage'
+        },
+        {
           title: 'Mon Compte',
           icon: 'account_circle',
           link: 'MyAccountPage'

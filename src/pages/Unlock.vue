@@ -22,14 +22,46 @@
           </div>
         </div>
       </div>
-      <div class="column items-center q-ma-xl">
-        <q-btn
-          outline
-          round
-          color="secondary"
-          icon="vpn_key"
-          @click="getUserProfile"
-        />
+
+      <div class="col-12">
+        <div class="row justify-center">
+          <q-card
+              class="my-card rounded-borders q-mb-xl col-4"
+              v-for="reservation in reservationList"
+              :key="reservation._id"
+              v-bind="reservation"
+          >
+            <div v-if="reservation.publication.rent.pictures[0]">
+              <q-img class="rounded-borders" :src="imageUrl + reservation.publication.rent.pictures[0]" style="height: 233px; width: 350px">
+                <div class="text-h6 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ reservation.rent.title }}
+                </div>
+                <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ reservation.rent.price }} €
+                </h5>
+              </q-img>
+            </div>
+            <div v-else>
+              <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
+                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                  {{ reservation.rent.title }}
+                </div>
+                <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                  {{ reservation.rent.price }} €
+                </h5>
+                <template v-slot:error>
+                  <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
+                    L'anonnce n'a pas pu charger correctement
+                  </div>
+                </template>
+              </q-img>
+            </div>
+            <q-card-actions align="right">
+              <q-btn flat round color="secondary" icon="vpn_key" @click="openDoor(reservation._id)" />
+              <q-btn flat round color="red" icon="lock" @click="lockDoor(reservation._id)"/>
+            </q-card-actions>
+          </q-card>
+        </div>
       </div>
     </template>
   </q-page>
@@ -38,31 +70,87 @@
 <script>
 
 import LockService from '../services/LockService'
+import ReservationService from 'src/services/ReservationService'
+// import { QSpinnerGrid } from 'quasar'
 
 export default {
   name: 'UnlockPage',
+  data: () => ({
+    reservationList: null,
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
+  }),
   methods: {
-    getUserProfile () {
-      LockService.unlockDoor()
+    openDoor (id) {
+      LockService.lockOpen({
+        reservation: id
+      })
+    },
+    lockDoor (id) {
+      // this.$q.loading.show({
+      // spinnerColor: 'secondary',
+      // backgroundColor: '#2d404e'
+      // })
+      this.$q.loading.show({
+        message: 'First message. Gonna change it in 3 seconds...'
+      })
+      LockService.lockClose({
+        reservation: id
+      })
         .then(() => {
-          this.$q.notify({
-            type: 'positive',
-            message: 'Porte déverrouillé',
-            position: 'top'
-          })
+          this.timer = setTimeout(() => {
+            this.$q.loading.show({
+              // spinner: QSpinnerGrid,
+              // spinnerColor: 'red',
+              messageColor: 'white',
+              message: '<q-icon name="warning" />',
+              backgroundColor: 'secondary'
+            })
+
+            this.timer = setTimeout(() => {
+              this.$q.loading.hide()
+              // eslint-disable-next-line no-void
+              this.timer = void 0
+            }, 2000)
+          }, 2000)
         })
-        .catch(e => {
-          console.log(e)
+        .catch(() => {
+          this.$q.loading.hide()
+        })
+    },
+    getMyOwnReservation () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
+      ReservationService.getAllReservation()
+        .then(response => {
+          this.$q.loading.hide()
+          this.reservationList = response.data.data
+        })
+        .catch(() => {
+          this.$q.loading.hide()
         })
     }
+  },
+  mounted () {
+    this.getMyOwnReservation()
   }
 }
 </script>
 <style lang="sass" scoped>
+  .text-shadow
+    text-shadow: 1px 1px 6px black
+  .rounded-borders
+    border-radius: 15px
+  .rounded-borders-title
+    border-radius: 15px 0
   .bg-blue-custom
-    background: rgb(45,64,78)
-    .font-Raleway
-      font-family: 'Raleway', sans-serif
-    .font-Roboto
-      font-family: 'Roboto', sans-serif
+    background: rgb(45, 64, 78)
+  .my-card
+    width: 100%
+    max-width: 350px
+  .font-Raleway
+    font-family: 'Raleway', sans-serif
+  .font-Roboto
+    font-family: 'Roboto', sans-serif
 </style>

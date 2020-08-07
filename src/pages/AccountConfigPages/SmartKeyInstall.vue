@@ -106,23 +106,18 @@
               required
               rounded outlined
             />
+            <q-avatar size="20px" class="font-Raleway text-bold text-white float-right" color="blue-grey-6">?
+              <q-tooltip class="font-Raleway">
+                Votre numéro de série est indiqué sur le dos de votre manuel d'instruction de la serrure connectée
+              </q-tooltip>
+            </q-avatar>
             <q-input
               class="q-mb-lg font-Raleway"
-              v-model="form.items.address"
-              label="L'adresse réseaux de votre serrure"
+              v-model="form.items.serial"
+              label="Le numéro de série"
               bg-color="white"
               color="secondary"
-              :rules="[form.rules.address.required]"
-              required
-              rounded outlined
-            />
-            <q-input
-              class="q-mb-lg font-Raleway"
-              v-model="form.items.auth"
-              label="Le nom d'authentification"
-              bg-color="white"
-              color="secondary"
-              :rules="[form.rules.auth.required]"
+              :rules="[form.rules.serial.required]"
               required
               rounded outlined
             />
@@ -154,18 +149,14 @@ export default {
       form: {
         items: {
           name: '',
-          address: '',
-          auth: ''
+          serial: ''
         },
         rules: {
           name: {
             required: v => !!v || 'Veuillez renseigner le nom de votre serrure'
           },
-          address: {
-            required: v => !!v || 'Veuillez renseigner l\'adresse réseaux de votre serrure'
-          },
-          auth: {
-            required: v => !!v || 'Veuillez renseigner l\'authentification de votre serrure'
+          serial: {
+            required: v => !!v || 'Veuillez renseigner le numéro de série de votre serrure'
           }
         }
       }
@@ -180,8 +171,7 @@ export default {
       this.$refs.form.validate()
       LockService.initLock({
         name: this.form.items.name,
-        address: this.form.items.address,
-        auth: this.form.items.auth
+        serial: this.form.items.serial
       })
         .then(() => {
           this.$q.loading.hide()

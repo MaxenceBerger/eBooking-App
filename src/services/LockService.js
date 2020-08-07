@@ -9,5 +9,11 @@ export default {
   },
   getKey () {
     return apiHeader.get('lock')
+  },
+  lockOpen (data) {
+    return apiHeader.get('lock/open', data)
+  },
+  lockClose (data) {
+    return apiHeader.get('lock/close', data)
   }
 }
