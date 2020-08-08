@@ -3138,6 +3138,11 @@ cordova-lib@^10.0.0:
     stringify-package "^1.0.1"
     write-file-atomic "^3.0.3"
 
+cordova-plugin-screen-orientation@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.2.tgz#81290a933cfe84d35482cfcb251c931cc7b71931"
+  integrity sha512-2w6CMC+HGvbhogJetalwGurL2Fx8DQCCPy3wlSZHN1/W7WoQ5n9ujVozcoKrY4VaagK6bxrPFih+ElkO8Uqfzg==
+
 cordova-serve@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/cordova-serve/-/cordova-serve-4.0.0.tgz#7d0dc2a3c15f4ed17a467b97f0a37b9eb00b2964"
