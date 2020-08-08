@@ -1,0 +1,14 @@
+{
+  "name": "ebooking",
+  "version": "0.0.1",
+  "description": "School grade project",
+  "author": "Maxence Berger <maxence.berger41@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "2.4.0",
+    "@capacitor/cli": "^2.0.0",
+    "@capacitor/core": "^2.0.0",
+    "cordova-plugin-screen-orientation": "^3.0.2",
+    "es6-promise-plugin": "^4.2.2"
+  }
+}
