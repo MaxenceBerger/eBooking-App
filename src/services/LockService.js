@@ -11,9 +11,9 @@ export default {
     return apiHeader.get('lock')
   },
   lockOpen (data) {
-    return apiHeader.post('lock/open', data)
+    return apiHeader.get('lock/open', data)
   },
   lockClose (data) {
-    return apiHeader.post('lock/close', data)
+    return apiHeader.get('lock/close', data)
   }
 }
