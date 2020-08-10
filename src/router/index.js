@@ -20,4 +20,5 @@ Router.beforeEach((to, from, next) => {
     }
   })
 })
+
 export default Router
