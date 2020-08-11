@@ -23,6 +23,15 @@
           </div>
         </div>
       </div>
+      <q-banner v-if="reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+        <template v-slot:avatar>
+          <q-img
+              src="~assets/sad.svg"
+              style="width:30vw;max-width:50px;"
+          />
+        </template>
+        Aucune réservation a été effectué
+      </q-banner>
       <div class="col-12 q-mt-xl">
         <div class="row justify-center">
           <q-card

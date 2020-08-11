@@ -23,43 +23,55 @@
         </div>
       </div>
 
+      <q-banner v-if="reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+        <template v-slot:avatar>
+          <q-img
+              src="~assets/sad.svg"
+              style="width:30vw;max-width:50px;"
+          />
+        </template>
+        Aucune porte n'est a déverrouiller
+      </q-banner>
       <div class="col-12">
         <div class="row justify-center">
           <q-card
-              class="my-card rounded-borders q-mb-xl col-4"
+              class="my-card rounded-borders q-mt-xl col-4"
               v-for="reservation in reservationList"
               :key="reservation._id"
               v-bind="reservation"
           >
-            <div v-if="reservation.publication.rent.pictures[0]">
-              <q-img class="rounded-borders" :src="imageUrl + reservation.publication.rent.pictures[0]" style="height: 233px; width: 350px">
-                <div class="text-h6 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
-                  {{ reservation.rent.title }}
-                </div>
-                <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                  {{ reservation.rent.price }} €
-                </h5>
-              </q-img>
-            </div>
-            <div v-else>
-              <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
-                <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
-                  {{ reservation.rent.title }}
-                </div>
-                <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                  {{ reservation.rent.price }} €
-                </h5>
-                <template v-slot:error>
-                  <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
-                    L'anonnce n'a pas pu charger correctement
+              <div v-if="reservation.publication.rent.pictures[0]">
+                <q-img class="rounded-borders" :src="imageUrl + reservation.publication.rent.pictures[0]" style="height: 233px; width: 350px">
+                  <div class="text-h6 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                    {{ reservation.rent.title }}
                   </div>
-                </template>
-              </q-img>
-            </div>
-            <q-card-actions align="right">
-              <q-btn flat round color="secondary" icon="vpn_key" @click="openDoor(reservation._id)" />
-              <q-btn flat round color="red" icon="lock" @click="lockDoor(reservation._id)"/>
-            </q-card-actions>
+                </q-img>
+              </div>
+              <div v-else>
+                <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
+                  <div class="text-h5 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
+                    {{ reservation.rent.title }}
+                  </div>
+                  <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
+                    {{ reservation.rent.price }} €
+                  </h5>
+                  <template v-slot:error>
+                    <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
+                      L'anonnce n'a pas pu charger correctement
+                    </div>
+                  </template>
+                </q-img>
+              </div>
+              <input v-model="isLock" id="inpLock" type="checkbox" @change="test(reservation._id)"/>
+              <label class="btn-lock" for="inpLock">
+                <svg width="36" height="40" viewBox="0 0 36 40">
+                  <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                  <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                  <path class="bling" d="M29 20L31 22"></path>
+                  <path class="bling" d="M31.5 15H34.5"></path>
+                  <path class="bling" d="M29 10L31 8"></path>
+                </svg>
+              </label>
           </q-card>
         </div>
       </div>
@@ -71,51 +83,37 @@
 
 import LockService from '../services/LockService'
 import ReservationService from 'src/services/ReservationService'
-// import { QSpinnerGrid } from 'quasar'
 
 export default {
   name: 'UnlockPage',
   data: () => ({
+    isLock: true,
     reservationList: null,
     imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
-    openDoor (id) {
-      LockService.lockOpen({
-        reservation: id
-      })
-    },
-    lockDoor (id) {
-      // this.$q.loading.show({
-      // spinnerColor: 'secondary',
-      // backgroundColor: '#2d404e'
-      // })
-      this.$q.loading.show({
-        message: 'First message. Gonna change it in 3 seconds...'
-      })
-      LockService.lockClose({
-        reservation: id
-      })
-        .then(() => {
-          this.timer = setTimeout(() => {
-            this.$q.loading.show({
-              // spinner: QSpinnerGrid,
-              // spinnerColor: 'red',
-              messageColor: 'white',
-              message: '<q-icon name="warning" />',
-              backgroundColor: 'secondary'
-            })
-
-            this.timer = setTimeout(() => {
-              this.$q.loading.hide()
-              // eslint-disable-next-line no-void
-              this.timer = void 0
-            }, 2000)
-          }, 2000)
+    test (id) {
+      console.log(id)
+      console.log(this.isLock)
+      if (this.isLock === true) {
+        console.log('porte fermer')
+        LockService.lockClose({
+          reservation: id
         })
-        .catch(() => {
-          this.$q.loading.hide()
+          .then(() => {
+          })
+          .catch(() => {
+          })
+      } else {
+        console.log('porte ouverte')
+        LockService.lockOpen({
+          reservation: id
         })
+          .then(() => {
+          })
+          .catch(() => {
+          })
+      }
     },
     getMyOwnReservation () {
       this.$q.loading.show({
@@ -138,19 +136,86 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-  .text-shadow
-    text-shadow: 1px 1px 6px black
-  .rounded-borders
-    border-radius: 15px
-  .rounded-borders-title
-    border-radius: 15px 0
-  .bg-blue-custom
-    background: rgb(45, 64, 78)
-  .my-card
-    width: 100%
-    max-width: 350px
-  .font-Raleway
-    font-family: 'Raleway', sans-serif
-  .font-Roboto
-    font-family: 'Roboto', sans-serif
+.text-shadow
+  text-shadow: 1px 1px 6px black
+.rounded-borders
+  border-radius: 15px
+.rounded-borders-title
+  border-radius: 15px 0
+.bg-blue-custom
+  background: rgb(45, 64, 78)
+.my-card
+  width: 100%
+  max-width: 350px
+.font-Raleway
+  font-family: 'Raleway', sans-serif
+.font-Roboto
+  font-family: 'Roboto', sans-serif
+.bg-image
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: center
+.btn-lock
+  position: absolute
+  top: calc(50% - 32px)
+  left: calc(50% - 32px)
+  display: inline-block
+  background: #2D404E
+  width: 64px
+  height: 64px
+  box-sizing: border-box
+  padding: 12px 0 0 18px
+  border-radius: 50%
+  cursor: pointer
+  -webkit-tap-highlight-color: transparent
+  svg
+    fill: none
+    transform: translate3d(0,0,0)
+    .bling
+      stroke: white
+      stroke-width: 2.5
+      stroke-linecap: round
+      stroke-dasharray: 3
+      stroke-dashoffset: 15
+      transition: all .3s ease
+    .lock
+      stroke: white
+      stroke-width: 4
+      stroke-linejoin: round
+      stroke-linecap: round
+      stroke-dasharray: 36
+      transition: all .4s ease
+    .lockb
+      fill: white
+      fill-rule: evenodd
+      clip-rule: evenodd
+      transform: rotate(8deg)
+      transform-origin: 14px 20px
+      transition: all .2s ease
+
+#inpLock
+  display: none
+  &:checked + label
+    background: #4AA69A
+    svg
+      opacity: 1
+      .bling
+        animation: bling .3s linear forwards
+        animation-delay: .2s
+      .lock
+        stroke-dasharray: 48
+        animation: locked .3s linear forwards
+      .lockb
+        transform: rotate(0)
+        transform-origin: 14px 22px
+@keyframes bling
+  50%
+    stroke-dasharray: 3
+    stroke-dashoffset: 12
+  100%
+    stroke-dasharray: 3
+    stroke-dashoffset: 9
+@keyframes locked
+  50%
+    transform: translateY(1px)
 </style>
