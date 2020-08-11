@@ -149,7 +149,7 @@
           </q-carousel-control>
         </template>
       </q-carousel>
-      <div class="q-pa-xl">
+      <div class="q-pa-xl font-Raleway">
         <div class="text-h3">{{ publication.rent.title }}</div>
         <div class="text-subtitle2 q-mb-xl">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
         <div class="row">
@@ -185,7 +185,7 @@
             <div class="text-weight-regular text-body2 q-ml-lg">{{ publication.rent.country }}</div>
           </div>
           <div class="col-12 col-md-4 column items-center">
-            <q-card class="my-card">
+            <q-card class="my-card bg-blue-grey-1" flat bordered>
               <q-card-section>
                 <q-item-label class="text-subtitle1 q-ma-sm"> <strong>XXX €</strong> aux total</q-item-label>
                 <q-item-label caption class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / nuit</q-item-label>
@@ -256,6 +256,10 @@ export default {
   }),
   methods: {
     getReservation () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       ReservationService.getReservation(this.$route.params.idReservation)
         .then(response => {
           this.reservation = response.data.data
@@ -267,8 +271,9 @@ export default {
           this.reservation.start_at = date.formatDate(response.data.data.start_at, 'DD/MM/YYYY')
           this.reservation.end_at = date.formatDate(response.data.data.end_at, 'DD/MM/YYYY')
           this.getPublication()
-        }).catch(e => {
-          console.log(e)
+          this.$q.loading.hide()
+        }).catch(() => {
+          this.$q.loading.hide()
         })
     },
     getPublication () {

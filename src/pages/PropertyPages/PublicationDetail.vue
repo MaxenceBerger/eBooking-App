@@ -200,7 +200,7 @@
         </template>
       </q-carousel>
 
-      <div class="q-pa-xl">
+      <div class="q-pa-xl font-Raleway">
         <div class="text-h3">{{ publication.rent.title }}</div>
         <div class="text-subtitle2 q-mb-xl">{{ publication.rent.city }}, {{ publication.rent.country }}</div>
         <div class="row">
@@ -231,7 +231,7 @@
           </div>
           <div class="col-12 col-md-4 column items-center">
             <q-form @submit="reserveRent">
-              <q-card class="my-card">
+              <q-card class="my-card bg-blue-grey-1" flat bordered>
                 <q-card-section>
                   <div class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / par nuit</div>
                   <q-separator />
@@ -244,6 +244,7 @@
                               label="Réservation du"
                               rounded
                               outlined
+                              bg-color="white"
                               color="secondary"
                               :rules="[val => !!val || 'Une date est requise']"
                           >
@@ -253,6 +254,7 @@
                                   <q-date mask="DD/MM/YYYY"
                                           v-model="form.startAt"
                                           :locale="myLocale"
+                                          bg-color="white"
                                           color="secondary"
                                           :options="dateArray"
                                           today-btn minimal>
@@ -271,6 +273,7 @@
                               label="Au"
                               rounded
                               outlined
+                              bg-color="white"
                               color="secondary"
                               :rules="[val => !!val || 'Une date est requise']"
                           >
@@ -280,6 +283,7 @@
                                   <q-date mask="DD/MM/YYYY"
                                           v-model="form.finishAt"
                                           :locale="myLocale"
+                                          bg-color="white"
                                           color="secondary"
                                           :options="dateArray"
                                           today-btn minimal>
@@ -350,6 +354,10 @@ export default {
   }),
   methods: {
     getPublication () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       PublicationsService.getPublish(this.$route.params.idPublication)
         .then(response => {
           const ReservationDateArray = []
@@ -387,8 +395,9 @@ export default {
           } else {
             this.slide = 'no-images'
           }
-        }).catch(e => {
-          console.log(e)
+          this.$q.loading.hide()
+        }).catch(() => {
+          this.$q.loading.hide()
         })
     },
     reserveRent () {

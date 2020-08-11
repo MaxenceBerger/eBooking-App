@@ -217,6 +217,8 @@
                   v-model="form.rent.title"
                   label="Titre de l'annonce"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Le titre de l\'annonce est requis']"
                 />
                 <q-input
@@ -225,6 +227,8 @@
                   type="textarea"
                   label="Description"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La description est requise']"
                 />
                 <q-input
@@ -233,6 +237,8 @@
                   type="number"
                   label="Capacité maximum"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La capacité maximum est requise']"
                 />
                 <q-input
@@ -241,6 +247,8 @@
                   type="number"
                   label="Prix"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Le prix est requis']"
                 >
                   <template v-slot:append>
@@ -253,6 +261,8 @@
                   type="number"
                   label="Surface en m³"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La surface est requis']"
                 >
                   <template v-slot:append>
@@ -265,6 +275,8 @@
                   map-options
                   rounded
                   outlined
+                  bg-color="white"
+                  color="secondary"
                   option-value="id"
                   option-label="name"
                   v-model="form.rent.associatedLock"
@@ -280,6 +292,8 @@
                   v-model="form.rent.address"
                   label="Adresse"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Une adresse est requise']"
                 />
 
@@ -296,12 +310,16 @@
                   v-model="form.rent.postalCode"
                   label="Code Postal"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Un code postal est requis']"
                 />
                 <q-select
                   class="q-ma-sm"
                   rounded
                   outlined
+                  bg-color="white"
+                  color="secondary"
                   v-model="form.rent.country"
                   :options="countryOptions"
                   label="Sélectionnez le Pays"
@@ -583,6 +601,8 @@
                   v-model="form.rent.title"
                   label="Titre de l'annonce"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Le titre de l\'annonce est requis']"
                 />
                 <q-input
@@ -591,6 +611,8 @@
                   type="textarea"
                   label="Description"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La description est requise']"
                 />
                 <q-input
@@ -599,6 +621,8 @@
                   type="number"
                   label="Capacité maximum"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La capacité maximum est requise']"
                 />
                 <q-input
@@ -607,6 +631,8 @@
                   type="number"
                   label="Prix"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Le prix est requis']"
                 >
                   <template v-slot:append>
@@ -619,6 +645,8 @@
                   type="number"
                   label="Surface en m³"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'La surface est requis']"
                 >
                   <template v-slot:append>
@@ -631,6 +659,8 @@
                   map-options
                   rounded
                   outlined
+                  bg-color="white"
+                  color="secondary"
                   option-value="id"
                   option-label="name"
                   v-model="form.rent.associatedLock"
@@ -646,6 +676,8 @@
                   v-model="form.rent.address"
                   label="Adresse"
                   rounded outlined
+                  bg-color="white"
+                  color="secondary"
                   :rules="[val => !!val || 'Une adresse est requise']"
                 />
 
@@ -656,6 +688,8 @@
                       v-model="form.rent.city"
                       label="Ville"
                       rounded outlined
+                      bg-color="white"
+                      color="secondary"
                       :rules="[val => !!val || 'Une ville est requise']"
                     />
                   </div>
@@ -665,6 +699,8 @@
                       v-model="form.rent.postalCode"
                       label="Code Postal"
                       rounded outlined
+                      bg-color="white"
+                      color="secondary"
                       :rules="[val => !!val || 'Un code postal est requis']"
                     />
                   </div>
@@ -673,6 +709,8 @@
                   class="q-mb-lg"
                   rounded
                   outlined
+                  bg-color="white"
+                  color="secondary"
                   v-model="form.rent.country"
                   :options="countryOptions"
                   label="Sélectionnez le Pays"

@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-      <div class="column q-ma-xl margin-custom">
+      <div class="column q-ma-xl margin-custom font-Raleway">
         <q-list>
           <q-item-label header>INSTALLATION DE LA SMARTKEY</q-item-label>
           <q-item

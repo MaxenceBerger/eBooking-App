@@ -46,9 +46,10 @@
       </div>
     </q-header>
     <!-- /DESKTOP PLATFORM-->
-    <q-page-container class="bg-blue-grey-1">
+    <q-page-container v-if="this.$q.platform.is.desktop" class="bg-blue-grey-1">
       <router-view />
     </q-page-container>
+    <router-view v-if="this.$q.platform.is.mobile" class="bg-blue-custom"/>
   </q-layout>
 </template>
 

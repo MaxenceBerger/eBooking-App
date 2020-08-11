@@ -1,8 +1,8 @@
 <template>
   <q-layout class="font-Raleway">
     <!-- MOBILE PLATFORM-->
-    <q-page-container v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
-      <div class="q-pa-sm bg-login-mobile">
+    <template v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
+      <div class="q-pa-sm bg-login-mobile" style="padding-top: 70px;">
         <q-btn
             outline
             round
@@ -11,13 +11,12 @@
             icon="arrow_back"
             :to="{ name: 'HomePublicPage' }"
         />
-        <div class="text-h4 q-mt-lg q-ml-sm text-bold color-blue-custom">Connexion</div>
+        <div class="text-h4 q-mt-lg q-ml-sm text-bold text-white">Connexion</div>
       </div>
-
-      <q-page class="column items-center bg-blue-grey-2">
+      <template class="column items-center bg-blue-custom">
         <q-form
           @submit="onSubmit"
-          class="q-gutter-sm q-mt-lg">
+          class="q-gutter-sm q-mt-lg bg-blue-custom">
           <q-card class="q-mr-md q-ml-lg q-pt-md my-card-mobile">
             <q-card-section>
             <q-input
@@ -59,8 +58,8 @@
           </q-card-section>
           </q-card>
         </q-form>
-      </q-page>
-    </q-page-container>
+      </template>
+    </template>
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <q-page-container  v-if="this.$q.platform.is.desktop">
@@ -190,6 +189,8 @@ export default {
     font-family: 'Roboto', sans-serif
   .color-blue-custom
     color: rgb(45, 64, 78)
+  .bg-blue-custom
+    background-color: rgb(45, 64, 78)
   .bg-login
     background-image: url('../../assets/images/Mobile-login.png')
     background-size: 29%
@@ -202,4 +203,5 @@ export default {
     background-repeat: no-repeat
     background-position: 90% 90%
     justify-content: center
+    background-color: rgb(45, 64, 78)
 </style>

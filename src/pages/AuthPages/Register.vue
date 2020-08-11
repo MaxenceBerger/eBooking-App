@@ -1,8 +1,8 @@
 <template>
   <q-layout class="font-Raleway">
     <!-- MOBILE PLATFORM-->
-    <q-page-container v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
-      <div class="q-pa-sm bg-register-mobile">
+    <template v-if="this.$q.platform.is.mobile">
+      <div class="q-pa-sm bg-register-mobile" style="padding-top: 70px;">
         <q-btn
             outline
             round
@@ -11,9 +11,9 @@
             icon="arrow_back"
             :to="{ name: 'HomePublicPage' }"
         />
-        <div class="text-h4 q-mt-lg q-ml-sm text-bold color-blue-custom">S'inscrire</div>
+        <div class="text-h4 q-mt-lg q-ml-sm text-bold text-white">S'inscrire</div>
       </div>
-      <q-page class="column items-center bg-blue-grey-2">
+      <q-page class="column items-center">
         <q-form
           ref="form"
           @submit="matchPassword"
@@ -181,7 +181,7 @@
           </q-dialog>
         </q-form>
       </q-page>
-    </q-page-container>
+    </template>
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <q-page-container  v-if="this.$q.platform.is.desktop">

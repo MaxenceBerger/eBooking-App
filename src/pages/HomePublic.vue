@@ -1,12 +1,12 @@
 <template>
   <q-layout>
     <!-- MOBILE PLATFORM-->
-    <q-page-container  v-if="this.$q.platform.is.mobile">
+    <template v-if="this.$q.platform.is.mobile" class="q-pt-xl">
       <div class="bg-blue-custom" style="height: 100vh;">
         <div class="col-12">
           <div class="row">
             <div class="font-Raleway">
-              <div class="q-ma-lg text-center">
+              <div class="q-ma-lg text-center" style="padding-top: 50px;">
                 <h3 class="text-bold text-grey-3">
                   Lorem ipsum dolor sit amet
                 </h3>
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-    </q-page-container>
+    </template>
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <q-page-container v-if="this.$q.platform.is.desktop">

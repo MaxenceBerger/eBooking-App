@@ -1,7 +1,7 @@
 <template>
   <q-layout class="font-Raleway">
-    <q-page-container v-if="this.$q.platform.is.mobile" class="bg-blue-grey-2">
-      <div class="q-pa-sm bg-blue-grey-2">
+    <template v-if="this.$q.platform.is.mobile">
+      <div class="q-pa-sm" style="padding-top: 70px;">
         <q-btn
             outline
             round
@@ -12,21 +12,21 @@
         />
         <div class="row">
           <div class="col-8">
-            <div class="text-h4 q-mt-lg q-ml-lg text-bold color-blue-custom">Réinitialisation de votre<br>mot de passe</div>
+            <div class="text-h4 q-mt-lg q-ml-lg text-bold text-white">Réinitialisation de votre<br>mot de passe</div>
           </div>
           <div class="col-4">
             <q-img style="width: 100%" class="q-mt-lg" src="../../assets/images/Forgot-password.png"></q-img>
           </div>
         </div>
-        <div class="text q-mt-lg q-ml-lg">Un nouveau mot de passe vous sera envoyé par mail.
+        <div class="text q-mt-lg q-ml-lg text-blue-grey-3">Un nouveau mot de passe vous sera envoyé par mail.
         </div>
       </div>
-      <q-page class="column items-center" style="height: 100vh">
+      <template class="column items-center">
         <q-form
           ref="form"
           @submit="sendByMail"
           class="q-gutter-sm q-mt-lg">
-          <q-card class="q-mr-md q-ml-lg q-pt-md my-card-mobile">
+          <q-card class="q-mr-md q-ml-lg q-pt-md q-mb-xl my-card-mobile">
             <q-card-section>
               <q-input
                 v-model="form.items.email"
@@ -45,8 +45,8 @@
             </div>
           </q-card>
         </q-form>
-      </q-page>
-    </q-page-container>
+      </template>
+    </template>
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <q-page-container  v-if="this.$q.platform.is.desktop">
@@ -125,7 +125,7 @@ export default {
         }).catch(() => {
           this.$q.notify({
             color: 'red-6',
-            message: 'Oups, echec de lenvoie du nouveau mot de passe',
+            message: "Oups, echec de l'envoie du nouveau mot de passe",
             icon: 'report_problem',
             position: 'top'
           })
