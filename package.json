@@ -20,11 +20,13 @@
     "cordova-plugin-screen-orientation": "^3.0.2",
     "core-js": "^3.0.0",
     "imask": "^6.0.5",
+    "mapbox-gl": "^1.11.1",
     "moment": "^2.27.0",
     "path": "^0.12.7",
     "quasar": "^1.12.13",
     "shelljs": "^0.8.4",
     "vue-i18n": "^8.20.0",
+    "vue-mapbox": "^0.4.1",
     "vue-router": "^3.4.0",
     "vuex-persist": "^2.2.0"
   },
