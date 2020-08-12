@@ -228,6 +228,18 @@
             <q-separator />
             <div class="text-h5 q-ma-lg">Description</div>
             <div class="text-weight-regular text-body2 text-justify q-ma-lg">{{ publication.rent.description }}</div>
+            <template class="q-ma-xl">
+              <MglMap
+                  :accessToken="accessToken"
+                  :mapStyle.sync="mapStyle"
+                  layerId="myLayer"
+                  :layer="geoJsonlayer"
+                  :center="coordinates"
+                  :zoom="5"
+                  @load="onMapLoad"
+              >
+              </MglMap>
+            </template>
           </div>
           <div class="col-12 col-md-4 column items-center">
             <q-form @submit="reserveRent">
@@ -320,12 +332,31 @@
 import moment from 'moment'
 import PublicationsService from '../../services/PublicationsService'
 import ReservationService from '../../services/ReservationService'
+import MapsService from 'src/services/MapsService'
+import Mapbox from 'mapbox-gl'
+import {
+  MglMap
+} from 'vue-mapbox'
 
 const STATUS_CODE_401 = 401
 
 export default {
   name: 'PublicationDetail',
+  components: {
+    MglMap
+  },
   data: () => ({
+    accessToken: process.env.VUE_APP_TOKEN_MAP_BOX,
+    mapStyle: process.env.VUE_APP_MAP_STYLE_MAP_BOX,
+    postalCodeAndCity: null,
+    coordinates: {
+      lng: -1.5137635,
+      lat: 46.3873197
+    },
+    geoJsonLayer: {
+      type: 'geojson',
+      data: 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_ports.geojson'
+    },
     slide: 1,
     fullscreen: false,
     confirmReservation: false,
@@ -390,6 +421,8 @@ export default {
           this.today_date = moment().format('YYYY/MM/DD')
           this.form.idPublication = response.data.data._id
           this.pictures = response.data.data.rent.pictures
+          this.postalCodeAndCity = `${response.data.data.rent.postalCode.toLowerCase()}+${response.data.data.rent.city.toLowerCase()}+${response.data.data.rent.country.toLowerCase()}`
+          this.getLongLatBycity()
           if (response.data.data.rent.pictures[0].length >= 1) {
             this.slide = response.data.data.rent.pictures[0]
           } else {
@@ -399,6 +432,26 @@ export default {
         }).catch(() => {
           this.$q.loading.hide()
         })
+    },
+    getLongLatBycity () {
+      MapsService.getLongLatBycity(this.postalCodeAndCity)
+        .then(response => {
+          this.coordinates.lng = response.data.features[0].center[0]
+          this.coordinates.lat = response.data.features[0].center[1]
+          this.mapbox = Mapbox
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    async onMapLoad (event) {
+      const asyncActions = event.component.actions
+      const newParams = await asyncActions.flyTo({
+        center: this.coordinates,
+        zoom: 12,
+        speed: 1
+      })
+      console.log(newParams)
     },
     reserveRent () {
       this.$q.loading.show({
@@ -440,6 +493,7 @@ export default {
   },
   created () {
     this.getPublication()
+    this.map = null
   }
 }
 </script>
@@ -462,4 +516,9 @@ export default {
       background-size: contain
       background-repeat: no-repeat
       background-color: rgba(45, 64, 78, 1)
+  .mgl-map-wrapper
+    width: 880px
+    height: 500px
+    margin-left: 25px
+    margin-top: 25px
 </style>

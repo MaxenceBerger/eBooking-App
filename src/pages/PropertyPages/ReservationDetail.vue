@@ -183,6 +183,17 @@
             <div class="text-weight-regular text-body2 q-ml-lg">{{ publication.rent.postalCode }} {{ publication.rent.city }}</div>
             <div class="text-weight-regular text-body2 q-ml-lg"></div>
             <div class="text-weight-regular text-body2 q-ml-lg">{{ publication.rent.country }}</div>
+            <template class="q-ma-xl">
+              <MglMap
+                  :accessToken="accessToken"
+                  :mapStyle.sync="mapStyle"
+                  :center="coordinates"
+                  :zoom="5"
+                  @load="onMapLoad"
+              >
+                <MglMarker :coordinates="coordinates" color="red" />
+              </MglMap>
+            </template>
           </div>
           <div class="col-12 col-md-4 column items-center">
             <q-card class="my-card bg-blue-grey-1" flat bordered>
@@ -239,11 +250,25 @@
 
 import ReservationService from '../../services/ReservationService'
 import PublicationsService from '../../services/PublicationsService'
+import Mapbox from 'mapbox-gl'
+import { MglMap, MglMarker } from 'vue-mapbox'
 import { date } from 'quasar'
+import MapsService from 'src/services/MapsService'
 
 export default {
   name: 'ReservationDetail',
+  components: {
+    MglMap,
+    MglMarker
+  },
   data: () => ({
+    accessToken: process.env.VUE_APP_TOKEN_MAP_BOX,
+    mapStyle: process.env.VUE_APP_MAP_STYLE_MAP_BOX,
+    fullAddress: null,
+    coordinates: {
+      lng: -1.5137635,
+      lat: 46.3873197
+    },
     slide: 1,
     fullscreen: false,
     reservation: null,
@@ -281,9 +306,34 @@ export default {
         .then(response => {
           this.publication = response.data.data
           this.publication.rent.city = response.data.data.rent.city.charAt(0).toUpperCase() + response.data.data.rent.city.substring(1).toLowerCase()
+          this.fullAddress = `${response.data.data.rent.address.toLowerCase()}+${response.data.data.rent.postalCode.toLowerCase()}+${response.data.data.rent.city.toLowerCase()}+${response.data.data.rent.country.toLowerCase()}`
+          this.getLongLatByAddress()
         }).catch(e => {
           console.log(e)
         })
+    },
+    getLongLatByAddress () {
+      MapsService.getLongLatByAddress(this.fullAddress)
+        .then(response => {
+          this.coordinates.lng = response.data.features[0].center[0]
+          this.coordinates.lat = response.data.features[0].center[1]
+          console.log(response.data.features[0].center)
+          this.mapbox = Mapbox
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    async onMapLoad (event) {
+      // Here we cathing 'load' map event
+      const asyncActions = event.component.actions
+
+      const newParams = await asyncActions.flyTo({
+        center: this.coordinates,
+        zoom: 17,
+        speed: 1
+      })
+      console.log(newParams)
     },
     deleteRent () {
       this.$q.loading.show({
@@ -313,6 +363,7 @@ export default {
   },
   created () {
     this.getReservation()
+    this.map = null
   }
 }
 </script>
@@ -337,4 +388,9 @@ export default {
       background-size: contain
       background-repeat: no-repeat
       background-color: rgb(45, 64, 78)
+  .mgl-map-wrapper
+    width: 880px
+    height: 500px
+    margin-left: 25px
+    margin-top: 25px
 </style>

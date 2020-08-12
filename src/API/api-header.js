@@ -6,7 +6,6 @@ const apiHeader = Axios.create({
   baseURL: apiBaseUrl(),
   headers: { 'Content-Type': 'application/json' }
 })
-
 export { apiHeader as default }
 
 apiHeader.interceptors.request.use((configParam) => {
