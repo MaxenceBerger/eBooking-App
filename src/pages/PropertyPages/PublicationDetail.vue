@@ -64,6 +64,17 @@
             <q-separator />
             <div class="text-h5 q-ma-lg font-Raleway color-blue-custom">Description</div>
             <div class="text-weight-regular text-body2 text-justify q-ma-lg font-Raleway">{{ publication.rent.description }}</div>
+            <template class="q-ma-xl">
+              <MglMap
+                  style="width: 365px; height: 250px; margin-left: 25px; margin-bottom: 25px; margin-top: 25px"
+                  :accessToken="accessToken"
+                  :mapStyle.sync="mapStyle"
+                  :center="coordinates"
+                  :zoom="5"
+                  @load="onMapLoad"
+              >
+              </MglMap>
+            </template>
           </div>
           <div class="col-12 col-md-4 column items-center">
             <q-form>
@@ -230,10 +241,9 @@
             <div class="text-weight-regular text-body2 text-justify q-ma-lg">{{ publication.rent.description }}</div>
             <template class="q-ma-xl">
               <MglMap
+                  style="width: 880px; height: 500px; margin-left: 25px; margin-top: 25px"
                   :accessToken="accessToken"
                   :mapStyle.sync="mapStyle"
-                  layerId="myLayer"
-                  :layer="geoJsonlayer"
                   :center="coordinates"
                   :zoom="5"
                   @load="onMapLoad"
@@ -516,7 +526,7 @@ export default {
       background-size: contain
       background-repeat: no-repeat
       background-color: rgba(45, 64, 78, 1)
-  .mgl-map-wrapper
+  // .mgl-map-wrapper
     width: 880px
     height: 500px
     margin-left: 25px
