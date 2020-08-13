@@ -2,12 +2,12 @@ import store from '../store/index.js'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
 
     component: () => import('layouts/MainPublicLayout.vue'),
     children: [
       {
-        path: '/',
+        path: '/home',
         name: 'HomePublicPage',
         component: () => import('pages/HomePublic.vue'),
         meta: {
@@ -49,12 +49,12 @@ const routes = [
     ]
   },
   {
-    path: '/home',
+    path: '/',
 
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/home',
+        path: '/',
         name: 'HomePage',
         component: () => import('pages/PropertyPages/Home.vue'),
         meta: {
@@ -158,7 +158,7 @@ const routes = [
         },
         beforeEnter: (to, from, next) => {
           if (store.getters.getRole !== 'ADMIN') {
-            next({ path: '/home' })
+            next({ path: '/' })
           } else {
             next()
           }

@@ -211,7 +211,7 @@ export default {
 <style lang="sass" scoped>
   .q-item
     color: #DDD !important
-  .q-router-link--active, .q-item--active
+  // .q-router-link--active, .q-item--active
     color: #4db6ac !important
   .bg-blue-custom
     background: rgb(45,64,78)

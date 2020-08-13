@@ -80,6 +80,7 @@
           <q-separator />
           <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">ADMINISTRATION</q-item-label>
           <q-item
+              class="q-mb-lg"
               clickable
               v-ripple
               :to="{ name: 'DashboardPublicationsAndRentsPage' }"
@@ -90,17 +91,6 @@
             </q-item-section>
           </q-item>
 
-          <q-item
-              class="q-mb-lg"
-              clickable
-              v-ripple
-              :to="{ name: 'MyAccountInformationPage' }"
-          >
-            <q-item-section class="font-Raleway color-blue-custom">Statistiques</q-item-section>
-            <q-item-section avatar>
-              <q-icon color="blue-grey-4" name="show_chart" />
-            </q-item-section>
-          </q-item>
           <q-separator />
           <q-item-label header class="q-mt-lg font-Raleway color-blue-custom text-bold">JURIDIQUE</q-item-label>
           <q-item
@@ -201,6 +191,7 @@
           <q-separator />
           <q-item-label header class="q-mt-lg">ADMINISTRATION</q-item-label>
           <q-item
+              class="q-mb-lg"
               clickable
               v-ripple
               :to="{ name: 'DashboardPublicationsAndRentsPage' }"
@@ -211,17 +202,6 @@
             </q-item-section>
           </q-item>
 
-          <q-item
-              class="q-mb-lg"
-              clickable
-              v-ripple
-              :to="{ name: 'MyAccountInformationPage' }"
-          >
-            <q-item-section>Statistiques</q-item-section>
-            <q-item-section avatar>
-              <q-icon color="blue-grey-4" name="show_chart" />
-            </q-item-section>
-          </q-item>
           <q-separator />
           <q-item-label header class="q-mt-lg">JURIDIQUE</q-item-label>
           <q-item

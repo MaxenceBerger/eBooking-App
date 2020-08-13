@@ -14,7 +14,7 @@ const Router = new VueRouter({
 Router.beforeEach((to, from, next) => {
   to.matched.some(route => {
     if (to.meta.requiresAuth && !store.getters.isLoggedIn) {
-      next({ path: '/' })
+      next({ path: '/home' })
     } else {
       next()
     }

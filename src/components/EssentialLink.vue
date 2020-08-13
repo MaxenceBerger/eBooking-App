@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-  .q-item.q-router-link--active, .q-item--active
+  // .q-item.q-router-link--active, .q-item--active
     color: #269b8f
   .bg-blue-custom
     background: rgb(45,64,78)
