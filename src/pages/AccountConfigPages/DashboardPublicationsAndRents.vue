@@ -36,9 +36,9 @@
         </div>
       </div>
       <q-card class="my-card q-ma-md"
-        v-for="rent in getRents"
-        :key="rent._id"
-        v-bind="rent">
+              v-for="rent in getRents.slice(startLimit, endLimit)"
+              :key="rent._id"
+              v-bind="rent">
         <q-img
             :ratio="16/9"
             :src="imageUrl + rent.pictures[0]"
@@ -406,6 +406,16 @@
           </q-card>
         </q-dialog>
       </q-card>
+      <div class="q-pa-lg flex flex-center">
+        <q-pagination
+            v-model="current"
+            color="secondary"
+            :max="pages"
+            :direction-links="true"
+            @click="getPagination"
+        >
+        </q-pagination>
+      </div>
     </template>
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
@@ -433,9 +443,10 @@
           </div>
         </div>
       </div>
+      <div class="flex flex-center">
       <q-card class="my-card q-mb-xl q-ml-xl q-mr-xl"
               style="max-width: 1000px"
-        v-for="rent in getRents"
+        v-for="rent in getRents.slice(startLimit, endLimit)"
         :key="rent._id"
         v-bind="rent">
         <q-card-section horizontal>
@@ -797,6 +808,17 @@
           </q-card>
         </q-dialog>
       </q-card>
+      </div>
+      <div class="q-pa-lg flex flex-center">
+        <q-pagination
+            v-model="current"
+            color="secondary"
+            :max="pages"
+            :direction-links="true"
+            @click="getPagination"
+        >
+        </q-pagination>
+      </div>
     </template>
   </q-page>
 </template>
@@ -813,6 +835,12 @@ export default {
   data: () => {
     return {
       imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED,
+      rentLength: 0,
+      limit: 5,
+      pages: 1,
+      startLimit: 0,
+      endLimit: 5,
+      current: 1,
       countryOptions: [
         'France'
       ],
@@ -868,9 +896,15 @@ export default {
       RentsService.getRentsList()
         .then((response) => {
           this.getRents = response.data.data
+          this.rentLength = response.data.data.length
+          this.pages = Math.ceil(response.data.data.length / 5)
         }).catch(e => {
           console.log(e)
         })
+    },
+    getPagination () {
+      this.startLimit = (this.current * this.limit) - this.limit
+      this.endLimit = (this.current * this.limit)
     },
     openDialogConfirmDelete (id) {
       this.dialogDelete.dialog = true

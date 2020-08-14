@@ -74,7 +74,7 @@
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <template v-if="this.$q.platform.is.desktop">
-      <div class="bg-blue-custom q-mb-xl" style="height: 400px;">
+      <div class="bg-blue-custom" style="height: 400px;">
         <div class="row q-ma-xl">
           <div class="col-9">
             <h3 class="items-end font-Raleway text-white">Mes Réservations</h3>
@@ -90,6 +90,15 @@
           </div>
         </div>
       </div>
+      <q-banner v-if="reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+        <template v-slot:avatar>
+          <q-img
+              src="~assets/sad.svg"
+              style="width:30vw;max-width:50px;"
+          />
+        </template>
+        Aucune réservation a été effectué
+      </q-banner>
       <div class="col-12">
         <div class="row">
           <q-card

@@ -39,34 +39,6 @@
         </div>
       </div>
       <q-linear-progress v-if="this.isLoading === true" indeterminate color="secondary" />
-      <div v-if="isSearch && noRents === false">
-        <div class="text-right">
-          <q-btn unelevated
-                 round
-                 dense
-                 color="blue-grey-3"
-                 class="q-ma-sm"
-                 label="10"
-                 @click="getLimit(10)"
-          />
-          <q-btn unelevated
-                 round
-                 dense
-                 color="blue-grey-3"
-                 class="q-ma-sm"
-                 label="20"
-                 @click="getLimit(20)"
-          />
-          <q-btn unelevated
-                 rounded
-                 dense
-                 color="blue-grey-3"
-                 class="q-ma-sm q-pl-sm q-pr-sm q-mr-lg"
-                 label="tout voir"
-                 @click="getLimit('all')"
-          />
-        </div>
-      </div>
       <q-banner v-if="this.noRents === true" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
         <template v-slot:avatar>
           <q-img
@@ -80,7 +52,7 @@
         <div class="row justify-center">
           <q-card
               class="my-card rounded-borders q-mb-xl col-4"
-              v-for="publication in publicationsList"
+              v-for="publication in publicationsList.slice(0, 5)"
               :key="publication._id"
               v-bind="publication"
           >
@@ -119,7 +91,7 @@
         <div v-if="isSearch" class="row justify-center">
           <q-card
               class="my-card rounded-borders q-mb-xl col-4"
-              v-for="publication in searchList.slice(0, limit)"
+              v-for="publication in searchList.slice(startLimit, endLimit)"
               :key="publication._id"
               v-bind="publication"
           >
@@ -151,6 +123,15 @@
               </div>
             </router-link>
           </q-card>
+        </div>
+        <div v-if="isSearch && noRents === false" class="row q-pa-lg flex-center flex">
+          <q-pagination
+              v-model="current"
+              color="secondary"
+              :max="pages"
+              :direction-links="true"
+              @click="getPagination"
+          />
         </div>
       </div>
     </template>
@@ -189,34 +170,6 @@
         </div>
       </div>
       <q-linear-progress v-if="this.isLoading === true" indeterminate color="secondary" />
-      <div v-if="isSearch && noRents === false">
-        <div class="text-right">
-          <q-btn unelevated
-                 round
-                 dense
-                 color="blue-grey-4"
-                 class="q-ma-sm"
-                 label="10"
-                 @click="getLimit(10)"
-          />
-          <q-btn unelevated
-                 round
-                 dense
-                 color="blue-grey-4"
-                 class="q-ma-sm"
-                 label="20"
-                 @click="getLimit(20)"
-          />
-          <q-btn unelevated
-                 rounded
-                 dense
-                 color="blue-grey-4"
-                 class="q-ma-sm q-pl-sm q-pr-sm q-mr-lg"
-                 label="tout voir"
-                 @click="getLimit('all')"
-          />
-        </div>
-      </div>
       <q-banner v-if="this.noRents === true" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
         <template v-slot:avatar>
           <q-img
@@ -227,10 +180,10 @@
         Désolé, il n'y a pas encore d'annonce pour ce lieu
       </q-banner>
       <div v-if="isSuggestions" class="col-12 q-mt-xl">
-        <div class="row">
+        <div class="row flex-center flex">
           <q-card
               class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
-              v-for="publication in publicationsList"
+              v-for="publication in publicationsList.slice(0, 6)"
               :key="publication._id"
               v-bind="publication"
           >
@@ -264,11 +217,11 @@
           </q-card>
         </div>
       </div>
-      <div class="col-12">
-        <div v-if="isSearch" class="row">
+      <div class="col-12 q-mt-xl">
+        <div v-if="isSearch" class="row flex-center flex">
           <q-card
               class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
-              v-for="publication in searchList.slice(0, limit)"
+              v-for="publication in searchList.slice(startLimit, endLimit)"
               :key="publication._id"
               v-bind="publication"
           >
@@ -300,6 +253,15 @@
               </div>
             </router-link>
           </q-card>
+        </div>
+        <div v-if="isSearch && noRents === false" class="row q-pa-lg flex-center flex">
+          <q-pagination
+              v-model="current"
+              color="secondary"
+              :max="pages"
+              :direction-links="true"
+              @click="getPagination"
+          />
         </div>
       </div>
     </template>
@@ -314,7 +276,12 @@ export default {
   name: 'HomePage',
 
   data: () => ({
-    limit: 10,
+    searchLength: 0,
+    limit: 5,
+    pages: 1,
+    startLimit: 0,
+    endLimit: 5,
+    current: 1,
     searchPublish: '',
     isLoading: false,
     isSuggestions: true,
@@ -349,6 +316,10 @@ export default {
           this.$q.loading.hide()
         })
     },
+    getPagination () {
+      this.startLimit = (this.current * this.limit) - this.limit
+      this.endLimit = (this.current * this.limit)
+    },
     getSearch () {
       this.isLoading = true
       PublicationsService.getPublishByCity(this.searchPublish.toLowerCase())
@@ -358,6 +329,8 @@ export default {
           this.isSearch = true
           this.isSuggestions = false
           this.isLoading = false
+          this.searchLength = response.data.data.length
+          this.pages = Math.ceil(response.data.data.length / 5)
         }).catch(() => {
           this.isLoading = false
           this.noRents = true
