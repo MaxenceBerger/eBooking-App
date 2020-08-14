@@ -324,7 +324,7 @@ export default {
     publicationsList: null,
     searchList: null,
     rentsList: null,
-    suggestions: ['Bordeaux', 'Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Montpellier', 'Strasbourg', 'Lille'],
+    suggestions: ['Bordeaux', 'Paris', 'Lyon'],
     ramdomSuggestions: '',
     imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
@@ -340,7 +340,7 @@ export default {
         spinnerColor: 'secondary',
         backgroundColor: '#2d404e'
       })
-      PublicationsService.getPublishByCity('bordeaux')
+      PublicationsService.getPublishByCity(this.ramdomSuggestions.toLowerCase())
         .then(response => {
           this.$q.loading.hide()
           this.publicationsList = response.data.data
