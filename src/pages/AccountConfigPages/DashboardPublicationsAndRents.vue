@@ -898,8 +898,7 @@ export default {
           this.getRents = response.data.data
           this.rentLength = response.data.data.length
           this.pages = Math.ceil(response.data.data.length / 5)
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     },
     getPagination () {
@@ -934,8 +933,7 @@ export default {
           this.dialogModify.dialog = true
           this.dialogModify.id = id
           this.dialogPublish.id = id
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     },
     updateProperty () {
@@ -1009,7 +1007,6 @@ export default {
     openDialogConfirmUnpublish (id) {
       this.dialogUnpublish.dialog = true
       this.dialogUnpublish.id = id
-      console.log(id)
     },
     deletePublish (id) {
       this.$q.loading.show({
@@ -1045,8 +1042,7 @@ export default {
               address: response.data.data[i].address
             })
           }
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     }
   },

@@ -450,18 +450,16 @@ export default {
           this.coordinates.lat = response.data.features[0].center[1]
           this.mapbox = Mapbox
         })
-        .catch(e => {
-          console.log(e)
+        .catch(() => {
         })
     },
     async onMapLoad (event) {
       const asyncActions = event.component.actions
-      const newParams = await asyncActions.flyTo({
+      await asyncActions.flyTo({
         center: this.coordinates,
         zoom: 12,
         speed: 1
       })
-      console.log(newParams)
     },
     reserveRent () {
       this.$q.loading.show({

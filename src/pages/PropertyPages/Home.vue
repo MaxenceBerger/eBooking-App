@@ -300,7 +300,6 @@ export default {
       this.ramdomSuggestions = this.suggestions[Math.floor(Math.random() * this.suggestions.length)]
       this.urlImg = 'img/Bordeaux.jpg'.toString()
       this.getPublications()
-      console.log(this.urlImg)
     },
     getPublications () {
       this.$q.loading.show({
@@ -311,7 +310,6 @@ export default {
         .then(response => {
           this.$q.loading.hide()
           this.publicationsList = response.data.data
-          console.log(response.data.data)
         }).catch(() => {
           this.$q.loading.hide()
         })
@@ -336,16 +334,6 @@ export default {
           this.noRents = true
           this.isSearch = false
         })
-    },
-    getLimit (limit) {
-      console.log(limit)
-      if (limit === 'all') {
-        this.limit = this.publicationsList.length
-        this.getSearch()
-      } else {
-        this.limit = limit
-        this.getSearch()
-      }
     }
   },
   mounted () {

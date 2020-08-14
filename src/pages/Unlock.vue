@@ -62,7 +62,7 @@
                   </template>
                 </q-img>
               </div>
-              <input v-model="isLock" id="inpLock" type="checkbox" @change="test(reservation._id)"/>
+              <input v-model="isLock" id="inpLock" type="checkbox" @change="unlock(reservation._id)"/>
               <label class="btn-lock" for="inpLock">
                 <svg width="36" height="40" viewBox="0 0 36 40">
                   <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
@@ -92,11 +92,8 @@ export default {
     imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
   }),
   methods: {
-    test (id) {
-      console.log(id)
-      console.log(this.isLock)
+    unlock (id) {
       if (this.isLock === true) {
-        console.log('porte fermer')
         LockService.lockClose({
           reservation: id
         })
@@ -105,7 +102,6 @@ export default {
           .catch(() => {
           })
       } else {
-        console.log('porte ouverte')
         LockService.lockOpen({
           reservation: id
         })

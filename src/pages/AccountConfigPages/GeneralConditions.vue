@@ -402,8 +402,7 @@ export default {
       UserService.getUser()
         .then(response => {
           this.form.items = response.data.data
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     },
     updateUser () {

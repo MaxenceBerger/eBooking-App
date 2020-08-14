@@ -189,7 +189,6 @@ export default {
       UserService.getUser()
         .then(response => {
           this.userInfo = response.data.data
-          console.log(this.userInfo)
           if (response.data.data.picture.length >= 1) {
             this.profilePicture = this.imageUrl + response.data.data.picture
             this.profilePictureDefault = false

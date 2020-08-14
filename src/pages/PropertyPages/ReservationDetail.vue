@@ -301,7 +301,6 @@ export default {
       ReservationService.getReservation(this.$route.params.idReservation)
         .then(response => {
           this.reservation = response.data.data
-          console.log(response.data.data)
           this.idReservation = response.data.data.id
           this.idPublication = response.data.data.publication._id
           this.pictures = response.data.data.publication.rent.pictures
@@ -321,8 +320,7 @@ export default {
           this.publication.rent.city = response.data.data.rent.city.charAt(0).toUpperCase() + response.data.data.rent.city.substring(1).toLowerCase()
           this.fullAddress = `${response.data.data.rent.address.toLowerCase()}+${response.data.data.rent.postalCode.toLowerCase()}+${response.data.data.rent.city.toLowerCase()}+${response.data.data.rent.country.toLowerCase()}`
           this.getLongLatByAddress()
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     },
     getLongLatByAddress () {
@@ -330,23 +328,18 @@ export default {
         .then(response => {
           this.coordinates.lng = response.data.features[0].center[0]
           this.coordinates.lat = response.data.features[0].center[1]
-          console.log(response.data.features[0].center)
           this.mapbox = Mapbox
         })
-        .catch(e => {
-          console.log(e)
+        .catch(() => {
         })
     },
     async onMapLoad (event) {
-      // Here we cathing 'load' map event
       const asyncActions = event.component.actions
-
-      const newParams = await asyncActions.flyTo({
+      await asyncActions.flyTo({
         center: this.coordinates,
         zoom: 17,
         speed: 1
       })
-      console.log(newParams)
     },
     deleteRent () {
       this.$q.loading.show({

@@ -389,7 +389,6 @@ export default {
       this.pictureRemoved.title = files[0].name
       for (let i = 0; i < this.tempPictures.length; i += 1) {
         if (this.tempPictures[i].title === files[0].name) {
-          console.log(this.tempPictures)
           const allPictures = this.tempPictures
           this.tempPicturesToDelete.push(allPictures[i].ref)
         }
@@ -404,7 +403,6 @@ export default {
           ...PicturesDeleted.filter(x => !PicturesAdded.includes(x))
         ]
       }
-      console.log(arrayDiff(PicturesAdded, PicturesDeleted))
       this.form.items.pictures = arrayDiff(PicturesAdded, PicturesDeleted)
       this.updateUser()
     },
@@ -412,9 +410,7 @@ export default {
       UserService.getUser()
         .then(response => {
           this.form.items = response.data.data
-          console.log(response.data.data)
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     },
     updateUser () {

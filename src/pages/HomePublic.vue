@@ -139,8 +139,7 @@ export default {
       PublicationsService.getAllPublish()
         .then(response => {
           this.publicationsList = response.data.data
-        }).catch(e => {
-          console.log(e)
+        }).catch(() => {
         })
     }
   },
