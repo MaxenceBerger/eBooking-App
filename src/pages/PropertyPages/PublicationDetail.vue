@@ -328,9 +328,53 @@
                          type="submit">
                     Reservation
                   </q-btn>
+                  <q-btn label="emul pay" color="primary" @click="openPayementModal()" />
                 </q-card-actions>
               </q-card>
             </q-form>
+            <q-dialog v-model="payementModal" persistent>
+              <q-card class="bg-blue-grey-1" style="min-width: 700px">
+                <q-card-section class="bg-teal text-white">
+                  <div class="text-h6 font-Raleway">Paiement de votre réservation</div>
+                </q-card-section>
+                <q-card-section>
+                  <template>
+                    <div class="q-pl-md q-pr-md q-pt-md">
+                      <q-table
+                          class="font-Raleway"
+                          flat
+                          :data="data"
+                          :columns="columns"
+                          row-key="name"
+                          hide-bottom
+                      />
+                    </div>
+                  </template>
+                </q-card-section>
+                <q-card-section>
+                  <div class="q-pl-md q-pr-md">
+                    <stripe-elements
+                        class="font-Raleway"
+                        locale="fr"
+                        card-element="card-element"
+                        ref="elementsRef"
+                        :pk="publishableKey"
+                        :amount="totalToPay"
+                        @token="tokenCreated"
+                        @loading="loading = $event"
+                        style="width: 636px"
+                    >
+                    </stripe-elements>
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <div class="q-pl-md q-pr-md">
+                    <q-btn class="font-Raleway q-ma-sm" @click="submit" color="secondary">Paiement de {{totalToPay}} €</q-btn>
+                    <q-btn class="font-Raleway q-ma-sm" label="Annuler" color="negative" v-close-popup />
+                  </div>
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
           </div>
         </div>
       </div>
@@ -344,24 +388,52 @@ import PublicationsService from '../../services/PublicationsService'
 import ReservationService from '../../services/ReservationService'
 import MapsService from 'src/services/MapsService'
 import Mapbox from 'mapbox-gl'
-import {
-  MglMap
-} from 'vue-mapbox'
+import { MglMap } from 'vue-mapbox'
+import { StripeElements } from 'vue-stripe-checkout'
+import StripeService from 'src/services/StripeService'
 
 const STATUS_CODE_401 = 401
+// eslint-disable-next-line no-undef
+const stripe = Stripe('pk_test_51HAtJPIK51B5A5PzQOpQ1ugLl6Fbh53fkpj3AVTGAMEyFwS49mORiaeH4eEXY3DFPSHoNUH9jnnND6kFudqk070100waZtsLBM')
 
 export default {
   name: 'PublicationDetail',
   components: {
-    MglMap
+    MglMap,
+    StripeElements
   },
   data: () => ({
+    // STRIPE
+    totalDay: null,
+    totalToPay: null,
+    loading: false,
+    publishableKey: process.env.VUE_APP_PUBLIC_KEY_STRIPE,
+    token: null,
+    charge: null,
+    payementModal: false,
+    columns: [
+      { name: 'title', align: 'center', label: 'Nom de la location', field: 'title', sortable: false },
+      { name: 'startAt', align: 'center', label: 'Début de séjour', field: 'startAt', sortable: false },
+      { name: 'finishAt', align: 'center', label: 'Fin de séjour', field: 'finishAt', sortable: false },
+      { name: 'totalDay', align: 'center', label: 'Nuitée(s)', field: 'totalDay', sortable: false },
+      { name: 'totalToPay', align: 'center', label: 'Prix total', field: 'totalToPay', sortable: false }
+    ],
+    data: [
+      {
+        title: null,
+        startAt: null,
+        finishAt: null,
+        totalDay: null,
+        totalToPay: null
+      }
+    ],
+    // MAP
     accessToken: process.env.VUE_APP_TOKEN_MAP_BOX,
     mapStyle: process.env.VUE_APP_MAP_STYLE_MAP_BOX,
     postalCodeAndCity: null,
     coordinates: {
-      lng: -1.5137635,
-      lat: 46.3873197
+      lng: 2.2096669,
+      lat: 46.2321929
     },
     geoJsonLayer: {
       type: 'geojson',
@@ -394,6 +466,65 @@ export default {
     countReservation: null
   }),
   methods: {
+    submit () {
+      this.$refs.elementsRef.submit()
+    },
+    openPayementModal () {
+      this.payementModal = true
+      const oneDay = 24 * 60 * 60 * 1000
+      const startAtFormat = moment(this.form.startAt, 'DD/MM/YYYY').format()
+      const startAt = new Date(startAtFormat)
+      const finishAtFormat = moment(this.form.finishAt, 'DD/MM/YYYY').format()
+      const finishAt = new Date(finishAtFormat)
+      this.totalDay = Math.round(Math.abs((startAt - finishAt) / oneDay))
+      this.totalToPay = this.totalDay * this.publication.rent.price
+      this.data[0].title = this.publication.rent.title
+      this.data[0].startAt = this.form.startAt
+      this.data[0].finishAt = this.form.finishAt
+      this.data[0].totalDay = this.totalDay
+      this.data[0].totalToPay = this.totalToPay
+    },
+    tokenCreated (token) {
+      console.log(token)
+      this.token = token
+      this.card = token.card
+      this.source = token.id
+      this.amount = this.totalToPay * 100
+      this.sendTokenToServer()
+    },
+    sendTokenToServer () {
+      StripeService.paymentIntent({
+        source: this.source,
+        amount: this.amount
+      })
+        .then(response => {
+          this.confirmPaymentToStripe(response)
+        }).catch(e => {
+          console.log(e)
+        })
+    },
+    confirmPaymentToStripe (data) {
+      console.log(data.data.clientSecret)
+      console.log(this.card)
+      stripe.confirmCardPayment(data.data.clientSecret, {
+        payment_method: {
+          card: 'card-element'
+        }
+      })
+        .then(result => {
+          console.log(result)
+          if (result.error) {
+            // Show error to your customer
+            console.log(result.error.message)
+          } else {
+            // The payment succeeded!
+            console.log(result.paymentIntent.id)
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     getPublication () {
       this.$q.loading.show({
         spinnerColor: 'secondary',
