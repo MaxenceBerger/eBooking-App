@@ -79,81 +79,81 @@
           <div class="col-12 col-md-4 column items-center">
             <q-form>
               <q-dialog v-model="confirmReservation" persistent>
-              <q-card class="my-card">
-                <q-card-section>
-                  <div class="text-h6 q-ma-sm q-mb-lg font-Raleway">Indiquez vos dates de réservations</div>
+                <q-card class="my-card">
+                  <q-card-section>
+                    <div class="text-h6 q-ma-sm q-mb-lg font-Raleway">Indiquez vos dates de réservations</div>
+                    <q-separator />
+                    <q-item-section class="q-mt-lg">
+                      <q-item>
+                        <div class="row">
+                          <div class="col-12">
+                            <q-input
+                                v-model="form.startAt"
+                                label="Réservation du"
+                                rounded
+                                outlined
+                                class="font-Raleway"
+                                color="secondary"
+                                :rules="[val => !!val || 'Une date est requise']"
+                            >
+                              <template v-slot:append>
+                                <q-icon color="secondary" name="event">
+                                  <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                                    <q-date mask="DD/MM/YYYY"
+                                            v-model="form.startAt"
+                                            :locale="myLocale"
+                                            class="font-Raleway"
+                                            color="secondary"
+                                            :options="dateArray"
+                                            today-btn minimal>
+                                      <div class="row items-center justify-end q-gutter-sm">
+                                        <q-btn label="OK" color="secondary" class="font-Raleway" flat v-close-popup />
+                                      </div>
+                                    </q-date>
+                                  </q-popup-proxy>
+                                </q-icon>
+                              </template>
+                            </q-input>
+                          </div>
+                          <div class="col-12">
+                            <q-input
+                                v-model="form.finishAt"
+                                label="Au"
+                                rounded
+                                outlined
+                                class="font-Raleway"
+                                color="secondary"
+                                :rules="[val => !!val || 'Une date est requise']"
+                            >
+                              <template v-slot:append>
+                                <q-icon color="secondary" name="event">
+                                  <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                                    <q-date mask="DD/MM/YYYY"
+                                            v-model="form.finishAt"
+                                            :locale="myLocale"
+                                            class="font-Raleway"
+                                            color="secondary"
+                                            :options="dateArray"
+                                            today-btn minimal>
+                                      <div class="row items-center justify-end q-gutter-sm">
+                                        <q-btn label="OK" color="secondary" flat v-close-popup />
+                                      </div>
+                                    </q-date>
+                                  </q-popup-proxy>
+                                </q-icon>
+                              </template>
+                            </q-input>
+                          </div>
+                        </div>
+                      </q-item>
+                    </q-item-section>
+                  </q-card-section>
                   <q-separator />
-                  <q-item-section class="q-mt-lg">
-                    <q-item>
-                      <div class="row">
-                        <div class="col-12">
-                          <q-input
-                              v-model="form.startAt"
-                              label="Réservation du"
-                              rounded
-                              outlined
-                              class="font-Raleway"
-                              color="secondary"
-                              :rules="[val => !!val || 'Une date est requise']"
-                          >
-                            <template v-slot:append>
-                              <q-icon color="secondary" name="event">
-                                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                                  <q-date mask="DD/MM/YYYY"
-                                          v-model="form.startAt"
-                                          :locale="myLocale"
-                                          class="font-Raleway"
-                                          color="secondary"
-                                          :options="dateArray"
-                                          today-btn minimal>
-                                    <div class="row items-center justify-end q-gutter-sm">
-                                      <q-btn label="OK" color="secondary" class="font-Raleway" flat v-close-popup />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                        <div class="col-12">
-                          <q-input
-                              v-model="form.finishAt"
-                              label="Au"
-                              rounded
-                              outlined
-                              class="font-Raleway"
-                              color="secondary"
-                              :rules="[val => !!val || 'Une date est requise']"
-                          >
-                            <template v-slot:append>
-                              <q-icon color="secondary" name="event">
-                                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                                  <q-date mask="DD/MM/YYYY"
-                                          v-model="form.finishAt"
-                                          :locale="myLocale"
-                                          class="font-Raleway"
-                                          color="secondary"
-                                          :options="dateArray"
-                                          today-btn minimal>
-                                    <div class="row items-center justify-end q-gutter-sm">
-                                      <q-btn label="OK" color="secondary" flat v-close-popup />
-                                    </div>
-                                  </q-date>
-                                </q-popup-proxy>
-                              </q-icon>
-                            </template>
-                          </q-input>
-                        </div>
-                      </div>
-                    </q-item>
-                  </q-item-section>
-                </q-card-section>
-                <q-separator />
-                <q-card-actions align="right" class="text-primary">
-                  <q-btn flat label="Quitter" color="secondary" v-close-popup />
-                  <q-btn flat label="Confirmer" color="secondary" @click="reserveRent"/>
-                </q-card-actions>
-              </q-card>
+                  <q-card-actions align="right" class="text-primary">
+                    <q-btn flat label="Quitter" color="secondary" v-close-popup />
+                    <q-btn flat label="Confirmer" color="secondary" @click="reserveRent"/>
+                  </q-card-actions>
+                </q-card>
               </q-dialog>
             </q-form>
           </div>
@@ -332,7 +332,12 @@
                 </q-card-actions>
               </q-card>
             </q-form>
-            <q-dialog v-model="payementModal" persistent>
+            <q-dialog
+                @before-show="createPaymentIntent"
+                @before-hide="cancelPaymentIntent"
+                v-model="payementModal"
+                persistent
+            >
               <q-card class="bg-blue-grey-1" style="min-width: 700px">
                 <q-card-section class="bg-teal text-white">
                   <div class="text-h6 font-Raleway">Paiement de votre réservation</div>
@@ -353,26 +358,25 @@
                 </q-card-section>
                 <q-card-section>
                   <div class="q-pl-md q-pr-md">
-                    <stripe-elements
-                        class="font-Raleway"
-                        locale="fr"
-                        card-element="card-element"
-                        ref="elementsRef"
-                        :pk="publishableKey"
-                        :amount="totalToPay"
-                        @token="tokenCreated"
-                        @loading="loading = $event"
-                        style="width: 636px"
-                    >
-                    </stripe-elements>
+                    <form id="payment-form">
+                      <div id="card-element" class="bg-white q-pa-md"><!--Stripe.js injects the Card Element--></div>
+                      <p id="card-error" role="alert" class="font-Raleway"></p>
+                      <p class="result-message hidden">
+                        Payment succeeded, see the result in your
+                        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                      </p>
+                      <div class="q-mt-lg q-mb-lg">
+                        <button id="submit" class="btn-custom font-Raleway text-white" style="background-color: #26A69A" @click.prevent="payWithCard">
+                          <div class="spinner hidden" id="spinner"></div>
+                          <span id="button-text">PAIEMENT</span>
+                        </button>
+                        <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="payementModal = false">
+                          <span>ANNULER</span>
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </q-card-section>
-                <q-card-actions align="right">
-                  <div class="q-pl-md q-pr-md">
-                    <q-btn class="font-Raleway q-ma-sm" @click="submit" color="secondary">Paiement de {{totalToPay}} €</q-btn>
-                    <q-btn class="font-Raleway q-ma-sm" label="Annuler" color="negative" v-close-popup />
-                  </div>
-                </q-card-actions>
               </q-card>
             </q-dialog>
           </div>
@@ -389,18 +393,49 @@ import ReservationService from '../../services/ReservationService'
 import MapsService from 'src/services/MapsService'
 import Mapbox from 'mapbox-gl'
 import { MglMap } from 'vue-mapbox'
-import { StripeElements } from 'vue-stripe-checkout'
+
 import StripeService from 'src/services/StripeService'
 
 const STATUS_CODE_401 = 401
 // eslint-disable-next-line no-undef
-const stripe = Stripe('pk_test_51HAtJPIK51B5A5PzQOpQ1ugLl6Fbh53fkpj3AVTGAMEyFwS49mORiaeH4eEXY3DFPSHoNUH9jnnND6kFudqk070100waZtsLBM')
+const stripe = Stripe(process.env.VUE_APP_PUBLIC_KEY_STRIPE)
+
+var orderComplete = function (paymentIntentId) {
+  loading(false)
+  document
+    .querySelector('.result-message a')
+    .setAttribute(
+      'href',
+      'https://dashboard.stripe.com/test/payments/' + paymentIntentId
+    )
+  document.querySelector('.result-message').classList.remove('hidden')
+  document.querySelector('button').disabled = true
+}
+var showError = function (errorMsgText) {
+  loading(false)
+  var errorMsg = document.querySelector('#card-error')
+  errorMsg.textContent = errorMsgText
+  setTimeout(function () {
+    errorMsg.textContent = ''
+  }, 4000)
+}
+var loading = function (isLoading) {
+  if (isLoading) {
+    // Disable the button and show a spinner
+    document.querySelector('button').disabled = true
+    document.querySelector('#spinner').classList.remove('hidden')
+    document.querySelector('#button-text').classList.add('hidden')
+  } else {
+    document.querySelector('button').disabled = false
+    document.querySelector('#spinner').classList.add('hidden')
+    document.querySelector('#button-text').classList.remove('hidden')
+  }
+}
 
 export default {
   name: 'PublicationDetail',
   components: {
-    MglMap,
-    StripeElements
+    MglMap
   },
   data: () => ({
     // STRIPE
@@ -424,7 +459,9 @@ export default {
         startAt: null,
         finishAt: null,
         totalDay: null,
-        totalToPay: null
+        totalToPay: null,
+        card: null,
+        data: null
       }
     ],
     // MAP
@@ -466,8 +503,70 @@ export default {
     countReservation: null
   }),
   methods: {
-    submit () {
-      this.$refs.elementsRef.submit()
+    createPaymentIntent () {
+      const ref = this
+      console.log(this.amount)
+      StripeService.paymentIntent({
+        source: this.source,
+        idPublication: this.idPublication,
+        startAt: this.form.startAt,
+        finishAt: this.form.finishAt
+      })
+        .then((data) => {
+          ref.data = data
+          document.querySelector('button').disabled = true
+          const elements = stripe.elements()
+          const style = {
+            base: {
+              color: '#32325d',
+              fontFamily: 'Arial, sans-serif',
+              fontSmoothing: 'antialiased',
+              fontSize: '16px',
+              '::placeholder': {
+                color: '#32325d'
+              }
+            },
+            invalid: {
+              fontFamily: 'Arial, sans-serif',
+              color: '#fa755a',
+              iconColor: '#fa755a'
+            }
+          }
+          ref.card = elements.create('card', { style: style })
+          // Stripe injects an iframe into the DOM
+          ref.card.mount('#card-element')
+          ref.card.on('change', function (event) {
+            // Disable the Pay button if there are no card details in the Element
+            document.querySelector('button').disabled = event.empty
+            document.querySelector('#card-error').textContent = event.error ? event.error.message : ''
+          })
+        })
+    },
+    cancelPaymentIntent () {
+      this.card = null
+    },
+    payWithCard () {
+      loading(true)
+      const card = this.card
+      const clientSecret = this.data.data.clientSecret
+
+      stripe
+        .confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: card
+          }
+        })
+        .then(function (result) {
+          if (result.error) {
+            // Show error to your customer
+            console.log('payment error')
+            showError(result.error.message)
+          } else {
+            // The payment succeeded!
+            console.log('payment succeeded')
+            orderComplete(result.paymentIntent.id)
+          }
+        })
     },
     openPayementModal () {
       this.payementModal = true
@@ -477,53 +576,13 @@ export default {
       const finishAtFormat = moment(this.form.finishAt, 'DD/MM/YYYY').format()
       const finishAt = new Date(finishAtFormat)
       this.totalDay = Math.round(Math.abs((startAt - finishAt) / oneDay))
-      this.totalToPay = this.totalDay * this.publication.rent.price
+      this.totalToPay = `${this.totalDay * this.publication.rent.price} €`
+      this.amount = this.totalDay * this.publication.rent.price
       this.data[0].title = this.publication.rent.title
       this.data[0].startAt = this.form.startAt
       this.data[0].finishAt = this.form.finishAt
       this.data[0].totalDay = this.totalDay
       this.data[0].totalToPay = this.totalToPay
-    },
-    tokenCreated (token) {
-      console.log(token)
-      this.token = token
-      this.card = token.card
-      this.source = token.id
-      this.amount = this.totalToPay * 100
-      this.sendTokenToServer()
-    },
-    sendTokenToServer () {
-      StripeService.paymentIntent({
-        source: this.source,
-        amount: this.amount
-      })
-        .then(response => {
-          this.confirmPaymentToStripe(response)
-        }).catch(e => {
-          console.log(e)
-        })
-    },
-    confirmPaymentToStripe (data) {
-      console.log(data.data.clientSecret)
-      console.log(this.card)
-      stripe.confirmCardPayment(data.data.clientSecret, {
-        payment_method: {
-          card: 'card-element'
-        }
-      })
-        .then(result => {
-          console.log(result)
-          if (result.error) {
-            // Show error to your customer
-            console.log(result.error.message)
-          } else {
-            // The payment succeeded!
-            console.log(result.paymentIntent.id)
-          }
-        })
-        .catch(e => {
-          console.log(e)
-        })
     },
     getPublication () {
       this.$q.loading.show({
@@ -637,27 +696,26 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-  .my-card
-    width: 100%
-    max-width: 250px
-  .bg-white-opacity-50
-    background-color: rgba(255, 255, 255, 0.50)
-  .color-blue-custom
-    color: rgb(45, 64, 78)
-  .color-blue-custom-opacity
-    color: rgba(45, 64, 78, 0.5)
-  .font-Raleway
-    font-family: 'Raleway', sans-serif
-  .font-Roboto
-    font-family: 'Roboto', sans-serif
-  .fullscreen
-    .q-carousel__slide
-      background-size: contain
-      background-repeat: no-repeat
-      background-color: rgba(45, 64, 78, 1)
-  // .mgl-map-wrapper
-    width: 880px
-    height: 500px
-    margin-left: 25px
-    margin-top: 25px
+.my-card
+  width: 100%
+  max-width: 250px
+.bg-white-opacity-50
+  background-color: rgba(255, 255, 255, 0.50)
+.color-blue-custom
+  color: rgb(45, 64, 78)
+.color-blue-custom-opacity
+  color: rgba(45, 64, 78, 0.5)
+.font-Raleway
+  font-family: 'Raleway', sans-serif
+.font-Roboto
+  font-family: 'Roboto', sans-serif
+.fullscreen
+  .q-carousel__slide
+    background-size: contain
+    background-repeat: no-repeat
+    background-color: rgba(45, 64, 78, 1)
+.btn-custom
+  border: none
+  border-radius: 5px
+  padding: 5px 10px
 </style>
