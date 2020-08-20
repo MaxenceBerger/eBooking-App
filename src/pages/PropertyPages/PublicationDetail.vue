@@ -252,7 +252,8 @@
             </template>
           </div>
           <div class="col-12 col-md-4 column items-center">
-            <q-form @submit="reserveRent">
+            <q-form @submit="openPayementModal">
+            <!--<q-form @submit="reserveRent">-->
               <q-card class="my-card bg-blue-grey-1" flat bordered>
                 <q-card-section>
                   <div class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / par nuit</div>
@@ -362,8 +363,8 @@
                       <div id="card-element" class="bg-white q-pa-md"><!--Stripe.js injects the Card Element--></div>
                       <p id="card-error" role="alert" class="font-Raleway"></p>
                       <p class="result-message hidden">
-                        Payment succeeded, see the result in your
-                        <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                        Le paiement a été effectué avec succès
+                        <a href="" target="_blank"></a>
                       </p>
                       <div class="q-mt-lg q-mb-lg">
                         <button id="submit" class="btn-custom font-Raleway text-white" style="background-color: #26A69A" @click.prevent="payWithCard">
@@ -379,13 +380,38 @@
                 </q-card-section>
               </q-card>
             </q-dialog>
+            <q-dialog v-model="paymentConfirm" persistent transition-show="scale" transition-hide="scale">
+              <q-card style="width: 300px">
+                <q-card-section class="bg-teal text-white">
+                  <div class="text-h6 font-Raleway">Confirmation de paiement</div>
+                </q-card-section>
+
+                <div v-if="isPaymentSuccess">
+                  <q-card-section class="text-center">
+                    <q-icon name="check_circle_outline" class="text-positive q-mt-lg" style="font-size: 4rem;" />
+                    <div class="font-Raleway q-mt-lg">Le paiement a été effectué avec succès</div>
+                  </q-card-section>
+                  <q-card-actions align="right" class="bg-white text-teal">
+                    <q-btn flat label="OK" @click="paymentConfirm = false" />
+                  </q-card-actions>
+                </div>
+                <div v-else>
+                  <q-card-section class="text-center">
+                    <q-icon name="highlight_off" class="text-negative q-mt-lg" style="font-size: 4rem;" />
+                    <div class="font-Raleway q-mt-lg">Le paiement a été refusé</div>
+                  </q-card-section>
+                  <q-card-actions align="right" class="bg-white text-teal">
+                    <q-btn flat label="OK" @click="paymentConfirm = false" />
+                  </q-card-actions>
+                </div>
+              </q-card>
+            </q-dialog>
           </div>
         </div>
       </div>
     </template>
   </q-page>
 </template>
-
 <script>
 import moment from 'moment'
 import PublicationsService from '../../services/PublicationsService'
@@ -446,6 +472,8 @@ export default {
     token: null,
     charge: null,
     payementModal: false,
+    paymentConfirm: false,
+    isPaymentSuccess: null,
     columns: [
       { name: 'title', align: 'center', label: 'Nom de la location', field: 'title', sortable: false },
       { name: 'startAt', align: 'center', label: 'Début de séjour', field: 'startAt', sortable: false },
@@ -503,14 +531,17 @@ export default {
     countReservation: null
   }),
   methods: {
-    createPaymentIntent () {
+    createPaymentIntent: function () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       const ref = this
-      console.log(this.amount)
       StripeService.paymentIntent({
         source: this.source,
-        idPublication: this.idPublication,
-        startAt: this.form.startAt,
-        finishAt: this.form.finishAt
+        idPublication: this.form.idPublication,
+        startAt: moment(this.form.startAt, 'DD/MM/YYYY').format(),
+        finishAt: moment(this.form.finishAt, 'DD/MM/YYYY').format()
       })
         .then((data) => {
           ref.data = data
@@ -540,31 +571,54 @@ export default {
             document.querySelector('button').disabled = event.empty
             document.querySelector('#card-error').textContent = event.error ? event.error.message : ''
           })
+          this.$q.loading.hide()
         })
     },
     cancelPaymentIntent () {
       this.card = null
     },
     payWithCard () {
+      this.$q.loading.show({
+        spinnerColor: 'secondary',
+        backgroundColor: '#2d404e'
+      })
       loading(true)
       const card = this.card
       const clientSecret = this.data.data.clientSecret
 
-      stripe
-        .confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: card
-          }
-        })
-        .then(function (result) {
+      stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card
+        }
+      }).then((result) => {
+        if (result.error) {
+          this.payementModal = false
+          this.isPaymentSuccess = false
+          this.paymentConfirm = true
+          showError(result.error.message)
+          this.$q.loading.hide()
+        } else {
+          this.confirm(result.paymentIntent.id)
+        }
+      })
+    },
+    confirm (paymentIntent) {
+      this.$q.loading.hide()
+      StripeService.sendClientSecret({
+        paymentIntent: paymentIntent
+      })
+        .then((result) => {
           if (result.error) {
-            // Show error to your customer
+            this.payementModal = false
+            this.isPaymentSuccess = false
+            this.paymentConfirm = true
             console.log('payment error')
             showError(result.error.message)
           } else {
-            // The payment succeeded!
-            console.log('payment succeeded')
-            orderComplete(result.paymentIntent.id)
+            this.payementModal = false
+            this.isPaymentSuccess = true
+            this.paymentConfirm = true
+            orderComplete(paymentIntent)
           }
         })
     },
