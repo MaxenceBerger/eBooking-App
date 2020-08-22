@@ -151,7 +151,7 @@
                   <q-separator />
                   <q-card-actions align="right" class="text-primary">
                     <q-btn flat label="Quitter" color="secondary" v-close-popup />
-                    <q-btn flat label="Confirmer" color="secondary" @click="reserveRent"/>
+                    <q-btn flat label="Résarvation" color="secondary" @click="payementModal =true"/>
                   </q-card-actions>
                 </q-card>
               </q-dialog>
@@ -159,6 +159,80 @@
           </div>
         </div>
       </div>
+
+      <q-dialog
+          @before-show="createPaymentIntent"
+          @before-hide="cancelPaymentIntent"
+          v-model="payementModal"
+          persistent
+      >
+        <q-card class="bg-blue-grey-1" style="min-width: 400px">
+          <q-card-section class="bg-teal text-white">
+            <div class="text-h6 font-Raleway">Paiement de votre réservation</div>
+          </q-card-section>
+            <div class="q-pl-xl q-pr-xl q-pt-lg font-Raleway">
+              <p>Vous souhaitez réserver
+                <strong> "{{publication.rent.title}}" </strong>
+                du
+                <strong> {{form.startAt}} </strong>
+                au
+                <strong>{{form.finishAt}}</strong>
+                pour
+                <strong> {{ publication.rent.price }} €</strong>
+                la nuitée.
+              </p>
+            </div>
+          <q-card-section>
+          </q-card-section>
+          <q-card-section>
+            <div class="q-pl-md q-pr-md">
+              <form id="payment-form">
+                <div id="card-element" class="bg-white q-pa-md"><!--Stripe.js injects the Card Element--></div>
+                <p id="card-error" role="alert" class="font-Raleway"></p>
+                <p class="result-message hidden">
+                  Le paiement a été effectué avec succès
+                  <a href="" target="_blank"></a>
+                </p>
+                <div class="q-mt-lg q-mb-lg">
+                  <button id="submit" class="btn-custom font-Raleway text-white" style="background-color: #26A69A" @click.prevent="payWithCard">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">PAIEMENT</span>
+                  </button>
+                  <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="payementModal = false">
+                    <span>ANNULER</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <q-dialog v-model="paymentConfirm" persistent transition-show="scale" transition-hide="scale">
+        <q-card style="width: 300px">
+          <q-card-section class="bg-teal text-white">
+            <div class="text-h6 font-Raleway">Confirmation de paiement</div>
+          </q-card-section>
+
+          <div v-if="isPaymentSuccess">
+            <q-card-section class="text-center">
+              <q-icon name="check_circle_outline" class="text-positive q-mt-lg" style="font-size: 4rem;" />
+              <div class="font-Raleway q-mt-lg">Le paiement a été effectué avec succès</div>
+            </q-card-section>
+            <q-card-actions align="right" class="bg-white text-teal">
+              <q-btn flat label="OK" @click="paymentConfirm = false" />
+            </q-card-actions>
+          </div>
+          <div v-else>
+            <q-card-section class="text-center">
+              <q-icon name="highlight_off" class="text-negative q-mt-lg" style="font-size: 4rem;" />
+              <div class="font-Raleway q-mt-lg">Le paiement a été refusé</div>
+            </q-card-section>
+            <q-card-actions align="right" class="bg-white text-teal">
+              <q-btn flat label="OK" @click="paymentConfirm = false" />
+            </q-card-actions>
+          </div>
+        </q-card>
+      </q-dialog>
       <q-footer elevated class="bg-white color-blue-custom">
         <div class="row justify-around q-ma-sm">
           <div class="text-subtitle1 font-Raleway">
@@ -329,7 +403,6 @@
                          type="submit">
                     Reservation
                   </q-btn>
-                  <q-btn label="emul pay" color="primary" @click="openPayementModal()" />
                 </q-card-actions>
               </q-card>
             </q-form>
@@ -536,6 +609,7 @@ export default {
         spinnerColor: 'secondary',
         backgroundColor: '#2d404e'
       })
+      this.confirmReservation = false
       const ref = this
       StripeService.paymentIntent({
         source: this.source,
@@ -623,7 +697,6 @@ export default {
         })
     },
     openPayementModal () {
-      this.payementModal = true
       const oneDay = 24 * 60 * 60 * 1000
       const startAtFormat = moment(this.form.startAt, 'DD/MM/YYYY').format()
       const startAt = new Date(startAtFormat)
@@ -637,6 +710,7 @@ export default {
       this.data[0].finishAt = this.form.finishAt
       this.data[0].totalDay = this.totalDay
       this.data[0].totalToPay = this.totalToPay
+      this.payementModal = true
     },
     getPublication () {
       this.$q.loading.show({
