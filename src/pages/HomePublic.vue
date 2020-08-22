@@ -64,7 +64,7 @@
             <div class="col-6">
               <q-img
                 :src="require('src/assets/images/Search-rent.png')"
-                style="width: 50rem; margin-top: 10rem"
+                style="width: 40rem; margin-top: 10rem; margin-left: 5rem"
               />
             </div>
           </div>

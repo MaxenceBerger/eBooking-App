@@ -25,9 +25,12 @@
     "path": "^0.12.7",
     "quasar": "^1.12.13",
     "shelljs": "^0.8.4",
+    "stripe": "^8.87.0",
     "vue-i18n": "^8.20.0",
     "vue-mapbox": "^0.4.1",
     "vue-router": "^3.4.0",
+    "vue-stripe-checkout": "^3.5.7",
+    "vue-stripe-elements-plus": "^0.3.2",
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
