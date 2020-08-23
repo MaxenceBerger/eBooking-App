@@ -36,7 +36,7 @@
         <div class="row justify-center">
           <q-card
             class="my-card rounded-borders q-mb-xl col-4"
-            v-for="reservation in reservationList"
+            v-for="reservation in reservationList.slice(startLimit, endLimit)"
             :key="reservation._id"
             v-bind="reservation"
           >
@@ -47,7 +47,7 @@
                     {{ reservation.rent.title }}
                   </div>
                   <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    {{ reservation.rent.price }} €
+                    {{ reservation.rent.fullPrice }} €
                   </h5>
                 </q-img>
               </div>
@@ -68,6 +68,15 @@
               </div>
             </router-link>
           </q-card>
+        </div>
+        <div v-if="reservationLength !== 0" class="row q-pa-lg flex-center flex">
+          <q-pagination
+              v-model="current"
+              color="secondary"
+              :max="pages"
+              :direction-links="true"
+              @click="getPagination"
+          />
         </div>
       </div>
     </template>
@@ -90,7 +99,7 @@
           </div>
         </div>
       </div>
-      <q-banner v-if="reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+      <q-banner v-if="reservationLength === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
         <template v-slot:avatar>
           <q-img
               src="~assets/sad.svg"
@@ -99,11 +108,11 @@
         </template>
         Aucune réservation a été effectué
       </q-banner>
-      <div class="col-12">
-        <div class="row">
+      <div class="col-12 q-mt-xl">
+        <div class="row flex-center flex">
           <q-card
             class="my-card rounded-borders q-ml-xl q-mr-xl q-mb-xl col-4"
-            v-for="reservation in reservationList"
+            v-for="reservation in reservationList.slice(startLimit, endLimit)"
             :key="reservation._id"
             v-bind="reservation"
           >
@@ -136,6 +145,15 @@
             </router-link>
           </q-card>
         </div>
+        <div v-if="reservationLength !== 0" class="row q-pa-lg flex-center flex">
+          <q-pagination
+              v-model="current"
+              color="secondary"
+              :max="pages"
+              :direction-links="true"
+              @click="getPagination"
+          />
+        </div>
       </div>
     </template>
   </q-page>
@@ -150,7 +168,13 @@ export default {
 
   data: () => ({
     reservationList: null,
-    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED
+    imageUrl: process.env.VUE_APP_BASE_URL_IMAGE_UPLOADED,
+    reservationLength: 0,
+    limit: 5,
+    pages: 1,
+    startLimit: 0,
+    endLimit: 5,
+    current: 1
   }),
   methods: {
     getMyOwnReservation () {
@@ -162,10 +186,16 @@ export default {
         .then(response => {
           this.$q.loading.hide()
           this.reservationList = response.data.data
+          this.reservationLength = response.data.data.length
+          this.pages = Math.ceil(response.data.data.length / 5)
         })
         .catch(() => {
           this.$q.loading.hide()
         })
+    },
+    getPagination () {
+      this.startLimit = (this.current * this.limit) - this.limit
+      this.endLimit = (this.current * this.limit)
     }
   },
   mounted () {
