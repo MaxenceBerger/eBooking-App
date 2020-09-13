@@ -7,11 +7,14 @@
           <div class="row">
             <div class="font-Raleway">
               <div class="q-ma-lg text-center" style="padding-top: 50px;">
-                <h3 class="text-bold text-grey-3">
-                  Lorem ipsum dolor sit amet
-                </h3>
+                <h4 class="text-bold text-grey-3">
+                  Une location de rêve pour vos vacances ?
+                </h4>
+                <h4 class="text-bold text-grey-3">
+                  Ne cherchez plus, elle est ici.
+                </h4>
                 <p class="text-bold text-grey-5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  eBooking vous propose de louer des biens de manière plus intelligente
                 </p>
                 <div class="text-center">
                   <q-img
@@ -49,11 +52,15 @@
               class="col-6 font-Raleway"
               style="padding: 10rem;"
             >
-              <h2 class="text-bold text-grey-3">
-                Lorem ipsum dolor sit amet
-              </h2>
+              <h3 class="text-bold text-grey-3">
+                Une location de rêve pour vos vacances ?
+              </h3>
+              <h4 class="text-bold text-grey-3">
+                Ne cherchez plus, elle est ici.
+              </h4>
+
               <p class="text-bold text-grey-5 text-h6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                eBooking vous propose de louer des biens de manière plus intelligente
               </p>
               <q-btn
                 :to="{ name: 'RegisterPage' }"
@@ -71,7 +78,7 @@
         </div>
       </div>
       <div class="bg-blue-custom text-center" style="height: 7rem;">
-        <a href="#detail_mobile" style="text-decoration: none">
+        <a href="home/#detail_mobile" style="text-decoration: none">
           <q-btn
             class="text-bold text-h6 bg-white color-mint-custom q-mt-lg"
             icon="keyboard_arrow_down"
@@ -83,14 +90,13 @@
           class="col-6 font-Raleway"
           style="padding: 2rem;"
         >
-          <h2 class="text-bold color-blue-custom text-center">
-            Lorem ipsum dolor sit amet
-          </h2>
+          <h3 class="text-bold color-blue-custom text-center">
+            Réserver pour ses vacances n'a jamais été aussi simple.
+          </h3>
           <p class="text-bold color-blue-fade-custom text-h6 text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          </p>
-          <p class="text-bold color-blue-fade-custom text-h6 text-center">
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Désormais grâce à l'application eBooking, vous pouvez réserver un bien pour les vacances,<br>
+            mettre en ligne un logement pendant une certaine période ou même déverrouiller votre porte. <br>
+            Tout simplement !
           </p>
         </div>
       </div>
@@ -101,11 +107,12 @@
           class="col-6 font-Raleway"
           style="padding: 2rem;"
         >
-          <h2 class="text-bold text-grey-3 text-center">
-            Are you ready ?
-          </h2>
+          <h3 class="text-bold text-grey-3 text-center">
+            “Chérie, où sont les clés ?”
+          </h3>
           <p class="text-bold text-grey-5 text-h6 text-center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            Plus besoin de s'en préoccuper pendant vos vacances, <br>
+            inscrivez-vous simplement ci-dessous !
           </p>
           <div class="text-center">
             <q-btn

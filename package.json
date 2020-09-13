@@ -16,21 +16,22 @@
     "@quasar/extras": "^1.9.3",
     "axios": "^0.18.1",
     "compare-func": "^2.0.0",
-    "cordova": "^10.0.0",
-    "cordova-plugin-screen-orientation": "^3.0.2",
     "core-js": "^3.0.0",
     "imask": "^6.0.5",
-    "mapbox-gl": "^1.11.1",
+    "mapbox-gl": "^0.53.0",
     "moment": "^2.27.0",
     "path": "^0.12.7",
     "quasar": "^1.12.13",
     "shelljs": "^0.8.4",
     "stripe": "^8.87.0",
+    "vue": "^2.6.6",
     "vue-i18n": "^8.20.0",
     "vue-mapbox": "^0.4.1",
     "vue-router": "^3.4.0",
     "vue-stripe-checkout": "^3.5.7",
     "vue-stripe-elements-plus": "^0.3.2",
+    "vue-template-compiler": "^2.6.12",
+    "vuex": "^2.5",
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "webpack": "^4.0.0",
     "workbox-webpack-plugin": "^5.0.0"
   },
   "engines": {
