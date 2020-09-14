@@ -10,9 +10,6 @@
                 <h4 class="text-bold text-grey-3">
                   Une location de rêve pour vos vacances ?
                 </h4>
-                <h4 class="text-bold text-grey-3">
-                  Ne cherchez plus, elle est ici.
-                </h4>
                 <p class="text-bold text-grey-5">
                   eBooking vous propose de louer des biens de manière plus intelligente
                 </p>
