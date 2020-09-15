@@ -686,7 +686,6 @@ export default {
             this.payementModal = false
             this.isPaymentSuccess = false
             this.paymentConfirm = true
-            console.log('payment error')
             showError(result.error.message)
           } else {
             this.payementModal = false
