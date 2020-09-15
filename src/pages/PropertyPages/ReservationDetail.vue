@@ -87,7 +87,7 @@
               <q-item-section class="q-mt-lg items-center">
                 <div class="text-weight-regular text-body2 font-Raleway">
                   Vous avez réservé cette location pour un total de
-                  <strong>XXX €</strong>
+                  <strong>{{ reservation.rent.price }} €</strong>
                   soit
                   <strong>{{ publication.rent.price }} €</strong>
                   par nuit.
@@ -211,7 +211,7 @@
           <div class="col-12 col-md-4 column items-center">
             <q-card class="my-card bg-blue-grey-1" flat bordered>
               <q-card-section>
-                <q-item-label class="text-subtitle1 q-ma-sm"> <strong>XXX €</strong> aux total</q-item-label>
+                <q-item-label class="text-subtitle1 q-ma-sm"> <strong>{{ reservation.rent.fullPrice }} €</strong> aux total</q-item-label>
                 <q-item-label caption class="text-subtitle1 q-ma-sm q-mb-lg"> <strong>{{ publication.rent.price }} €</strong> / nuit</q-item-label>
                 <q-separator />
                 <q-item-section class="q-mt-lg">

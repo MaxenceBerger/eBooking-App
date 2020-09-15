@@ -187,7 +187,7 @@
               :rules="[val => !!val || 'Un pays est requis']"
             />
             <div>
-              <q-btn unelevated rounded color="secondary" label="Création de l'annonce" type="submit" class="font-Raleway q-mt-lg q-mb-xl"/>
+              <q-btn unelevated rounded color="secondary" label="Création d'un bien" type="submit" class="font-Raleway q-mt-lg q-mb-xl"/>
             </div>
           </q-form>
         </div>
@@ -375,7 +375,7 @@
               :rules="[val => !!val || 'Un pays est requis']"
             />
             <div>
-              <q-btn unelevated rounded color="secondary" label="Création de l'annonce" type="submit" class="q-mt-lg q-mb-xl font-Raleway"/>
+              <q-btn unelevated rounded color="secondary" label="Création d'un bien" type="submit" class="q-mt-lg q-mb-xl font-Raleway"/>
             </div>
           </q-form>
         </div>

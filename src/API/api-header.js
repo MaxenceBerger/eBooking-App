@@ -4,7 +4,7 @@ import { apiBaseUrl } from './api-base-url.js'
 
 const apiHeader = Axios.create({
   baseURL: apiBaseUrl(),
-  headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  headers: { 'Content-Type': 'application/json' }
 })
 export { apiHeader as default }
 

@@ -123,7 +123,7 @@
                     {{ reservation.rent.title }}
                   </div>
                   <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    {{ reservation.rent.price }} €
+                    {{ reservation.rent.fullPrice }} €
                   </h4>
                 </q-img>
               </div>
@@ -133,7 +133,7 @@
                     {{ reservation.rent.title }}
                   </div>
                   <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    {{ reservation.rent.price }} €
+                    {{ reservation.rent.fullPrice }} €
                   </h4>
                   <template v-slot:error>
                     <div class="absolute-full flex flex-center bg-blue-custom text-white font-Raleway">
