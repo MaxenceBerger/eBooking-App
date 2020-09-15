@@ -614,8 +614,8 @@ export default {
       StripeService.paymentIntent({
         source: this.source,
         idPublication: this.form.idPublication,
-        startAt: moment(this.form.startAt, 'DD/MM/YYYY').format(),
-        finishAt: moment(this.form.finishAt, 'DD/MM/YYYY').format()
+        startAt: moment.utc(this.form.startAt, 'DD/MM/YYYY').format(),
+        finishAt: moment.utc(this.form.finishAt, 'DD/MM/YYYY').format()
       })
         .then((data) => {
           ref.data = data
