@@ -63,7 +63,7 @@
                     {{ publication.rent.title }}
                   </div>
                   <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    <span class="text-subtitle1 text-weight-light">à partir de</span>{{ publication.rent.price }} €
+                    <span class="text-subtitle1 text-weight-light">à partir de </span>{{ publication.rent.price }} €
                   </h5>
                 </q-img>
               </div>
@@ -102,7 +102,7 @@
                     {{ publication.rent.title }}
                   </div>
                   <h5 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    <span class="text-subtitle1 text-weight-light">à partir de</span>{{ publication.rent.price }} €
+                    <span class="text-subtitle1 text-weight-light">à partir de </span>{{ publication.rent.price }} €
                   </h5>
                 </q-img>
               </div>
@@ -194,7 +194,7 @@
                     {{ publication.rent.title }}
                   </div>
                   <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    <span class="text-subtitle1 text-weight-light">à partir de</span>{{ publication.rent.price }} €
+                    <span class="text-subtitle1 text-weight-light">à partir de </span>{{ publication.rent.price }} €
                   </h4>
                 </q-img>
               </div>
@@ -232,7 +232,7 @@
                     {{ publication.rent.title }}
                   </div>
                   <h4 class="text-white absolute-bottom text-right q-mr-lg q-mb-lg text-shadow">
-                    <span class="text-subtitle1 text-weight-light">à partir de</span>{{ publication.rent.price }} €
+                    <span class="text-subtitle1 text-weight-light">à partir de </span>{{ publication.rent.price }} €
                   </h4>
                 </q-img>
               </div>

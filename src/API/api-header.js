@@ -16,3 +16,13 @@ apiHeader.interceptors.request.use((configParam) => {
   }
   return config
 })
+apiHeader.interceptors.response.use((response) => {
+  if (response.status === 401) {
+    localStorage.removeItem('user')
+  }
+  return response
+}, (error) => {
+  if (error.response.data.message === 'jwt expired') {
+    localStorage.removeItem('user')
+  }
+})
