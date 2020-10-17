@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.capacitor.quasar.app">
+    package="org.webtech.ebooking.app">
 
     <application
         android:usesCleartextTraffic="true"
@@ -13,9 +13,8 @@
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
-            android:name="org.capacitor.quasar.app.MainActivity"
+            android:name="org.webtech.ebooking.app.MainActivity"
             android:label="@string/title_activity_main"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarLaunch"
             android:launchMode="singleTask">
 
@@ -32,13 +31,6 @@
             </intent-filter>
 
         </activity>
-
-        <!-- NOTIFICATION SERVICE -->
-        <service android:name=".notifications.NotificationsService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
 
         <provider
             android:name="androidx.core.content.FileProvider"

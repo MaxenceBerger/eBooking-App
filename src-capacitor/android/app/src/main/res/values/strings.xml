@@ -2,10 +2,6 @@
 <resources>
     <string name="app_name">eBooking</string>
     <string name="title_activity_main">eBooking</string>
-    <string name="package_name">org.capacitor.quasar.app</string>
-    <string name="custom_url_scheme">org.capacitor.quasar.app</string>
-    <!-- NOTIFICATION SERVICE -->
-    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="notification_title">"Vous avez reçu une notification"</string>
-
+    <string name="package_name">org.webtech.ebooking.app</string>
+    <string name="custom_url_scheme">org.webtech.ebooking.app</string>
 </resources>

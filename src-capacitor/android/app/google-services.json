@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:585403651379:android:225f9c97318a6739841a46",
+        "mobilesdk_app_id": "1:585403651379:android:2a6e462c646bb410841a46",
         "android_client_info": {
-          "package_name": "org.capacitor.quasar.app"
+          "package_name": "org.webtech.ebooking.app"
         }
       },
       "oauth_client": [

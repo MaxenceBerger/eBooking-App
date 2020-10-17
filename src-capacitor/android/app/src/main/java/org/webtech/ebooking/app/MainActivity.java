@@ -1,4 +1,4 @@
-package org.capacitor.quasar.app;
+package org.webtech.ebooking.app;
 
 import android.os.Bundle;
 
