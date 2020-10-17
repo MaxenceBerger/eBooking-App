@@ -8,8 +8,8 @@
 import {
   Plugins,
   PushNotification,
-  PushNotificationToken,
-  PushNotificationActionPerformed
+  PushNotificationToken
+  // PushNotificationActionPerformed
 } from '@capacitor/core'
 
 const { PushNotifications } = Plugins
@@ -45,16 +45,15 @@ export default {
           // Show us the notification payload if the app is open on our device
           PushNotifications.addListener('pushNotificationReceived',
             (notification = PushNotification) => {
-              alert('Push received: ' + JSON.stringify(notification))
-            }
-          )
-
-          // Method called when tapping on a notification
-          PushNotifications.addListener('pushNotificationActionPerformed',
-            // (notification = PushNotificationActionPerformed) => {
-            (notification = PushNotification) => {
-              alert('Push action performed: ' + JSON.stringify(notification))
-              console.log(notification)
+              const notifyTitle = notification.title
+              const notifyBody = notification.body
+              this.$q.notify({
+                color: 'blue-grey',
+                message: notifyTitle,
+                caption: notifyBody,
+                timeout: 5000,
+                position: 'top'
+              })
             }
           )
         } else {
