@@ -51,6 +51,7 @@ export default {
                 color: 'blue-grey',
                 message: notifyTitle,
                 caption: notifyBody,
+                progress: true,
                 timeout: 5000,
                 position: 'top'
               })
