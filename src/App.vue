@@ -7,9 +7,7 @@
 <script>
 import {
   Plugins,
-  PushNotification,
-  PushNotificationToken
-  // PushNotificationActionPerformed
+  PushNotification
 } from '@capacitor/core'
 
 const { PushNotifications } = Plugins
@@ -28,20 +26,12 @@ export default {
           // Register with Apple / Google to receive push via APNS/FCM
           PushNotifications.register()
 
-          // On success, we should be able to receive notifications
-          PushNotifications.addListener('registration',
-            (token = PushNotificationToken) => {
-              alert('Push registration success, token: ' + token.value)
-            }
-          )
-
           // Some issue with our setup and push will not work
           PushNotifications.addListener('registrationError',
             (error) => {
               alert('Error on registration: ' + JSON.stringify(error))
             }
           )
-
           // Show us the notification payload if the app is open on our device
           PushNotifications.addListener('pushNotificationReceived',
             (notification = PushNotification) => {
