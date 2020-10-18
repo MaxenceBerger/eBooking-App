@@ -1,6 +1,5 @@
 <template>
   <q-page class="column">
-    <!-- MOBILE PLATFORM-->
     <template v-if="this.$q.platform.is.mobile">
       <div class="bg-blue-custom">
         <div class="row q-ml-md q-mt-md">
@@ -14,7 +13,6 @@
             />
           </div>
         </div>
-
         <div class="row q-ml-md q-mr-md q-mb-md">
           <div class="col-8">
             <h5 class="items-end font-Raleway text-white">Configurez votre serrure connectée</h5>
@@ -31,40 +29,35 @@
       <div class="row">
         <div class="col-12">
           <q-form
-            style="max-width: 500px"
-            ref="form"
-            class="q-ml-xl q-mr-xl"
-            @submit="configKey"
+              style="max-width: 500px"
+              ref="form"
+              class="q-ml-xl q-mr-xl"
+              @submit="configKey"
           >
             <q-input
-              class="q-mb-sm q-mt-xl font-Raleway"
-              v-model="form.items.name"
-              label="Nom de votre serrure"
-              :rules="[form.rules.name.required]"
-              bg-color="white"
-              color="secondary"
-              required
-              rounded outlined
+                class="q-mb-sm q-mt-xl font-Raleway"
+                v-model="form.items.name"
+                label="Nom de votre serrure"
+                :rules="[form.rules.name.required]"
+                bg-color="white"
+                color="secondary"
+                required
+                rounded outlined
             />
+            <q-avatar size="20px" class="font-Raleway text-bold text-white float-right" color="blue-grey-6">?
+              <q-tooltip class="font-Raleway">
+                Votre numéro de série est indiqué sur le dos de votre manuel d'instruction de la serrure connectée
+              </q-tooltip>
+            </q-avatar>
             <q-input
-              class="q-mb-sm font-Raleway"
-              v-model="form.items.address"
-              label="L'adresse réseaux de votre serrure"
-              :rules="[form.rules.address.required]"
-              bg-color="white"
-              color="secondary"
-              required
-              rounded outlined
-            />
-            <q-input
-              class="q-mb-sm font-Raleway"
-              v-model="form.items.auth"
-              label="Le nom d'authentification"
-              bg-color="white"
-              color="secondary"
-              :rules="[form.rules.auth.required]"
-              required
-              rounded outlined
+                class="q-mb-sm font-Raleway"
+                v-model="form.items.serial"
+                label="Le numéro de série"
+                :rules="[form.rules.name.required]"
+                bg-color="white"
+                color="secondary"
+                required
+                rounded outlined
             />
             <div>
               <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg font-Raleway"/>
@@ -145,7 +138,6 @@ export default {
   name: 'SmartKeyInstallPage',
   data: () => {
     return {
-      dialogPassword: false,
       form: {
         items: {
           name: '',
