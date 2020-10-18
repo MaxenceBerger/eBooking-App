@@ -87,7 +87,7 @@
               <q-item-section class="q-mt-lg items-center">
                 <div class="text-weight-regular text-body2 font-Raleway">
                   Vous avez réservé cette location pour un total de
-                  <strong>{{ reservation.rent.price }} €</strong>
+                  <strong>{{ reservation.rent.fullPrice }} €</strong>
                   soit
                   <strong>{{ publication.rent.price }} €</strong>
                   par nuit.

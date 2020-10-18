@@ -71,7 +71,7 @@
               v-ripple
               :to="{ name: 'AdvertisementCreatePage' }"
           >
-            <q-item-section class="font-Raleway color-blue-custom">Créez votre annonce</q-item-section>
+            <q-item-section class="font-Raleway color-blue-custom">Créez votre bien</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="create" />
             </q-item-section>
@@ -182,7 +182,7 @@
               v-ripple
               :to="{ name: 'AdvertisementCreatePage' }"
           >
-            <q-item-section>Créez votre annonce</q-item-section>
+            <q-item-section>Créez votre bien</q-item-section>
             <q-item-section avatar>
               <q-icon color="blue-grey-4" name="create" />
             </q-item-section>

@@ -151,7 +151,7 @@
                   <q-separator />
                   <q-card-actions align="right" class="text-primary">
                     <q-btn flat label="Quitter" color="secondary" v-close-popup />
-                    <q-btn flat label="Résarvation" color="secondary" @click="payementModal =true"/>
+                    <q-btn flat label="Réservation" color="secondary" @click="payementModal =true"/>
                   </q-card-actions>
                 </q-card>
               </q-dialog>

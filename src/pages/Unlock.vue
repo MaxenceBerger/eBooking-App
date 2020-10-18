@@ -97,7 +97,8 @@ export default {
         LockService.lockClose({
           reservation: id
         })
-          .then(() => {
+          .then(response => {
+            console.log(response)
           })
           .catch(() => {
           })
@@ -105,11 +106,18 @@ export default {
         LockService.lockOpen({
           reservation: id
         })
-          .then(() => {
+          .then(response => {
+            console.log(response)
           })
           .catch(() => {
           })
       }
+    },
+    getLockStatus () {
+      LockService.getKey(this.reservationList)
+        .then(response => {
+          console.log(response)
+        })
     },
     getMyOwnReservation () {
       this.$q.loading.show({
@@ -117,9 +125,9 @@ export default {
         backgroundColor: '#2d404e'
       })
       ReservationService.getAllReservation()
-        .then(response => {
+        .then(() => {
           this.$q.loading.hide()
-          this.reservationList = response.data.data
+          this.getLockStatus()
         })
         .catch(() => {
           this.$q.loading.hide()

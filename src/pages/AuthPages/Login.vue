@@ -122,8 +122,6 @@
 import AuthService from 'src/services/AuthService.js'
 import Footer from 'components/Footer'
 
-const STATUS_CODE_401 = 401
-
 export default {
   name: 'LoginPage',
   components: { Footer },
@@ -162,16 +160,14 @@ export default {
           if (this.$store.getters.getToken) {
             this.$router.push({ name: 'HomePage' })
           }
-        }).catch((error) => {
+        }).catch(() => {
           this.$q.loading.hide()
-          if (STATUS_CODE_401 === error.response.status) {
-            this.$q.notify({
-              color: 'blue-grey',
-              message: 'Oups, il semble que les informations saisi sont incorrects',
-              icon: 'report_problem',
-              position: 'top'
-            })
-          }
+          this.$q.notify({
+            color: 'blue-grey',
+            message: 'Oups, il semble que les informations saisi sont incorrects',
+            icon: 'report_problem',
+            position: 'top'
+          })
         })
     }
   }
