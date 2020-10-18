@@ -13,6 +13,12 @@ export default {
   lockOpen (data) {
     return apiHeader.post('lock/open', data)
   },
+  lockDelete (id) {
+    return apiHeader.delete(`lock/${id}`)
+  },
+  getLock (id) {
+    return apiHeader.get(`lock/${id}`)
+  },
   lockClose (data) {
     return apiHeader.post('lock/close', data)
   }

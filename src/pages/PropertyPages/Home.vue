@@ -69,7 +69,6 @@
               </div>
               <div v-else>
                 <q-img class="rounded-borders" :src="require('src/assets/images/default-house.jpg')" style="height: 233px; width: 350px">
-                  <!--<q-img class="rounded-borders" src="https://cdn.quasar.dev/img/parallax2.jpg" style="height: 233px; width: 350px">-->
                   <div class="text-h6 text-secondary bg-blue-custom rounded-borders-title font-Raleway">
                     {{ publication.rent.title }}
                   </div>
@@ -90,7 +89,7 @@
       <div class="col-12">
         <div v-if="isSearch" class="row justify-center">
           <q-card
-              class="my-card rounded-borders q-mb-xl col-4"
+              class="my-card rounded-borders q-mb-lg q-mt-lg col-4"
               v-for="publication in searchList.slice(startLimit, endLimit)"
               :key="publication._id"
               v-bind="publication"

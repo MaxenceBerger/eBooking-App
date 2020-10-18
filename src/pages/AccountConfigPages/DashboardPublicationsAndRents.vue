@@ -31,9 +31,26 @@
           <div class="col-12">
             <div class="text-weight-regular text-justify text-grey-5 font-Raleway">
               Dans cette page, vous avez toutes les informations nécessaires à l'administration de vos biens
+              <q-avatar size="20px" class="font-Raleway text-bold text-white q-ml-lg" color="blue-grey-6">?
+                <q-tooltip class="font-Raleway">
+                  Lors de la publication des differents biens, la possibilité de le modifer est desactivé.
+                  Également, si un bien est réservé la possibilité de le modifer, supprimer ou retirer l'annonce est desactivé.
+                </q-tooltip>
+              </q-avatar>
             </div>
           </div>
         </div>
+      </div>
+      <div v-if="rentLength === 0">
+        <q-banner class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+          <template v-slot:avatar>
+            <q-img
+                src="~assets/sad.svg"
+                style="width:30vw;max-width:50px;"
+            />
+          </template>
+          Aucun bien a été enregistré
+        </q-banner>
       </div>
       <q-card class="my-card q-ma-md"
               v-for="rent in getRents.slice(startLimit, endLimit)"
@@ -101,21 +118,21 @@
             <q-separator class="q-mt-xl q-mb-sm"/>
             <div v-if="rent.reservations.length === 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 disable
                 unelevated
                 rounded>
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 unelevated
                 rounded
                 @click="openDialogConfirmDelete(rent._id)" >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 unelevated
                 rounded
                 @click="openDialogConfirmUnpublish(rent.publication_id)">
@@ -124,21 +141,21 @@
             </div>
             <div v-if="rent.reservations.length > 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 disable
                 unelevated
                 rounded >
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 disable
                 unelevated
                 rounded >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 disable
                 unelevated
                 rounded >
@@ -147,21 +164,21 @@
             </div>
             <div v-if="rent.is_published === false" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 unelevated
                 rounded
                 @click="getPropertyDetails(rent._id)">
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 unelevated
                 rounded
                 @click="openDialogConfirmDelete(rent._id)" >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary font-Raleway full-width"
+                class="q-ma-sm btn-blue-custom text-white font-Raleway full-width"
                 unelevated
                 rounded
                 @click="openDialogConfirmPublish(rent._id)" >
@@ -406,7 +423,7 @@
           </q-card>
         </q-dialog>
       </q-card>
-      <div class="q-pa-lg flex flex-center">
+      <div v-if="rentLength > 0" class="q-pa-lg flex flex-center">
         <q-pagination
             v-model="current"
             color="secondary"
@@ -420,7 +437,7 @@
     <!-- /MOBILE PLATFORM-->
     <!-- DESKTOP PLATFORM-->
     <template v-if="this.$q.platform.is.desktop">
-      <div class="bg-blue-custom q-mb-xl">
+      <div class="bg-blue-custom">
         <div class="row q-ma-xl">
           <div class="col-9">
             <q-btn
@@ -433,6 +450,12 @@
             <h3 class="items-end font-Raleway text-white q-ml-xl">Gestion des biens</h3>
             <div class="text-weight-regular text-h6 text-justify text-grey-5 font-Raleway q-ml-xl">
               Dans cette page, vous avez toutes les informations nécessaires à l'administration de vos biens
+              <q-avatar size="20px" class="font-Raleway text-bold text-white q-ml-lg" color="blue-grey-6">?
+                <q-tooltip class="font-Raleway">
+                  Lors de la publication des differents biens, la possibilité de le modifer est desactivé.
+                  Également, si un bien est réservé la possibilité de le modifer, supprimer ou retirer l'annonce est desactivé.
+                </q-tooltip>
+              </q-avatar>
             </div>
           </div>
           <div class="col-3">
@@ -443,8 +466,19 @@
           </div>
         </div>
       </div>
+      <div v-if="rentLength === 0">
+        <q-banner class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+          <template v-slot:avatar>
+            <q-img
+                src="~assets/sad.svg"
+                style="width:30vw;max-width:50px;"
+            />
+          </template>
+          Aucun bien a été enregistré
+        </q-banner>
+      </div>
       <div class="flex flex-center">
-      <q-card class="my-card q-mb-xl q-ml-xl q-mr-xl"
+      <q-card class="my-card q-ma-xl"
               style="max-width: 1000px"
         v-for="rent in getRents.slice(startLimit, endLimit)"
         :key="rent._id"
@@ -495,21 +529,21 @@
             <q-separator class="q-mt-xl q-mb-sm"/>
             <div v-if="rent.reservations.length === 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 disable
                 unelevated
                 rounded>
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 unelevated
                 rounded
                 @click="openDialogConfirmDelete(rent._id)" >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 unelevated
                 rounded
                 @click="openDialogConfirmUnpublish(rent.publication_id)">
@@ -518,21 +552,21 @@
             </div>
             <div v-if="rent.reservations.length > 0 && rent.is_published === true" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 disable
                 unelevated
                 rounded >
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 disable
                 unelevated
                 rounded >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 disable
                 unelevated
                 rounded >
@@ -541,21 +575,21 @@
             </div>
             <div v-if="rent.is_published === false" class="q-mt-lg q-mb-sm">
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 unelevated
                 rounded
                 @click="getPropertyDetails(rent._id)">
                 Modifier
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 unelevated
                 rounded
                 @click="openDialogConfirmDelete(rent._id)" >
               Supprimer
               </q-btn>
               <q-btn
-                class="q-ma-sm btn-blue-custom text-secondary"
+                class="q-ma-sm btn-blue-custom text-white"
                 unelevated
                 rounded
                 @click="openDialogConfirmPublish(rent._id)" >
@@ -809,7 +843,7 @@
         </q-dialog>
       </q-card>
       </div>
-      <div class="q-pa-lg flex flex-center">
+      <div v-if="rentLength > 0" class="q-pa-lg flex flex-center">
         <q-pagination
             v-model="current"
             color="secondary"

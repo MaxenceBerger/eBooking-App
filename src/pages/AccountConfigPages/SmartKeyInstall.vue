@@ -62,6 +62,35 @@
             <div>
               <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg font-Raleway"/>
             </div>
+            <div v-if="dataTable.length !== 0">
+              <q-separator class="q-mb-lg q-mt-xl"/>
+              <q-toggle
+                  v-model="deleteKeyTable"
+                  color="secondary"
+                  class="q-mb-lg font-Raleway"
+                  label="Liste des clés configuré"
+              />
+              <q-list v-if="deleteKeyTable"
+                      bordered
+                      class="q-mb-lg font-Raleway"
+              >
+                <div v-for="data in dataTable"
+                     :key="data.id">
+                  <q-item class="bg-white">
+                    <q-item-section>
+                      <q-item-label>
+                        {{data.name}}
+                      </q-item-label>
+                    </q-item-section>
+                    <q-item-section top side>
+                      <div class="text-grey-8 q-gutter-xs">
+                        <q-btn class="gt-xs" size="12px" flat dense round icon="delete"></q-btn>
+                      </div>
+                    </q-item-section>
+                  </q-item>
+                </div>
+              </q-list>
+            </div>
           </q-form>
         </div>
       </div>
@@ -117,6 +146,28 @@
             <div>
               <q-btn unelevated rounded color="secondary" label="Configuration de la serrure" type="submit" class="q-mt-lg font-Raleway"/>
             </div>
+            <div v-if="dataTable.length !== 0">
+              <q-separator class="q-mb-lg q-mt-xl"/>
+              <q-toggle
+                  v-model="deleteKeyTable"
+                  color="secondary"
+                  class="q-mb-lg font-Raleway"
+                  label="Changer la configuration des clés"
+              />
+              <q-list v-if="deleteKeyTable"
+                      bordered
+                      separator
+                      class="q-mb-lg font-Raleway"
+              >
+                <div v-for="data in dataTable"
+                     :key="data.id">
+                  <q-item clickable v-ripple class="bg-white">
+                    <q-item-section>{{data.name}}</q-item-section>
+                    <q-btn class="gt-xs text-grey-8" size="12px" flat dense round icon="delete" @click="deleteSmartKey(data.id)"/>
+                  </q-item>
+                </div>
+              </q-list>
+            </div>
           </q-form>
         </div>
         <div class="col-4">
@@ -138,6 +189,7 @@ export default {
   name: 'SmartKeyInstallPage',
   data: () => {
     return {
+      deleteKeyTable: false,
       form: {
         items: {
           name: '',
@@ -151,7 +203,12 @@ export default {
             required: v => !!v || 'Veuillez renseigner le numéro de série de votre serrure'
           }
         }
-      }
+      },
+      columns: [
+        { name: 'name', align: 'center', label: 'Nom de la clé', field: 'name', sortable: true },
+        { name: 'name', align: 'center', label: 'Supprimer', field: 'name', sortable: true }
+      ],
+      dataTable: []
     }
   },
   methods: {
@@ -166,6 +223,7 @@ export default {
         serial: this.form.items.serial
       })
         .then(() => {
+          this.getSmartKey()
           this.$q.loading.hide()
           this.$q.notify({
             type: 'positive',
@@ -173,6 +231,7 @@ export default {
             position: 'top'
           })
         }).catch(() => {
+          this.getSmartKey()
           this.$q.loading.hide()
           this.$q.notify({
             type: 'negative',
@@ -180,7 +239,35 @@ export default {
             position: 'top'
           })
         })
+    },
+    getSmartKey () {
+      LockService.getKey()
+        .then((response) => {
+          this.dataTable = []
+          for (let i = 0; i < response.data.data.length; i += 1) {
+            this.dataTable.push({
+              id: response.data.data[i]._id,
+              name: response.data.data[i].name,
+              address: response.data.data[i].address
+            })
+          }
+        }).catch(() => {
+        })
+    },
+    deleteSmartKey (id) {
+      LockService.lockDelete(id)
+        .then(() => {
+          this.$q.notify({
+            type: 'positive',
+            message: 'Votre serrure est parfaitement supprimé',
+            position: 'top'
+          })
+          this.getSmartKey()
+        })
     }
+  },
+  created () {
+    this.getSmartKey()
   }
 }
 </script>

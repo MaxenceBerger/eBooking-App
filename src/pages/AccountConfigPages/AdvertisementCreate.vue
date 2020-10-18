@@ -17,7 +17,7 @@
 
         <div class="row q-ml-md q-mr-md q-mb-md">
           <div class="col-8">
-            <h5 class="items-end font-Raleway text-white">Créez votre annonce</h5>
+            <h5 class="items-end font-Raleway text-white">Créez votre bien</h5>
           </div>
           <div class="col-4">
             <q-img
@@ -205,7 +205,7 @@
             icon="arrow_back"
             :to="{ name: 'MyAccountPage' }"
           />
-          <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Créez votre annonce</h3>
+          <h3 class="q-ml-xl font-Raleway text-blue-grey-8">Créez votre bien</h3>
         </div>
       </div>
       <div class="row q-ml-lg">
