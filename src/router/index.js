@@ -1,6 +1,6 @@
 import Vue from 'vue'
+import store from '../store/index.js'
 import VueRouter from 'vue-router'
-import AuthService from '../services/AuthService'
 
 import routes from './routes'
 
@@ -13,10 +13,7 @@ const Router = new VueRouter({
 })
 Router.beforeEach((to, from, next) => {
   to.matched.some(route => {
-    const user = localStorage.getItem('user')
-    const token = AuthService.getJwt()
-
-    if (to.meta.requiresAuth && (token === null || user === null)) {
+    if (to.meta.requiresAuth && !store.getters.isLoggedIn) {
       next({ path: '/home' })
     } else {
       next()

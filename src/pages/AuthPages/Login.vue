@@ -155,11 +155,11 @@ export default {
           this.$q.loading.hide()
           const { role } = response.data.data
           const { email } = response.data.data
+          const { token } = response.data.data
           this.$store.commit('setRole', role)
           this.$store.commit('setEmail', email)
-          const token = AuthService.getJwt()
-
-          if (token !== null) {
+          this.$store.commit('setToken', token)
+          if (this.$store.getters.getToken) {
             this.$router.push({ name: 'HomePage' })
           }
         }).catch((error) => {
@@ -167,7 +167,7 @@ export default {
           if (STATUS_CODE_401 === error.response.status) {
             this.$q.notify({
               color: 'blue-grey',
-              message: 'Oups, il semblerait que les informations saisies sont incorrectes',
+              message: 'Oups, il semble que les informations saisi sont incorrects',
               icon: 'report_problem',
               position: 'top'
             })
