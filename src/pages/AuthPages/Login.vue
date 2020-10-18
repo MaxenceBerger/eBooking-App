@@ -162,27 +162,18 @@ export default {
           }
         }).catch(() => {
           this.$q.loading.hide()
-<<<<<<< HEAD
+
           this.$q.notify({
             color: 'blue-grey',
             message: 'Oups, il semble que les informations saisi sont incorrects',
             icon: 'report_problem',
             position: 'top'
           })
-=======
-          if (STATUS_CODE_401 === error.response.status) {
-            this.$q.notify({
-              color: 'blue-grey',
-              message: 'Oups, il semble que les informations saisi sont incorrects',
-              icon: 'report_problem',
-              position: 'top'
-            })
-          }
->>>>>>> 0e1553fb70d7d9b44f940232350a60914775d0cc
         })
     }
   }
 }
+
 </script>
 <style lang="sass" scoped>
   .my-card
