@@ -13,12 +13,13 @@
     "android-apk": "quasar build -m capacitor -T android --ide"
   },
   "dependencies": {
+    "@capacitor/core": "^2.4.2",
     "@quasar/extras": "^1.9.3",
     "axios": "^0.18.1",
     "compare-func": "^2.0.0",
     "core-js": "^3.0.0",
     "imask": "^6.0.5",
-    "mapbox-gl": "^0.53.0",
+    "mapbox-gl": "^1.12.0",
     "moment": "^2.27.0",
     "path": "^0.12.7",
     "quasar": "^1.12.13",
