@@ -1,28 +1,33 @@
 import Axios from 'axios'
-import store from '../store/index.js'
 import { apiBaseUrl } from './api-base-url.js'
+import AuthService from '../services/AuthService'
+
+const removeUser = () => { localStorage.removeItem('user') }
 
 const apiHeader = Axios.create({
   baseURL: apiBaseUrl(),
   headers: { 'Content-Type': 'application/json' }
 })
+
 export { apiHeader as default }
 
 apiHeader.interceptors.request.use((configParam) => {
-  const token = store.getters.getToken
+  const token = AuthService.getJwt()
   const config = configParam
-  if (store.getters.isLoggedIn) {
+
+  if (token !== null) {
     config.headers.Authorization = 'Bearer ' + token
   }
   return config
 })
+
 apiHeader.interceptors.response.use((response) => {
   if (response.status === 401) {
-    localStorage.removeItem('user')
+    removeUser()
   }
   return response
 }, (error) => {
   if (error.response.data.message === 'jwt expired') {
-    localStorage.removeItem('user')
+    removeUser()
   }
 })
