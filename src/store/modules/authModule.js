@@ -11,13 +11,6 @@ const user = {
     role: null
   },
   getters: {
-    isLoggedIn: (state) => {
-      let loggedIn = false
-      if (state.token) {
-        loggedIn = true
-      }
-      return loggedIn
-    },
     getToken: state => state.token,
     getEmail: state => state.email,
     getRole: state => state.role,
@@ -38,11 +31,8 @@ const user = {
     }
   },
   actions: {
-    logout ({ commit }) {
-      commit(SET_USER, {})
-      commit(SET_ROLE, null)
-      commit(SET_EMAIL, null)
-      commit(SET_TOKEN, null)
+    logout () {
+      localStorage.removeItem('user')
     },
     updateUser ({ commit }, data) {
       commit(SET_USER, data)

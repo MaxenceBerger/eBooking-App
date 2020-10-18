@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import store from '../store/index.js'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
@@ -13,7 +12,8 @@ const Router = new VueRouter({
 })
 Router.beforeEach((to, from, next) => {
   to.matched.some(route => {
-    if (to.meta.requiresAuth && !store.getters.isLoggedIn) {
+    const user = localStorage.getItem('user')
+    if (to.meta.requiresAuth && user === null) {
       next({ path: '/home' })
     } else {
       next()

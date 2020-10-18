@@ -9,9 +9,11 @@ const apiHeader = Axios.create({
 export { apiHeader as default }
 
 apiHeader.interceptors.request.use((configParam) => {
+  const user = localStorage.getItem('user')
   const token = store.getters.getToken
   const config = configParam
-  if (store.getters.isLoggedIn) {
+
+  if (user !== null) {
     config.headers.Authorization = 'Bearer ' + token
   }
   return config
