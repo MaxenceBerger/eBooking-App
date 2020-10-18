@@ -198,7 +198,7 @@
                     <div class="spinner hidden" id="spinner"></div>
                     <span id="button-text">PAIEMENT</span>
                   </button>
-                  <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="payementModal = false">
+                  <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="closePaymentDialog">
                     <span>ANNULER</span>
                   </button>
                 </div>
@@ -219,7 +219,7 @@
               <div class="font-Raleway q-mt-lg">Le paiement a été effectué avec succès</div>
             </q-card-section>
             <q-card-actions align="right" class="bg-white text-teal">
-              <q-btn flat label="OK" @click="paymentConfirm = false" />
+              <q-btn flat label="OK" @click="closePaymentDialog" />
             </q-card-actions>
           </div>
           <div v-else>
@@ -228,7 +228,7 @@
               <div class="font-Raleway q-mt-lg">Le paiement a été refusé</div>
             </q-card-section>
             <q-card-actions align="right" class="bg-white text-teal">
-              <q-btn flat label="OK" @click="paymentConfirm = false" />
+              <q-btn flat label="OK" @click="closePaymentDialog" />
             </q-card-actions>
           </div>
         </q-card>
@@ -444,7 +444,7 @@
                           <div class="spinner hidden" id="spinner"></div>
                           <span id="button-text">PAIEMENT</span>
                         </button>
-                        <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="payementModal = false">
+                        <button class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #c10015" @click="closePaymentDialog">
                           <span>ANNULER</span>
                         </button>
                       </div>
@@ -465,7 +465,7 @@
                     <div class="font-Raleway q-mt-lg">Le paiement a été effectué avec succès</div>
                   </q-card-section>
                   <q-card-actions align="right" class="bg-white text-teal">
-                    <q-btn flat label="OK" @click="paymentConfirm = false" />
+                    <q-btn flat label="OK" @click="closePaymentDialog" />
                   </q-card-actions>
                 </div>
                 <div v-else>
@@ -474,7 +474,7 @@
                     <div class="font-Raleway q-mt-lg">Le paiement a été refusé</div>
                   </q-card-section>
                   <q-card-actions align="right" class="bg-white text-teal">
-                    <q-btn flat label="OK" @click="paymentConfirm = false" />
+                    <q-btn flat label="OK" @click="closePaymentDialog" />
                   </q-card-actions>
                 </div>
               </q-card>
@@ -710,6 +710,11 @@ export default {
       this.data[0].totalDay = this.totalDay
       this.data[0].totalToPay = this.totalToPay
       this.payementModal = true
+    },
+    closePaymentDialog () {
+      this.paymentConfirm = false
+      this.payementModal = false
+      window.location.reload()
     },
     getPublication () {
       this.$q.loading.show({
