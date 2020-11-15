@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <q-banner v-if="reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
+      <q-banner v-if="reservationList == null || reservationList.length === 0" class="bg-grey-3 text-weight-regular text-h6 text-justify text-grey-10 font-Raleway">
         <template v-slot:avatar>
           <q-img
               src="~assets/sad.svg"
@@ -114,7 +114,7 @@ export default {
       }
     },
     getLockStatus () {
-      LockService.getKey(this.reservationList)
+      LockService.getLock(this.reservationList)
         .then(response => {
           console.log(response)
         })
@@ -125,8 +125,10 @@ export default {
         backgroundColor: '#2d404e'
       })
       ReservationService.getAllReservation()
-        .then(() => {
+        .then(response => {
           this.$q.loading.hide()
+          this.reservationList = response.data.data
+          console.log(this.reservationList)
           this.getLockStatus()
         })
         .catch(() => {

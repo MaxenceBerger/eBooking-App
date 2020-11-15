@@ -198,7 +198,7 @@
                     <div class="spinner hidden" id="spinner"></div>
                     <span id="button-text">PAIEMENT</span>
                   </button>
-                  <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click="closePaymentDialog">
+                  <button  class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #C10015" @click.prevent="closePaymentDialog">
                     <span>ANNULER</span>
                   </button>
                 </div>
@@ -444,7 +444,7 @@
                           <div class="spinner hidden" id="spinner"></div>
                           <span id="button-text">PAIEMENT</span>
                         </button>
-                        <button class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #c10015" @click="closePaymentDialog">
+                        <button class="btn-custom q-ml-md font-Raleway text-white" style="background-color: #c10015" @click.prevent="closePaymentDialog">
                           <span>ANNULER</span>
                         </button>
                       </div>
@@ -499,7 +499,7 @@ const STATUS_CODE_401 = 401
 // eslint-disable-next-line no-undef
 const stripe = Stripe(process.env.VUE_APP_PUBLIC_KEY_STRIPE)
 
-var orderComplete = function (paymentIntentId) {
+const orderComplete = function (paymentIntentId) {
   loading(false)
   document
     .querySelector('.result-message a')
@@ -508,17 +508,16 @@ var orderComplete = function (paymentIntentId) {
       'https://dashboard.stripe.com/test/payments/' + paymentIntentId
     )
   document.querySelector('.result-message').classList.remove('hidden')
-  document.querySelector('button').disabled = true
 }
-var showError = function (errorMsgText) {
+const showError = function (errorMsgText) {
   loading(false)
-  var errorMsg = document.querySelector('#card-error')
+  const errorMsg = document.querySelector('#card-error')
   errorMsg.textContent = errorMsgText
   setTimeout(function () {
     errorMsg.textContent = ''
   }, 4000)
 }
-var loading = function (isLoading) {
+const loading = function (isLoading) {
   if (isLoading) {
     // Disable the button and show a spinner
     document.querySelector('button').disabled = true
@@ -714,7 +713,9 @@ export default {
     closePaymentDialog () {
       this.paymentConfirm = false
       this.payementModal = false
-      window.location.reload()
+      this.getPublication()
+      this.form.startAt = null
+      this.form.finishAt = null
     },
     getPublication () {
       this.$q.loading.show({

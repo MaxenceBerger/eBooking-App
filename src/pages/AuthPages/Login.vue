@@ -162,7 +162,6 @@ export default {
           }
         }).catch(() => {
           this.$q.loading.hide()
-
           this.$q.notify({
             color: 'blue-grey',
             message: 'Oups, il semble que les informations saisi sont incorrects',
